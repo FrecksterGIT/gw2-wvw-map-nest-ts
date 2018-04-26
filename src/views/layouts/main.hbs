@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{title}}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
+    <script src="/javascripts/socket.io.slim.js"></script>
+</head>
+<body>
+{{{body}}}
+<script>
+    const socket = io('/update');
+    socket.on('connect', () => {
+        console.log('connected, subscribing for match');
+        socket.emit('subscribe', '2-1');
+    });
+    socket.on('subscribed', (data) => {
+        console.log('successfully subscribed for', data);
+    });
+    socket.on('update', (data) => {
+        // console.log(data);
+    });
+</script>
+</body>
+</html>

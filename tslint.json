@@ -1,0 +1,49 @@
+{
+  "extends": [
+    "tslint:recommended"
+  ],
+  "rules": {
+    "indent": {
+      "options": [
+        "spaces",
+        2
+      ]
+    },
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "trailing-comma": [
+      true,
+      {
+        "singleline": "never",
+        "multiline": "never"
+      }
+    ],
+    "one-line": [
+      false
+    ]
+  },
+  "jsRules": {
+    "indent": {
+      "options": [
+        "spaces",
+        2
+      ]
+    },
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "trailing-comma": [
+      true,
+      {
+        "singleline": "never",
+        "multiline": "never"
+      }
+    ],
+    "one-line": [
+      false
+    ]
+  }
+}
