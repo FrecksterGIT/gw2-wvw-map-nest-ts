@@ -5,9 +5,12 @@
   "scripts": {
     "build": "tsc",
     "coverage": "jest --coverage",
-    "postbuild": "cpx src/views/** dist/views",
+    "postbuild": "npm-run-all postbuild:*",
+    "postbuild:views": "cpx src/views/** dist/views",
+    "postbuild:public": "cpx src/public/** dist/public",
     "start": "ts-node src/main",
     "start:watch": "cross-env NODE_ENV=development nodemon",
+    "prod": "node dist/main",
     "test": "jest"
   },
   "dependencies": {
@@ -18,7 +21,7 @@
     "@nestjs/websockets": "^4.6.6",
     "@types/deep-diff": "0.0.31",
     "@types/jest": "^22.2.3",
-    "@types/node": "^10.0.0",
+    "@types/node": "^9.6.7",
     "@types/socket.io": "^1.4.33",
     "cpx": "^1.5.0",
     "cross-env": "^5.1.4",
@@ -29,6 +32,7 @@
     "jest": "^22.4.3",
     "node-fetch": "^2.1.2",
     "nodemon": "^1.17.3",
+    "npm-run-all": "^4.1.2",
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.0.0",
