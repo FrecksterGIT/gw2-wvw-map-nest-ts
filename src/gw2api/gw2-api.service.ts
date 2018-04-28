@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import {Cache} from './decorators/cache.decorator';
+import {Cache} from '../cache/cache.decorator';
 import {IMatchDisplay} from './interfaces/match-display.interface';
 import {IMatch} from './interfaces/match.interface';
 import {IObjective} from './interfaces/objective.interface';
@@ -53,13 +53,12 @@ export class Gw2ApiService {
   }
 
   private async getWorldNamesForIds(worldIds: number[]): Promise<string[]> {
-    return await Promise.all(
-      worldIds.map(async (worldId): Promise<string> => await this.getWorldNameForId(worldId))
-    );
+    const worlds = await this.getWorlds();
+    return worldIds.map((worldId) => this.getWorldNameForId(worldId, worlds));
   }
 
-  private async getWorldNameForId(worldId: number): Promise<string> {
-    return ((await this.getWorlds()).find((worldData) => worldData.id === worldId)).name;
+  private getWorldNameForId(worldId: number, worlds: IWorld[]): string {
+    return worlds.find((worldData) => worldData.id === worldId).name;
   }
 
 }
