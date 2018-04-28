@@ -7,16 +7,10 @@ import {IWorld} from './interfaces/world.interface';
 
 export class Gw2ApiService {
   private static worldsUrl: string = 'https://api.guildwars2.com/v2/worlds?ids=all';
-  private static matchesUrl: string = 'https://api.guildwars2.com/v2/wvw/matches?ids=all';
-  private static matchUrl: string = 'https://api.guildwars2.com/v2/wvw/matches/';
+  private static matchesUrl: string = 'https://api.guildwars2.com/v2/wvw/matches?ids=';
   private static objectivesUrl: string = 'https://api.guildwars2.com/v2/wvw/objectives?ids=all';
 
   private static async getJSONArray(url: string): Promise<any[]> {
-    const response = await fetch(url);
-    return response.json();
-  }
-
-  private static async getJSONObject(url: string): Promise<any> {
     const response = await fetch(url);
     return response.json();
   }
@@ -27,8 +21,12 @@ export class Gw2ApiService {
   }
 
   @Cache(5)
-  public async getMatches(): Promise<IMatch[]> {
-    return await Gw2ApiService.getJSONArray(Gw2ApiService.matchesUrl);
+  public async getMatches(matchIds: string[]): Promise<IMatch[]> {
+    let matchIdsParam = 'all';
+    if (matchIds.length > 0) {
+      matchIdsParam = matchIds.join(',');
+    }
+    return await Gw2ApiService.getJSONArray(Gw2ApiService.matchesUrl + matchIdsParam);
   }
 
   @Cache(3600)
@@ -36,11 +34,13 @@ export class Gw2ApiService {
     return await Gw2ApiService.getJSONArray(Gw2ApiService.objectivesUrl);
   }
 
-  @Cache(5)
   public async getMatch(id: string): Promise<IMatch> {
-    return await Gw2ApiService.getJSONObject(Gw2ApiService.matchUrl + id);
+    return (await this.getMatches([id])).pop();
   }
 
+  public async getAllMatches(): Promise<IMatch[]> {
+    return await this.getMatches(['all']);
+  }
   public async getMatchDisplay(match: IMatch): Promise<IMatchDisplay> {
     const display: IMatchDisplay = match;
     display.world_names = {

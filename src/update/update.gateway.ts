@@ -2,7 +2,6 @@ import {forwardRef, Inject, Logger} from '@nestjs/common';
 import {
   OnGatewayConnection,
   OnGatewayDisconnect,
-  OnGatewayInit,
   SubscribeMessage,
   WebSocketGateway,
   WsResponse
@@ -17,6 +16,12 @@ import {UpdateService} from './update.service';
 export class UpdateGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   private clients: IMatchClient[] = [];
+
+  public get subscribedMatches(): string[] {
+    return this.clients.map((match): string => {
+      return match.matchId;
+    });
+  }
 
   constructor(
     @Inject(forwardRef(() => UpdateService))

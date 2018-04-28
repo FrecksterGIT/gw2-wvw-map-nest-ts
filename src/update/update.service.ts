@@ -10,7 +10,6 @@ import IDiff = deepDiff.IDiff;
 export class UpdateService {
 
   private matchStates: IMatch[] = [];
-
   private updateRunning;
 
   constructor(
@@ -42,9 +41,10 @@ export class UpdateService {
     this.handleDiff(match);
   }
 
-  public async matchUpdate(): Promise<void> {
+  public async matchUpdate(forceAll: boolean = false): Promise<void> {
     const newMatchStates: IMatch[] = [];
-    const currentMatchStates = await this.gw2ApiService.getMatches();
+    const subscribedMatches = forceAll ? ['all'] : this.updateGateway.subscribedMatches;
+    const currentMatchStates = await this.gw2ApiService.getMatches(subscribedMatches);
     currentMatchStates.forEach(async (currentMatchState) => {
       const oldMatchState = this.matchStates.find((oldMatch) => oldMatch.id === currentMatchState.id);
       await this.handleDiff(currentMatchState, oldMatchState);
