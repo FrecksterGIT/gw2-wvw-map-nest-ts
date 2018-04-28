@@ -97,11 +97,11 @@ export class UpdateService {
   }
 
   private handleObjectiveChanges(matchState: IMatch, changedObjectives: IMatchObjective[]) {
-    changedObjectives
-      .filter((v, i, a) => a.indexOf(v) === i)
-      .forEach((objectiveData) => {
-        this.updateGateway.sendUpdate(matchState.id, UpdateType.OBJECTIVE, objectiveData);
-      });
+    this.updateGateway.sendUpdate(
+      matchState.id,
+      UpdateType.OBJECTIVE,
+      changedObjectives.filter((v, i, a) => a.indexOf(v) === i)
+    );
   }
 
   private handleScoresChange(matchState: IMatch): void {

@@ -1,5 +1,6 @@
 import socket from './socket';
 import log from 'debug';
+import delegate from 'delegate';
 
 const logger = log('Gw2MatchSelector');
 
@@ -23,11 +24,9 @@ export default class Gw2MatchSelector extends HTMLElement {
   }
 
   initSwitchMatchHandler() {
-    document.querySelectorAll('.match').forEach((match) => {
-      match.addEventListener('click', (event) => {
-        const matchId = event.target.getAttribute('data-match-id');
-        socket.emit('subscribe', matchId);
-      });
+    delegate(this, '.match', 'click', (event) => {
+      const matchId = event.delegateTarget.closest('.match').getAttribute('data-match-id');
+      socket.emit('subscribe', matchId);
     });
   }
 }
