@@ -6,10 +6,8 @@ import {
   WebSocketGateway,
   WsResponse
 } from '@nestjs/websockets';
-import {IColorsWithNumbers, IMatchObjective} from '../gw2api/interfaces/match.interface';
 import {IMatchClient} from './interfaces/match-client.interface';
 import {IUpdateData} from './interfaces/UpdateData.interface';
-import {UpdateType} from './interfaces/updates.enum';
 import {UpdateService} from './update.service';
 
 @WebSocketGateway({
@@ -59,15 +57,10 @@ export class UpdateGateway implements OnGatewayConnection, OnGatewayDisconnect {
     return client.emit('subscribed', data);
   }
 
-  public sendUpdate(matchId: string, type: UpdateType, data: IColorsWithNumbers | IMatchObjective[]): void {
-    const dataToSend: IUpdateData = {
-      id: matchId,
-      payload: data,
-      type
-    };
+  public sendUpdate(data: IUpdateData): void {
     this.clients.forEach((client) => {
-      if (client.matchId === matchId) {
-        client.client.emit('update', dataToSend);
+      if (client.matchId === data.id) {
+        client.client.emit('update', data);
       }
     });
   }
