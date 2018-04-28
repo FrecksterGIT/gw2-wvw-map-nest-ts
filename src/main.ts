@@ -13,7 +13,7 @@ async function bootstrap() {
 }
 
 function setupViewEngine(app: INestApplication) {
-  app.use(express.static(path.join(__dirname, 'public')));
+  app.use('/static', express.static(path.join(__dirname, '../dist/public')));
   app.set('views', Config.viewDirectory);
   app.set('view options', {layout: 'layouts/main'});
   app.set('view engine', 'hbs');

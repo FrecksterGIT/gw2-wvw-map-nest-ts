@@ -1,10 +1,10 @@
 FROM node:8
 
-ADD dist /app/dist
-ADD node_modules /app/node_modules
-ADD package.json /app/
-
 EXPOSE 3000
 
+ADD dist /app/dist
+ADD package.json /app/
 WORKDIR /app
+RUN ["npm", "install", "--only=production"]
+
 ENTRYPOINT ["npm", "run", "prod"]

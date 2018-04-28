@@ -44,12 +44,22 @@ export class Gw2ApiService {
   public async getMatchDisplay(match: IMatch): Promise<IMatchDisplay> {
     const display: IMatchDisplay = match;
     display.world_names = {
-      blue: await this.getWorldNamesForIds(match.all_worlds.blue),
-      green: await this.getWorldNamesForIds(match.all_worlds.green),
-      red: await this.getWorldNamesForIds(match.all_worlds.red)
+      blue: await this.getWorldNamesForMatch(match, 'blue'),
+      green: await this.getWorldNamesForMatch(match, 'green'),
+      red: await this.getWorldNamesForMatch(match, 'red')
     }
     ;
     return display;
+  }
+
+  private async getWorldNamesForMatch(match: IMatch, color: string): Promise<string[]> {
+    const worlds = await this.getWorlds();
+    const result: string[] = [];
+    result.push(this.getWorldNameForId(match.worlds[color], worlds));
+
+    const worldIds = match.all_worlds[color].filter((world) => world !== match.worlds[color]);
+    result.concat(await this.getWorldNamesForIds(worldIds));
+    return result;
   }
 
   private async getWorldNamesForIds(worldIds: number[]): Promise<string[]> {

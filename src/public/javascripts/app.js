@@ -1,22 +1,11 @@
-// tslint:disable:no-console
+import socket from './socket';
+import Gw2MatchSelector from './gw2-match-selector.class';
 
-class Socket {
-  constructor() {
-    this.socket = io('/update');
-    this.socket.on('connect', () => {
-      console.log('connected, subscribing for match');
-      socket.emit('subscribe', '2-1');
-    });
-    this.socket.on('subscribed', (data) => {
-      console.log('successfully subscribed for', data);
-    });
-  }
-  emit(event, data) {
-    this.socket.emit(event, data);
-  }
-}
+import log from 'debug';
 
-const socket = new Socket();
+log.enable('Gw2MatchSelector, Socket');
+
+window.customElements.define('gw2-match-selector', Gw2MatchSelector);
 
 document.querySelectorAll('.match').forEach((match) => {
   match.addEventListener('click', (event) => {

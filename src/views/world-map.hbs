@@ -1,8 +1,15 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
 
-<ul>
-    {{#each matches}}
-        <li class="match" data-match-id="{{id}}">{{id}}: {{world_names.red.[0]}} - {{world_names.blue.[0]}} - {{world_names.green.[0]}}</li>{{/each}}
+<gw2-match-selector>
+    <ul>
+        {{#each matches}}
+            <li class="match" data-match-id="{{id}}">{{id}}: {{world_names.red.[0]}} - {{world_names.blue.[0]}}
+                - {{world_names.green.[0]}}</li>{{/each}}
 
-</ul>
+    </ul>
+    <h2>Points</h2>
+    <div class="red_points"></div>
+    <div class="blue_points"></div>
+    <div class="green_points"></div>
+</gw2-match-selector>
