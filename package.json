@@ -5,16 +5,18 @@
   "scripts": {
     "build": "tsc",
     "coverage": "jest --coverage",
-    "postbuild": "npm-run-all -s postbuild:views postbuild:public postbuild:js",
+    "postbuild": "npm-run-all -s postbuild:views postbuild:public postbuild:js postbuild:css",
     "postbuild:views": "cpx src/views/** dist/views",
-    "postbuild:public": "cpx src/public/**/*.{css,jpg,png} dist/public",
-    "postbuild:js": "browserify --debug -t [ babelify ] -e ./src/public/javascripts/app.js -o ./dist/public/javascripts/app.js",
+    "postbuild:public": "cpx src/public/**/*.{jpg,png} dist/public",
+    "postbuild:js": "browserify -g uglifyify -t [ babelify ] -e ./src/public/javascripts/app.js -o ./dist/public/javascripts/app.js",
+    "postbuild:css": "postcss ./src/public/stylesheets/style.css -o ./dist/public/stylesheets/style.css -u postcss-import --no-map",
     "start": "ts-node src/main",
     "start:watch": "npm-run-all -p watch:*",
     "prod": "node dist/main",
     "test": "jest",
     "watch:backend": "cross-env NODE_ENV=development nodemon",
-    "watch:frontend": "watchify --debug -t [ babelify ] -e ./src/public/javascripts/app.js -o ./dist/public/javascripts/app.js"
+    "watch:frontend": "watchify --debug -t [ babelify ] -e ./src/public/javascripts/app.js -o ./dist/public/javascripts/app.js",
+    "watch:css": "postcss ./src/public/stylesheets/style.css -o ./dist/public/stylesheets/style.css -u postcss-import -u postcss-reporter --watch --poll"
   },
   "devDependencies": {
     "@types/deep-diff": "0.0.31",
@@ -24,6 +26,7 @@
     "babel-core": "^6.26.3",
     "babel-plugin-transform-custom-element-classes": "^0.1.0",
     "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babelify": "^8.0.0",
     "browserify": "^16.2.0",
@@ -34,11 +37,14 @@
     "jest": "^22.4.3",
     "nodemon": "^1.17.3",
     "npm-run-all": "^4.1.2",
+    "postcss-cli": "^5.0.0",
+    "postcss-import": "^11.1.0",
     "socket.io-client": "^2.1.0",
     "ts-jest": "^22.4.4",
     "ts-node": "^6.0.1",
     "tslint": "^5.9.1",
     "typescript": "^2.8.3",
+    "uglifyify": "^5.0.0",
     "watchify": "^3.11.0"
   },
   "dependencies": {

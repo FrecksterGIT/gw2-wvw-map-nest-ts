@@ -12,6 +12,10 @@ export default class Gw2MatchSelector extends HTMLElement {
     const greenPoints = this.querySelector('.green.points');
     socket.on('subscribed', (data) => {
       logger('match selector subscribed for updates', data);
+      this.querySelectorAll('.match').forEach((match) => {
+        match.classList.remove('selected');
+      });
+      this.querySelector('.match[data-match-id="' + data + '"]').classList.add('selected');
     });
     socket.on('update', (data) => {
       if (data.type === 1) {

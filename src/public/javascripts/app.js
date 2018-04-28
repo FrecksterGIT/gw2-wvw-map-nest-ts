@@ -1,4 +1,4 @@
-import socket from './socket';
+import 'babel-polyfill';
 import Gw2MatchSelector from './gw2-match-selector.class';
 
 import log from 'debug';

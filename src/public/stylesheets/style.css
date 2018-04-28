@@ -1,20 +1,11 @@
+@import "colors.css";
+
 body {
-    padding: 50px;
-    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    font: 11px/13px 'Open Sans', sans-serif, arial;
 }
 
-a {
-    color: #00B7FF;
-}
-
-.red {
-    color: red;
-}
-
-.blue {
-    color: blue;
-}
-
-.green {
-    color: green;
+.selected {
+    font-weight: bold;
 }
