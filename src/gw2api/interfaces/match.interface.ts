@@ -1,27 +1,47 @@
-interface IColorsWithNumbers {
+export enum ObjectiveType {
+  Castle = 'Castle',
+  Keep = 'Keep',
+  Tower = 'Tower',
+  Camp = 'Camp',
+  Ruins = 'Ruins'
+}
+
+export enum MapColors {
+  red = 'red',
+  blue = 'blue',
+  green = 'green'
+}
+
+export interface IColorsWithNumbers {
   red: number;
   blue: number;
   green: number;
 }
 
-interface IColorsWithNumbersArray {
+export interface IColorsWithNumbersArray {
   red: number[];
   blue: number[];
   green: number[];
 }
 
-interface IMapScore {
+export interface IColorsWithStringsArray {
+  red: string[];
+  blue: string[];
+  green: string[];
+}
+
+export interface IMapScore {
   type: string;
   scores: IColorsWithNumbers;
 }
 
-interface ISkirmish {
+export interface ISkirmish {
   id: number;
   scores: IColorsWithNumbers;
   map_scores: IMapScore[];
 }
 
-interface IBonus {
+export interface IBonus {
   type: string;
   owner: string;
 }
@@ -39,15 +59,7 @@ export interface IMatchObjective {
   guild_upgrades: number[];
 }
 
-enum ObjectiveType {
-  Castle = 'Castle',
-  Keep = 'Keep',
-  Tower = 'Tower',
-  Camp = 'Camp',
-  Ruins = 'Ruins'
-}
-
-interface IMap {
+export interface IMap {
   id: number;
   type: ObjectiveType;
   scores: IColorsWithNumbers;

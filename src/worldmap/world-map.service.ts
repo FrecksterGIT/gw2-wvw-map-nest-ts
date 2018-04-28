@@ -1,24 +1,22 @@
 import {Component} from '@nestjs/common';
 import {Gw2ApiService} from '../gw2api/gw2-api.service';
-import {IObjective} from '../gw2api/interfaces/objective.interface';
-import {IWorld} from '../gw2api/interfaces/world.interface';
+import {IMatchDisplay} from '../gw2api/interfaces/match-display.interface';
+import {IMatch} from '../gw2api/interfaces/match.interface';
 
 @Component()
 export class WorldMapService {
 
-  private worldsData: IWorld[];
-  private objectivesData: IObjective[];
-
   constructor(private readonly gw2ApiService: Gw2ApiService) {
   }
 
-  public async getMapData(): Promise<IWorld[]> {
-    await this.initializeStaticData();
-    return this.worldsData;
+  public async getMatchesData(): Promise<IMatchDisplay[]> {
+    const matchData = await this.gw2ApiService.getMatches();
+    return await Promise.all(
+      matchData.map(async (match): Promise<IMatchDisplay> => await this.fillMatch(match))
+    );
   }
 
-  private async initializeStaticData() {
-    this.worldsData = await this.gw2ApiService.getWorlds();
-    this.objectivesData = await this.gw2ApiService.getObjectives();
+  private async fillMatch(match: IMatch): Promise<IMatchDisplay> {
+    return this.gw2ApiService.getMatchDisplay(match);
   }
 }
