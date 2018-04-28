@@ -6,9 +6,9 @@ const logger = log('Gw2MatchSelector');
 export default class Gw2MatchSelector extends HTMLElement {
 
   connectedCallback() {
-    const redPoints = this.querySelector('.red_points');
-    const bluePoints = this.querySelector('.blue_points');
-    const greenPoints = this.querySelector('.green_points');
+    const redPoints = this.querySelector('.red.points');
+    const bluePoints = this.querySelector('.blue.points');
+    const greenPoints = this.querySelector('.green.points');
     socket.on('subscribed', (data) => {
       logger('match selector subscribed for updates', data);
     });
@@ -18,6 +18,16 @@ export default class Gw2MatchSelector extends HTMLElement {
         bluePoints.innerHTML = data.payload.blue;
         greenPoints.innerHTML = data.payload.green;
       }
+    });
+    this.initSwitchMatchHandler();
+  }
+
+  initSwitchMatchHandler() {
+    document.querySelectorAll('.match').forEach((match) => {
+      match.addEventListener('click', (event) => {
+        const matchId = event.target.getAttribute('data-match-id');
+        socket.emit('subscribe', matchId);
+      });
     });
   }
 }

@@ -105,6 +105,7 @@ export class UpdateService {
   }
 
   private handleScoresChange(matchState: IMatch): void {
-    this.updateGateway.sendUpdate(matchState.id, UpdateType.SCORE, matchState.scores);
+    const currentScores = matchState.skirmishes.pop().scores;
+    this.updateGateway.sendUpdate(matchState.id, UpdateType.SCORE, currentScores);
   }
 }
