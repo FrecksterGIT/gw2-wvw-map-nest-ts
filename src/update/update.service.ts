@@ -97,11 +97,13 @@ export class UpdateService {
   }
 
   private handleObjectiveChanges(matchState: IMatch, changedObjectives: IMatchObjective[]) {
-    this.updateGateway.sendUpdate({
-      id: matchState.id,
-      payload: changedObjectives.filter((v, i, a) => a.indexOf(v) === i),
-      type: UpdateType.OBJECTIVE
-    });
+    if (changedObjectives.length > 0) {
+      this.updateGateway.sendUpdate({
+        id: matchState.id,
+        payload: changedObjectives.filter((v, i, a) => a.indexOf(v) === i),
+        type: UpdateType.OBJECTIVE
+      });
+    }
   }
 
   private handleScoresChange(matchState: IMatch): void {
