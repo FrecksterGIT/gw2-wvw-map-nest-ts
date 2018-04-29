@@ -1,5 +1,6 @@
 import socket from '../utils/socket';
 import log from 'debug';
+import Cookie from 'js-cookie';
 import delegate from 'delegate';
 import UpdateReceiverElement from './update-receiver-element';
 
@@ -10,6 +11,7 @@ export default class MatchSelector extends UpdateReceiverElement {
   connectedCallback() {
     super.connectedCallback();
     socket.on('subscribed', (data) => {
+      Cookie.set('match', data, { expires: 31 });
       this.handleMatchSwitcher(data);
     });
     this.initSwitchMatchHandler();
