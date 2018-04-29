@@ -38,7 +38,7 @@ export function Cache(cacheTime: number, cacheType: CacheTypes = CacheTypes.InMe
         cacheHolder.cache.writeToCache(cacheKey, result, cacheTime);
       }
       else {
-        Logger.log('hit', 'Cache');
+        // Logger.log('hit', 'Cache');
       }
       return result;
     };

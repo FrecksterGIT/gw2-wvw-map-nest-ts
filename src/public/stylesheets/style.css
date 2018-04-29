@@ -1,9 +1,10 @@
 @import "colors.css";
+@import "objectives.css";
 
 body {
+    font: 11px/13px 'Open Sans', sans-serif, arial;
     margin: 0;
     padding: 0;
-    font: 11px/13px 'Open Sans', sans-serif, arial;
 }
 
 .selected {

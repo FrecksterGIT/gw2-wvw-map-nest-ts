@@ -1,3 +1,5 @@
+import {IGuild} from './guild.interface';
+
 export enum ObjectiveType {
   Castle = 'Castle',
   Keep = 'Keep',
@@ -57,6 +59,7 @@ export interface IMatchObjective {
   claimed_at?: Date;
   yaks_delivered?: number;
   guild_upgrades: number[];
+  guild?: IGuild;
 }
 
 export interface IMap {

@@ -1,8 +1,10 @@
 import 'babel-polyfill';
-import Gw2MatchSelector from './gw2-match-selector.class';
+import MatchSelector from './elements/match-selector';
+import Objective from './elements/objective';
 
 import log from 'debug';
 
-log.enable('Gw2MatchSelector, Socket');
+log.enable('MatchSelector, Socket, Objective');
 
-window.customElements.define('gw2-match-selector', Gw2MatchSelector);
+window.customElements.define('gw2-match-selector', MatchSelector);
+window.customElements.define('gw2-objective', Objective);

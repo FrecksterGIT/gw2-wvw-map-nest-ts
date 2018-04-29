@@ -2,8 +2,9 @@ import {Component, forwardRef, Inject, Logger} from '@nestjs/common';
 import {diff} from 'deep-diff';
 import {Gw2ApiService} from '../gw2api/gw2-api.service';
 import {IMatch, IMatchObjective} from '../gw2api/interfaces/match.interface';
-import {UpdateType} from './interfaces/updates.enum';
 import {UpdateGateway} from './update.gateway';
+import {ObjectiveUpdate} from './updates/objective-update';
+import {ScoreUpdate} from './updates/score-update';
 import IDiff = deepDiff.IDiff;
 
 @Component()
@@ -38,7 +39,7 @@ export class UpdateService {
     if (!match) {
       match = await this.gw2ApiService.getMatch(matchId);
     }
-    this.handleDiff(match);
+    await this.handleDiff(match);
   }
 
   public async matchUpdate(forceAll: boolean = false): Promise<void> {
@@ -53,7 +54,7 @@ export class UpdateService {
     this.matchStates = newMatchStates;
   }
 
-  private handleDiff(newMatchState: IMatch, oldMatchState?: IMatch): void {
+  private async handleDiff(newMatchState: IMatch, oldMatchState?: IMatch): Promise<void> {
     let oldMatch = {};
     if (oldMatchState) {
       oldMatch = oldMatchState;
@@ -65,9 +66,11 @@ export class UpdateService {
       changes.forEach((change) => {
         switch (change.path[0]) {
           case 'maps':
-            this.getObjectivesForMapChange(newMatchState, change).forEach((mapChange) => {
-              changedObjectives.push(mapChange);
-            });
+            if (!(change.path[4] === 'guild' && change.kind === 'D')) {
+              this.getObjectivesForMapChange(newMatchState, change).forEach((mapChange) => {
+                changedObjectives.push(mapChange);
+              });
+            }
             break;
           case 'scores':
             if (!scoresSend) {
@@ -77,7 +80,8 @@ export class UpdateService {
             break;
         }
       });
-      this.handleObjectiveChanges(newMatchState, changedObjectives);
+      const changed: IMatchObjective[] = [...changedObjectives];
+      await this.handleObjectiveChanges(newMatchState, changed);
     }
   }
 
@@ -96,22 +100,25 @@ export class UpdateService {
     return objectives;
   }
 
-  private handleObjectiveChanges(matchState: IMatch, changedObjectives: IMatchObjective[]) {
+  private async handleObjectiveChanges(matchState: IMatch, changedObjectives: IMatchObjective[]) {
     if (changedObjectives.length > 0) {
-      this.updateGateway.sendUpdate({
-        id: matchState.id,
-        payload: changedObjectives.filter((v, i, a) => a.indexOf(v) === i),
-        type: UpdateType.OBJECTIVE
-      });
+      let objectives = changedObjectives
+        .filter((v, i, a) => a.indexOf(v) === i);
+      objectives = await Promise.all(
+        objectives.map(async (obj) => {
+          if (obj.claimed_by) {
+            obj.guild = await this.gw2ApiService.getGuild(obj.claimed_by);
+          }
+          return obj;
+        }));
+      const update = new ObjectiveUpdate(matchState.id, objectives);
+      this.updateGateway.sendUpdate(update);
     }
   }
 
   private handleScoresChange(matchState: IMatch): void {
     const currentScores = matchState.skirmishes.pop().scores;
-    this.updateGateway.sendUpdate({
-      id: matchState.id,
-      payload: currentScores,
-      type: UpdateType.SCORE
-    });
+    const update = new ScoreUpdate(matchState.id, currentScores);
+    this.updateGateway.sendUpdate(update);
   }
 }
