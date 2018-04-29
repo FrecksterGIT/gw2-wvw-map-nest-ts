@@ -1,5 +1,6 @@
 import {Component, forwardRef, Inject, Logger} from '@nestjs/common';
 import {diff} from 'deep-diff';
+import deepcopy from 'ts-deepcopy';
 import {Gw2ApiService} from '../gw2api/gw2-api.service';
 import {IMatch, IMatchObjective} from '../gw2api/interfaces/match.interface';
 import {UpdateGateway} from './update.gateway';
@@ -43,15 +44,14 @@ export class UpdateService {
   }
 
   public async matchUpdate(forceAll: boolean = false): Promise<void> {
-    const newMatchStates: IMatch[] = [];
     const subscribedMatches = forceAll ? ['all'] : this.updateGateway.subscribedMatches;
     const currentMatchStates = await this.gw2ApiService.getMatches(subscribedMatches);
+    const saveCurrentMatchStates: IMatch[] = deepcopy<IMatch[]>(currentMatchStates);
     currentMatchStates.forEach(async (currentMatchState) => {
       const oldMatchState = this.matchStates.find((oldMatch) => oldMatch.id === currentMatchState.id);
       await this.handleDiff(currentMatchState, oldMatchState);
-      newMatchStates.push(currentMatchState);
     });
-    this.matchStates = newMatchStates;
+    this.matchStates = saveCurrentMatchStates;
   }
 
   private async handleDiff(newMatchState: IMatch, oldMatchState?: IMatch): Promise<void> {
@@ -66,11 +66,9 @@ export class UpdateService {
       changes.forEach((change) => {
         switch (change.path[0]) {
           case 'maps':
-            if (!(change.path[4] === 'guild' && change.kind === 'D')) {
-              this.getObjectivesForMapChange(newMatchState, change).forEach((mapChange) => {
-                changedObjectives.push(mapChange);
-              });
-            }
+            this.getObjectivesForMapChange(newMatchState, change).forEach((mapChange) => {
+              changedObjectives.push(mapChange);
+            });
             break;
           case 'scores':
             if (!scoresSend) {
