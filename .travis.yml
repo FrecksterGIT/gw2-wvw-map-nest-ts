@@ -3,6 +3,6 @@ node_js:
   - "9"
 install:
   - npm install
-  - npm run build
+  - npm run travis-build
 scripts:
   - npm test --coverage
