@@ -7,6 +7,8 @@ install:
 scripts:
 - npm test -- --coverage
 deploy:
+  on:
+    branch: release
   provider: heroku
   skip_cleanup: true
   api_key:
