@@ -31,7 +31,7 @@ describe('Gw2ApiService', () => {
   });
 
   it('should get data for all 9 matches', async () => {
-    const result = await gw2ApiService.getMatches();
+    const result = await gw2ApiService.getAllMatches();
     expect(result.length).toEqual(9);
   });
 
@@ -42,7 +42,5 @@ describe('Gw2ApiService', () => {
     const endTime = Date.parse(result.end_time);
     expect(startTime).toBeLessThan(Date.now());
     expect(endTime).toBeGreaterThan(Date.now());
-    const result2: IMatch = await gw2ApiService.getMatch('2-1');
-    expect(result).toEqual(result2);
   });
 });
