@@ -5,4 +5,4 @@ install:
   - npm install
   - npm run travis-build
 scripts:
-  - npm test --coverage
+  - npm test -- --coverage
