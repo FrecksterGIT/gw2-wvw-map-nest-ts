@@ -1,3 +1,25 @@
 gw2-match-selector .selected {
     font-weight: bold;
 }
+gw2-match-selector div {
+    position: relative;
+}
+
+gw2-match-selector .linked {
+    background: #fff;
+    border: 1px solid #000;
+    display: none;
+    font-weight: normal;
+    left: 100px;
+    padding: 4px;
+    position: absolute;
+    top: 0;
+}
+
+gw2-match-selector div:hover .linked {
+    display: block;
+}
+
+gw2-match-selector .linked span:not(:last-of-type):after {
+    content: ', ';
+}

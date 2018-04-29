@@ -2,14 +2,12 @@ import socket from '../utils/socket';
 import log from 'debug';
 import Cookie from 'js-cookie';
 import delegate from 'delegate';
-import UpdateReceiverElement from './update-receiver-element';
 
 const logger = log('MatchSelector');
 
-export default class MatchSelector extends UpdateReceiverElement {
+export default class MatchSelector extends HTMLElement {
 
   connectedCallback() {
-    super.connectedCallback();
     socket.on('subscribed', (data) => {
       Cookie.set('match', data, { expires: 31 });
       this.handleMatchSwitcher(data);
@@ -31,14 +29,4 @@ export default class MatchSelector extends UpdateReceiverElement {
     });
     this.querySelector('.match[data-match-id="' + data + '"]').classList.add('selected');
   }
-
-  handleScoreUpdate(data) {
-    const redPoints = this.querySelector('.red.points');
-    const bluePoints = this.querySelector('.blue.points');
-    const greenPoints = this.querySelector('.green.points');
-    redPoints.innerHTML = data.payload.red;
-    bluePoints.innerHTML = data.payload.blue;
-    greenPoints.innerHTML = data.payload.green;
-  }
-
 }

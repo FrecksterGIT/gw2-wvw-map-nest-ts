@@ -2,10 +2,11 @@ import {Component, forwardRef, Inject, Logger} from '@nestjs/common';
 import {diff} from 'deep-diff';
 import deepcopy from 'ts-deepcopy';
 import {Gw2ApiService} from '../gw2api/gw2-api.service';
-import {IMatch, IMatchObjective} from '../gw2api/interfaces/match.interface';
+import {IColorsWithNumbers, IMatch, IMatchObjective} from '../gw2api/interfaces/match.interface';
 import {UpdateGateway} from './update.gateway';
 import {ObjectiveUpdate} from './updates/objective-update';
 import {ScoreUpdate} from './updates/score-update';
+import {SubscribeUpdate} from './updates/subscribe-update';
 import IDiff = deepDiff.IDiff;
 
 @Component()
@@ -40,6 +41,9 @@ export class UpdateService {
     if (!match) {
       match = await this.gw2ApiService.getMatch(matchId);
     }
+    const display = await this.gw2ApiService.getMatchDisplay(match);
+    const update = new SubscribeUpdate(display);
+    this.updateGateway.sendUpdate(update);
     await this.handleDiff(match);
   }
 
@@ -116,7 +120,29 @@ export class UpdateService {
 
   private handleScoresChange(matchState: IMatch): void {
     const currentScores = matchState.skirmishes.pop().scores;
-    const update = new ScoreUpdate(matchState.id, currentScores);
+    const update = new ScoreUpdate(matchState.id, {
+      income: this.calculateIncome(matchState),
+      scores: currentScores,
+      victoryPoints: matchState.victory_points
+    });
     this.updateGateway.sendUpdate(update);
+  }
+
+  private calculateIncome(matchState: IMatch): IColorsWithNumbers {
+    const income = {
+      blue: 0,
+      green: 0,
+      red: 0
+    };
+    matchState.maps.forEach((map) => {
+      map.objectives.forEach((obj) => {
+        switch (obj.owner) {
+          case 'Blue': income.blue += obj.points_tick; break;
+          case 'Green': income.green += obj.points_tick; break;
+          case 'Red': income.red += obj.points_tick; break;
+        }
+      });
+    });
+    return income;
   }
 }

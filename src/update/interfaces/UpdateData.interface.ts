@@ -1,6 +1,7 @@
-import {IColorsWithNumbers, IMatchObjective} from '../../gw2api/interfaces/match.interface';
+import {IObjectivesPayload} from './ObjectivesPayload.interface';
+import {IUpdatePayload} from './UpdatePayload.interface';
 
-type UpdatePayload = IColorsWithNumbers | IMatchObjective[];
+type UpdatePayload = IUpdatePayload| IObjectivesPayload;
 
 export interface IUpdateData {
   id: string;

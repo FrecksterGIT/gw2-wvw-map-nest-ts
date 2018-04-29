@@ -7,6 +7,12 @@ import {IObjectiveDisplay} from './interfaces/objective-display.interface';
 import {IObjective} from './interfaces/objective.interface';
 import {IWorld} from './interfaces/world.interface';
 
+interface IWorldNames {
+  allWorlds: string[];
+  mainWorld: string;
+  linkWorlds: string[];
+}
+
 export class Gw2ApiService {
 
   private static worldsUrl: string = 'https://api.guildwars2.com/v2/worlds?ids=all';
@@ -65,10 +71,23 @@ export class Gw2ApiService {
 
   public async getMatchDisplay(match: IMatch): Promise<IMatchDisplay> {
     const display: IMatchDisplay = match;
+    const blueWorlds: IWorldNames = await this.getWorldNamesForMatch(match, 'blue');
+    const greenWorlds: IWorldNames = await this.getWorldNamesForMatch(match, 'green');
+    const redWorlds: IWorldNames = await this.getWorldNamesForMatch(match, 'red');
     display.world_names = {
-      blue: await this.getWorldNamesForMatch(match, 'blue'),
-      green: await this.getWorldNamesForMatch(match, 'green'),
-      red: await this.getWorldNamesForMatch(match, 'red')
+      blue: blueWorlds.allWorlds,
+      green: greenWorlds.allWorlds,
+      red: redWorlds.allWorlds
+    };
+    display.link_worlds = {
+      blue: blueWorlds.linkWorlds,
+      green: greenWorlds.linkWorlds,
+      red: redWorlds.linkWorlds
+    };
+    display.main_worlds = {
+      blue: blueWorlds.mainWorld,
+      green: greenWorlds.mainWorld,
+      red: redWorlds.mainWorld
     };
     return display;
   }
@@ -115,18 +134,23 @@ export class Gw2ApiService {
     return aMap.id;
   }
 
-  private async getWorldNamesForMatch(match: IMatch, color: string): Promise<string[]> {
+  private async getWorldNamesForMatch(match: IMatch, color: string): Promise<IWorldNames> {
     const worlds = await this.getWorlds();
-    const result: string[] = [];
-    result.push(this.getWorldNameForId(match.worlds[color], worlds));
+    const allWorlds: string[] = [];
+    const mainWorld = this.getWorldNameForId(match.worlds[color], worlds);
+    allWorlds.push(mainWorld);
 
     const worldIds = match.all_worlds[color].filter((world) => world !== match.worlds[color]);
-    result.concat(await this.getWorldNamesForIds(worldIds));
-    return result;
+    const linkWorlds = this.getWorldNamesForIds(worldIds, worlds);
+    allWorlds.concat(linkWorlds);
+    return {
+      allWorlds,
+      linkWorlds,
+      mainWorld
+    };
   }
 
-  private async getWorldNamesForIds(worldIds: number[]): Promise<string[]> {
-    const worlds = await this.getWorlds();
+  private getWorldNamesForIds(worldIds: number[], worlds: IWorld[]): string[] {
     return worldIds.map((worldId) => this.getWorldNameForId(worldId, worlds));
   }
 

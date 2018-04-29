@@ -17,8 +17,15 @@ export default class UpdateReceiverElement extends HTMLElement {
         case 'ObjectiveUpdate':
           this.handleObjectiveUpdate(data);
           break;
+        case 'SubscribeUpdate':
+          this.handleSubscribeUpdate(data);
+          break;
       }
     }
+  }
+
+  handleSubscribeUpdate(data) {
+    throw new Error('UpdateReceiverElement.handleSubscribeUpdate is abstract');
   }
 
   handleScoreUpdate(data) {

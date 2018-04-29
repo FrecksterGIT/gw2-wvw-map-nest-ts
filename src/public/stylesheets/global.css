@@ -4,6 +4,12 @@ body {
     padding: 0;
 }
 
+.page_wrapper {
+    margin: 0 auto;
+    max-width: 1200px;
+    min-width: 900px;
+}
+
 .container {
     margin: 0 auto;
     width: 90%;

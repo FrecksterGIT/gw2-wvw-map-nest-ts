@@ -1,0 +1,24 @@
+gw2-match-status .worlds div {
+    position: relative;
+}
+
+gw2-match-status .worlds .linked {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: none;
+    font-weight: normal;
+    left: 100px;
+    padding: 4px;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+}
+
+gw2-match-status .worlds div:hover .linked {
+    display: block;
+}
+
+gw2-match-status .worlds .linked span:not(:last-of-type):after {
+    content: ', ';
+}

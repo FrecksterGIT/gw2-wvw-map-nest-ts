@@ -8,16 +8,16 @@ export enum ObjectiveType {
   Ruins = 'Ruins'
 }
 
-export enum MapColors {
-  red = 'red',
-  blue = 'blue',
-  green = 'green'
-}
-
 export interface IColorsWithNumbers {
   red: number;
   blue: number;
   green: number;
+}
+
+export interface IColorsWithStrings {
+  red: string;
+  blue: string;
+  green: string;
 }
 
 export interface IColorsWithNumbersArray {
