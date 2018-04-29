@@ -6,6 +6,9 @@ install:
 - npm run travis-build
 scripts:
 - npm test -- --coverage
+before_deploy:
+- rm -rf node_modules
+- npm install -only=production
 deploy:
   on:
     branch: master
