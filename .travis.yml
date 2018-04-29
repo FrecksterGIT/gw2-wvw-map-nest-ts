@@ -8,7 +8,7 @@ scripts:
 - npm test -- --coverage
 deploy:
   on:
-    branch: release
+    branch: master
   provider: heroku
   skip_cleanup: true
   api_key:
