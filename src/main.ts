@@ -5,11 +5,13 @@ import * as path from 'path';
 import {Config} from './app.config';
 import {ApplicationModule} from './app.module';
 
+const PORT = process.env.PORT || 3000;
+
 async function bootstrap() {
   const app = await NestFactory.create(ApplicationModule);
   setupViewEngine(app);
   await app.startAllMicroservicesAsync();
-  await app.listen(3000);
+  await app.listen(PORT);
 }
 
 function setupViewEngine(app: INestApplication) {
