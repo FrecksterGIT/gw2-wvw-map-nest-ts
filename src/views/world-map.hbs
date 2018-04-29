@@ -1,40 +1,46 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<div class="container">
+    <h1>{{title}}</h1>
+    <p>Welcome to {{title}}</p>
 
-<gw2-match-selector data-subscribe="ScoreUpdate">
-    <ul>
-        {{#each matches}}
-            <li class="match" data-match-id="{{id}}">{{id}}:
-                <span class="red">{{world_names.red.[0]}}</span>
-                <span class="blue">{{world_names.blue.[0]}}</span>
-                <span class="green">{{world_names.green.[0]}}</span>
-            </li>
+    <div class="world">
+        {{#each map as |objectives mapId|}}
+            <div class="map" data-map-id="{{mapId}}">
+                {{#each objectives}}
+                    <gw2-objective data-subscribe="ObjectiveUpdate" data-id="{{id}}" data-type="{{type}}"
+                                   style="left:{{display_coord.[0]}}%;top:{{display_coord.[1]}}%;">
+                    <section>
+                        <b>{{name}}</b>
+                        <dl>
+                            <dt class="turned">Turned</dt>
+                            <dd class="turned value"></dd>
+                            <dt class="guild">Guild</dt>
+                            <dd class="guild value"></dd>
+                            <dt class="claimed">Claimed</dt>
+                            <dd class="claimed value"></dd>
+                            <dt class="yaks">Dolyaks</dt>
+                            <dd class="yaks value"></dd>
+                        </dl>
+                    </section>
+                    <aside></aside>
+                    </gw2-objective>
+                {{/each}}
+            </div>
         {{/each}}
-    </ul>
-    <h2>Points</h2>
-    <div class="green points"></div>
-    <div class="blue points"></div>
-    <div class="red points"></div>
-</gw2-match-selector>
+    </div>
 
-<div class="map">
-    {{#each objectives}}
-        <gw2-objective data-subscribe="ObjectiveUpdate" data-id="{{id}}" data-type="{{type}}">
-            <section>
-                <b>{{name}}</b>
-                <dl>
-                    <dt class="turned">Turned</dt>
-                    <dd class="turned value"></dd>
-                    <dt class="guild">Guild</dt>
-                    <dd class="guild value"></dd>
-                    <dt class="claimed">Claimed</dt>
-                    <dd class="claimed value"></dd>
-                    <dt class="yaks">Dolyaks</dt>
-                    <dd class="yaks value"></dd>
-                </dl>
-            </section>
-            <aside></aside>
-        </gw2-objective>
-    {{/each}}
-
+    <gw2-match-selector data-subscribe="ScoreUpdate">
+        <ul>
+            {{#each matches}}
+                <li class="match" data-match-id="{{id}}">{{id}}:
+                    <span class="green">{{world_names.green.[0]}}</span>
+                    <span class="blue">{{world_names.blue.[0]}}</span>
+                    <span class="red">{{world_names.red.[0]}}</span>
+                </li>
+            {{/each}}
+        </ul>
+        <h2>Points</h2>
+        <div class="green points"></div>
+        <div class="blue points"></div>
+        <div class="red points"></div>
+    </gw2-match-selector>
 </div>

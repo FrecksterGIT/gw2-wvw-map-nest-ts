@@ -1,12 +1,5 @@
 @import "colors.css";
+@import "global.css";
 @import "objectives.css";
-
-body {
-    font: 11px/13px 'Open Sans', sans-serif, arial;
-    margin: 0;
-    padding: 0;
-}
-
-.selected {
-    font-weight: bold;
-}
+@import "maps.css";
+@import "match-selector.css";

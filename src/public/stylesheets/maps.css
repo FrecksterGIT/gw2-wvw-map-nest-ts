@@ -1,0 +1,45 @@
+.world {
+    background-image: url(/static/images/world.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    display: block;
+    height: 0;
+    margin: 0 auto;
+    padding-bottom: 69.86%;
+    position: relative;
+    width: 100%;
+}
+
+.map {
+    height: auto;
+    position: absolute;
+    width: 29.5%;
+}
+
+.map:before {
+    content: "";
+    float: left;
+    padding-bottom: 100%;
+    width: 100%;
+}
+
+.map[data-map-id="1099"] {
+    left: 38%;
+    top: 0;
+}
+
+.map[data-map-id="96"] {
+    left: 73.8%;
+    top: 28.9%;
+}
+
+.map[data-map-id="95"] {
+    left: 2%;
+    top: 38.1%;
+}
+
+.map[data-map-id="38"] {
+    left: 35.8%;
+    top: 56.6%;
+    width: 29%;
+}

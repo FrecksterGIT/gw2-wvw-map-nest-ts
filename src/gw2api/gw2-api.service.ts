@@ -14,6 +14,13 @@ export class Gw2ApiService {
   private static objectivesUrl: string = 'https://api.guildwars2.com/v2/wvw/objectives?ids=all';
   private static guildUrl: string = 'https://api.guildwars2.com/v2/guild/';
 
+  private static MAP_SIZES = {
+    38: [[8958, 12798], [12030, 15870]],
+    95: [[5630, 11518], [8702, 14590]],
+    96: [[12798, 10878], [15870, 13950]],
+    1099: [[9214, 8958], [12286, 12030]]
+  };
+
   private static async getJSONArray(url: string): Promise<any[]> {
     const response = await fetch(url);
     return response.json();
@@ -72,9 +79,32 @@ export class Gw2ApiService {
       objectives.map(async (obj) => {
         const ret: IObjectiveDisplay = obj;
         ret.map = await this.getMapForObjective(obj, aMatch);
+        ret.display_coord = this.getDisplayCoordForObjective(obj, ret.map);
         return ret;
       }));
     return display.filter((obj) => obj.map !== 0);
+  }
+
+  private getDisplayCoordForObjective(obj: IObjective, mapId: number): number[] {
+    const map = Gw2ApiService.MAP_SIZES[mapId];
+    if (map) {
+      const mapSize = [
+        map[1][0] - map[0][0],
+        map[1][1] - map[0][1]
+      ];
+      const point = obj.coord;
+      if (point) {
+        const coord = [
+          point[0] - map[0][0],
+          point[1] - map[0][1]
+        ];
+        return [
+          coord[0] / mapSize[0] * 100,
+          coord[1] / mapSize[1] * 100
+        ];
+      }
+    }
+    return [0, 0];
   }
 
   private async getMapForObjective(objective: IObjective, match: IMatch): Promise<number> {

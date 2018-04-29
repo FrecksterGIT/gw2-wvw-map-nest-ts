@@ -3,9 +3,14 @@ gw2-objective {
     background-size: contain;
     display: block;
     height: 26px;
-    margin: 20px;
-    position: relative;
+    position: absolute;
+    transform: translateX(-13px) translateY(-13px);
     width: 26px;
+    z-index: 1;
+}
+
+gw2-objective:hover {
+    z-index: 2;
 }
 
 gw2-objective[data-type="Spawn"],
@@ -142,11 +147,34 @@ gw2-objective section {
     padding: 6px 11px;
     position: relative;
     top: 0;
-    width: 240px;
+    width: 170px;
 }
 
 gw2-objective:hover section {
     display: block;
+}
+
+gw2-objective b {
+    display: block;
+    text-align: center;
+}
+
+gw2-objective dl {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+gw2-objective dt {
+    width: 50px;
+}
+
+gw2-objective dd {
+    margin: 0;
+    width: 110px;
+}
+
+gw2-objective[data-is-claimed="true"] dd {
+    width: 180px;
 }
 
 gw2-objective aside {
@@ -171,6 +199,7 @@ gw2-objective[data-is-claimed="true"] section {
     background-repeat: no-repeat;
     background-size: 50px 50px;
     padding-left: 70px;
+    width: 230px;
 }
 
 gw2-objective[data-tier="3"] .yaks {

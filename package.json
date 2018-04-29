@@ -16,13 +16,15 @@
     "test": "jest",
     "watch:backend": "cross-env NODE_ENV=development nodemon",
     "watch:frontend": "watchify --debug --verbose -t [ babelify ] -e ./src/public/javascripts/app.js -o ./dist/public/javascripts/app.js",
-    "watch:css": "postcss ./src/public/stylesheets/style.css -o ./dist/public/stylesheets/style.css -u postcss-import --watch --poll"
+    "watch:css": "postcss ./src/public/stylesheets/style.css -o ./dist/public/stylesheets/style.css -u postcss-import --watch --poll",
+    "watch:imgs": "cpx src/public/**/*.{jpg,png} dist/public --watch"
   },
   "devDependencies": {
     "@types/deep-diff": "0.0.31",
     "@types/jest": "^22.2.3",
     "@types/js-cookie": "^2.1.0",
     "@types/node": "^9.6.7",
+    "@types/socket.io": "^1.4.33",
     "@types/socket.io-client": "^1.4.32",
     "babel-core": "^6.26.3",
     "babel-plugin-transform-custom-element-classes": "^0.1.0",

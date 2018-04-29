@@ -11,9 +11,10 @@ export class WorldMapService {
   constructor(private readonly gw2ApiService: Gw2ApiService) {
   }
 
-  public async getObjectives(): Promise<IObjectiveDisplay[]> {
+  public async getObjectives(): Promise<any> {
     const objectives = await this.gw2ApiService.getObjectives();
-    return await this.fillObjectives(objectives);
+    const filledObjectives: IObjectiveDisplay[] = await this.fillObjectives(objectives);
+    return this.sortObjectives(filledObjectives);
   }
 
   public async getMatchesData(): Promise<IMatchDisplay[]> {
@@ -22,6 +23,15 @@ export class WorldMapService {
     return await Promise.all(
       matchData.map(async (match): Promise<IMatchDisplay> => await this.fillMatch(match))
     );
+  }
+
+  private sortObjectives(objectives: IObjectiveDisplay[]): any {
+    const ordered = {};
+    objectives.forEach((objective) => {
+      ordered[objective.map] = ordered[objective.map] || [];
+      ordered[objective.map].push(objective);
+    });
+    return ordered;
   }
 
   private async fillObjectives(objectives: IObjective[]): Promise<IObjectiveDisplay[]> {
