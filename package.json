@@ -10,7 +10,7 @@
     "postbuild:public": "cpx ./src/public/**/*.{jpg,png} ./dist/public",
     "postbuild:js": "browserify -g uglifyify -t [ babelify ] -e ./src/public/javascripts/app.js -o ./dist/public/javascripts/app.js",
     "postbuild:css": "postcss ./src/public/stylesheets/style.css -o ./dist/public/stylesheets/style.css -u postcss-import --no-map",
-    "start": "ts-node src/main",
+    "start": "node dist/main",
     "start:watch": "npm-run-all -p watch:*",
     "prod": "node dist/main",
     "test": "jest",
