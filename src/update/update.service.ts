@@ -45,9 +45,12 @@ export class UpdateService {
   }
 
   public async matchUpdate(forceAll: boolean = false): Promise<void> {
-    const subscribedMatches = forceAll ? ['all'] : this.updateGateway.subscribedMatches;
+    const subscribedMatches = forceAll ? ['all'] : this.updateGateway.subscribedMatches || [];
     const currentMatchStates = await this.gw2ApiService.getMatches(subscribedMatches);
     const saveCurrentMatchStates: IMatch[] = deepcopy<IMatch[]>(currentMatchStates);
+    if (!currentMatchStates.forEach) {
+      Logger.log('failed loading matches apparently, got: ' + JSON.stringify(currentMatchStates));
+    }
     currentMatchStates.forEach(async (currentMatchState) => {
       const oldMatchState = this.matchStates.find((oldMatch) => oldMatch.id === currentMatchState.id);
       await this.handleDiff(currentMatchState, oldMatchState);

@@ -14,10 +14,6 @@ export default class MatchStatus extends UpdateReceiverElement {
 
     const numbersTemplate = this.querySelector('#numbers-template').innerHTML;
     this.numbersFunction = Handlebars.compile(numbersTemplate);
-
-    this.addEventListener('click', () => {
-      document.querySelector('gw2-match-selector').setAttribute('data-open', 'true');
-    });
   }
 
   handleSubscribeUpdate(data) {

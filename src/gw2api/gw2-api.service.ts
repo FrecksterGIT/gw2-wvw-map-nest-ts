@@ -28,13 +28,29 @@ export class Gw2ApiService {
   };
 
   private static async getJSONArray(url: string): Promise<any[]> {
-    const response = await fetch(url);
-    return await response.json();
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('failed loading url: ' + url);
+      }
+      return await response.json();
+    }
+    catch (e) {
+      return [];
+    }
   }
 
   private static async getJSONObject(url: string): Promise<any> {
-    const response = await fetch(url);
-    return await response.json();
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('failed loading url: ' + url);
+      }
+      return await response.json();
+    }
+    catch (e) {
+      return {};
+    }
   }
 
   @Cache(3600)

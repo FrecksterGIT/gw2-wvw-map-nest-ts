@@ -34,8 +34,14 @@ export function Cache(cacheTime: number, cacheType: CacheTypes = CacheTypes.InMe
       let result = cacheHolder.cache.readFromCache(cacheKey);
       if (!result) {
         Logger.log('miss: ' + cacheKey, 'Cache');
-        result = await method.apply(this, args);
-        cacheHolder.cache.writeToCache(cacheKey, result, cacheTime);
+        try {
+          result = await method.apply(this, args);
+          if (result) {
+            cacheHolder.cache.writeToCache(cacheKey, result, cacheTime);
+          }
+        } catch (e) {
+          result = '';
+        }
       }
       else {
         // Logger.log('hit', 'Cache');
