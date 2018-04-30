@@ -82,10 +82,6 @@ export class Gw2ApiService {
     return matches.pop();
   }
 
-  public async getAllMatches(): Promise<IMatch[]> {
-    return await this.getMatches();
-  }
-
   public async getMatchDisplay(match: IMatch): Promise<IMatchDisplay> {
     const display: IMatchDisplay = match;
     const worlds = await this.getWorlds();

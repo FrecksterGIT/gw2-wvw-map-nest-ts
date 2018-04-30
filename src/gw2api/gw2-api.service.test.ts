@@ -31,8 +31,13 @@ describe('Gw2ApiService', () => {
   });
 
   it('should get data for all 9 matches', async () => {
-    const result = await gw2ApiService.getAllMatches();
+    const result = await gw2ApiService.getMatches();
     expect(result.length).toEqual(9);
+  });
+
+  it('should get data for selected matches', async () => {
+    const result = await gw2ApiService.getMatches(['1-1', '2-1']);
+    expect(result.length).toEqual(2);
   });
 
   it('should get current match data (start- and end-time)', async () => {

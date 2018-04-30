@@ -18,6 +18,7 @@ export default class MatchSelector extends UpdateReceiverElement {
   initSwitchMatchHandler() {
     delegate(this, '.match-selector-match', 'click', (event) => {
       const matchId = event.delegateTarget.getAttribute('data-match-id');
+      this.setAttribute('data-selected-match', matchId);
       socket.emit('subscribe', matchId);
       this.showShader = true;
     });
@@ -28,7 +29,21 @@ export default class MatchSelector extends UpdateReceiverElement {
     const matchId = data.id;
     Cookie.set('match', matchId, {expires: 31});
     this.handleMatchSwitcher(matchId);
-    this.showShader = false;
+    this.receivedSubscribeUpdateFor = matchId;
+    this.isLoadingDone();
+  }
+
+  handleObjectiveUpdate(data) {
+    this.receivedObjectiveUpdateFor = data.id;
+    this.isLoadingDone();
+  }
+
+  isLoadingDone() {
+    const matchId = this.getAttribute('data-selected-match');
+    if ((this.receivedObjectiveUpdateFor === matchId)
+      && (this.receivedSubscribeUpdateFor === matchId)) {
+      this.showShader = false;
+    }
   }
 
   handleMatchSwitcher(matchId) {
