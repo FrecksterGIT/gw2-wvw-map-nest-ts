@@ -7,7 +7,7 @@
             <div class="map" data-map-id="{{mapId}}">
                 {{#each objectives}}
                     <gw2-objective data-subscribe="ObjectiveUpdate" data-id="{{id}}" data-type="{{type}}"
-                                   style="left:{{display_coord.[0]}}%;top:{{display_coord.[1]}}%;">
+                                   data-chat-link="{{chat_link}}" style="left:{{display_coord.[0]}}%;top:{{display_coord.[1]}}%;">
                         <section>
                             <b>{{name}}</b>
                             <dl>

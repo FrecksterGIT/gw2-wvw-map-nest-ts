@@ -11,6 +11,7 @@ export default class Objective extends UpdateReceiverElement {
     this.id = this.getAttribute('data-id');
     this.initElements();
     this.initInfoUpdates();
+    this.initCopyChatCode();
   }
 
   static get observedAttributes() {
@@ -44,6 +45,22 @@ export default class Objective extends UpdateReceiverElement {
     this.addEventListener('mouseout', () => {
       this.stopInfoTimers();
     });
+  }
+
+  initCopyChatCode() {
+    this.addEventListener('click', () => {
+      this.copyChatCode();
+    });
+  }
+
+  copyChatCode() {
+    const input = document.createElement('input');
+    input.style.opacity = '0';
+    input.value = this.getAttribute('data-chat-link');
+    this.appendChild(input);
+    input.select();
+    document.execCommand('Copy');
+    this.removeChild(input);
   }
 
   handleObjectiveUpdate(data) {
