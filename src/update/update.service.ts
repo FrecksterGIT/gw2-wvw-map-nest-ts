@@ -102,12 +102,14 @@ export class UpdateService {
     return objectives;
   }
 
-  private async handleObjectiveChanges(matchState: IMatch, changedObjectives: IMatchObjective[]) {
+  private async handleObjectiveChanges(matchState: IMatch, changedObjectives: IMatchObjective[]): Promise<void> {
     if (changedObjectives.length > 0) {
+
       let objectives = changedObjectives
         .filter((v, i, a) => a.indexOf(v) === i);
-      objectives = await Promise.all(
-        objectives.map(async (obj) => {
+
+      objectives = await Promise.all<IMatchObjective>(
+        objectives.map(async (obj): Promise<IMatchObjective> => {
           if (obj.claimed_by) {
             obj.guild = await this.gw2ApiService.getGuild(obj.claimed_by);
           }
@@ -119,7 +121,7 @@ export class UpdateService {
   }
 
   private handleScoresChange(matchState: IMatch): void {
-    const currentScores = matchState.skirmishes.pop().scores;
+    const currentScores = Gw2ApiService.getCurrentSkirmish(matchState.skirmishes).scores;
     const update = new ScoreUpdate(matchState.id, {
       income: this.calculateIncome(matchState),
       scores: currentScores,
@@ -137,9 +139,15 @@ export class UpdateService {
     matchState.maps.forEach((map) => {
       map.objectives.forEach((obj) => {
         switch (obj.owner) {
-          case 'Blue': income.blue += obj.points_tick; break;
-          case 'Green': income.green += obj.points_tick; break;
-          case 'Red': income.red += obj.points_tick; break;
+          case 'Blue':
+            income.blue += obj.points_tick;
+            break;
+          case 'Green':
+            income.green += obj.points_tick;
+            break;
+          case 'Red':
+            income.red += obj.points_tick;
+            break;
         }
       });
     });
