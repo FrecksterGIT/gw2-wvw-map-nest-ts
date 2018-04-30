@@ -28,13 +28,29 @@ export class Gw2ApiService {
   };
 
   private static async getJSONArray(url: string): Promise<any[]> {
-    const response = await fetch(url);
-    return await response.json();
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('failed loading url: ' + url);
+      }
+      return await response.json();
+    }
+    catch (e) {
+      return [];
+    }
   }
 
   private static async getJSONObject(url: string): Promise<any> {
-    const response = await fetch(url);
-    return await response.json();
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('failed loading url: ' + url);
+      }
+      return await response.json();
+    }
+    catch (e) {
+      return {};
+    }
   }
 
   @Cache(3600)
@@ -43,11 +59,8 @@ export class Gw2ApiService {
   }
 
   @Cache(5)
-  public async getMatches(matchIds: string[]): Promise<IMatch[]> {
-    let matchIdsParam = 'all';
-    if (matchIds.length > 0) {
-      matchIdsParam = matchIds.join(',');
-    }
+  public async getMatches(matchIds: string[] = ['all']): Promise<IMatch[]> {
+    const matchIdsParam = matchIds.join(',');
     return await Gw2ApiService.getJSONArray(Gw2ApiService.matchesUrl + matchIdsParam);
   }
 
@@ -62,11 +75,11 @@ export class Gw2ApiService {
   }
 
   public async getMatch(id: string): Promise<IMatch> {
-    return (await this.getMatches([id])).pop();
-  }
-
-  public async getAllMatches(): Promise<IMatch[]> {
-    return await this.getMatches(['all']);
+    const matches = await this.getMatches([id]);
+    if (!matches) {
+      throw new Error('getMatch failed: ' + id);
+    }
+    return matches.pop();
   }
 
   public async getMatchDisplay(match: IMatch): Promise<IMatchDisplay> {

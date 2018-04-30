@@ -53,7 +53,7 @@ export class UpdateGateway implements OnGatewayConnection, OnGatewayDisconnect {
       }
       return c;
     });
-    await this.updateService.pushFullUpdate(data);
+    this.updateService.pushFullUpdate(data).then().catch();
     return client.emit('subscribed', data);
   }
 

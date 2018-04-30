@@ -25,7 +25,7 @@ export class UpdateService {
     if (!this.updateRunning) {
       Logger.log('starting updates', 'UpdateService');
       this.updateRunning = setInterval(async () => {
-        await this.matchUpdate();
+        this.matchUpdate().then().catch();
       }, 5000);
     }
   }
@@ -44,8 +44,11 @@ export class UpdateService {
     await this.handleDiff(match);
   }
 
-  public async matchUpdate(forceAll: boolean = false): Promise<void> {
-    const subscribedMatches = forceAll ? ['all'] : this.updateGateway.subscribedMatches;
+  public async matchUpdate(): Promise<void> {
+    const subscribedMatches = this.updateGateway.subscribedMatches;
+    if (subscribedMatches.length === 0) {
+      return;
+    }
     const currentMatchStates = await this.gw2ApiService.getMatches(subscribedMatches);
     const saveCurrentMatchStates: IMatch[] = deepcopy<IMatch[]>(currentMatchStates);
     currentMatchStates.forEach(async (currentMatchState) => {

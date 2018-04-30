@@ -29,7 +29,7 @@
         {{/each}}
     </div>
 
-    <gw2-match-status data-subscribe="SubscribeUpdate,ScoreUpdate">
+    <gw2-match-status data-subscribe="SubscribeUpdate,ScoreUpdate" data-open-match-selector="true">
         <div class="worlds"></div>
         <div class="income"></div>
         <div class="scores"></div>
@@ -82,7 +82,8 @@
 
     </gw2-match-status>
 
-    <gw2-match-selector>
+    <gw2-match-selector data-subscribe="SubscribeUpdate,ObjectiveUpdate" data-open="false">
+        <div class="shader"></div>
         {{#each matches}}
             <div class="match-selector-match" data-match-id="{{id}}">
                 <div class="match-selector-world green">
@@ -112,5 +113,4 @@
             </div>
         {{/each}}
     </gw2-match-selector>
-
 </div>
