@@ -59,11 +59,8 @@ export class Gw2ApiService {
   }
 
   @Cache(5)
-  public async getMatches(matchIds: string[]): Promise<IMatch[]> {
-    let matchIdsParam = 'all';
-    if (matchIds.length > 0) {
-      matchIdsParam = matchIds.join(',');
-    }
+  public async getMatches(matchIds: string[] = ['all']): Promise<IMatch[]> {
+    const matchIdsParam = matchIds.join(',');
     return await Gw2ApiService.getJSONArray(Gw2ApiService.matchesUrl + matchIdsParam);
   }
 
@@ -78,11 +75,15 @@ export class Gw2ApiService {
   }
 
   public async getMatch(id: string): Promise<IMatch> {
-    return (await this.getMatches([id])).pop();
+    const matches = await this.getMatches([id]);
+    if (!matches) {
+      throw new Error('getMatch failed: ' + id);
+    }
+    return matches.pop();
   }
 
   public async getAllMatches(): Promise<IMatch[]> {
-    return await this.getMatches(['all']);
+    return await this.getMatches();
   }
 
   public async getMatchDisplay(match: IMatch): Promise<IMatchDisplay> {
