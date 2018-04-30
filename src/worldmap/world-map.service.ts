@@ -28,8 +28,8 @@ export class WorldMapService {
   private sortObjectives(objectives: IObjectiveDisplay[]): any {
     const ordered = {};
     objectives.forEach((objective) => {
-      ordered[objective.map] = ordered[objective.map] || [];
-      ordered[objective.map].push(objective);
+      ordered[objective.map_id] = ordered[objective.map_id] || [];
+      ordered[objective.map_id].push(objective);
     });
     return ordered;
   }

@@ -31,12 +31,13 @@
     <gw2-match-status data-subscribe="SubscribeUpdate,ScoreUpdate">
         <div class="worlds"></div>
         <div class="income"></div>
-        <div class="victory_points"></div>
         <div class="scores"></div>
+        <div class="victory_points"></div>
 
         <script id="worlds-template" type="text/x-handlebars-template">
-            <div class="worlds" data-match-id="\{{id}}">
-                <div class="green">
+            <ul class="worlds" data-match-id="\{{id}}">
+                <li class="header">World</li>
+                <li class="green">
                     \{{main_worlds.green}}
                     \{{#if link_worlds.green}}
                     <div class="linked">
@@ -45,8 +46,8 @@
                         \{{/each}}
                     </div>
                     \{{/if}}
-                </div>
-                <div class="blue">
+                </li>
+                <li class="blue">
                     \{{main_worlds.blue}}
                     \{{#if link_worlds.blue}}
                     <div class="linked">
@@ -55,8 +56,8 @@
                         \{{/each}}
                     </div>
                     \{{/if}}
-                </div>
-                <div class="red">
+                </li>
+                <li class="red">
                     \{{main_worlds.red}}
                     \{{#if link_worlds.red}}
                     <div class="linked">
@@ -65,51 +66,50 @@
                         \{{/each}}
                     </div>
                     \{{/if}}
-                </div>
-            </div>
+                </li>
+            </ul>
         </script>
 
         <script id="numbers-template" type="text/x-handlebars-template">
             <ul class="numbers">
-                <li class="green">\{{green}}</li>
-                <li class="blue">\{{blue}}</li>
-                <li class="red">\{{red}}</li>
+                <li class="header">\{{header}}</li>
+                <li>\{{values.green}}</li>
+                <li>\{{values.blue}}</li>
+                <li>\{{values.red}}</li>
             </ul>
         </script>
 
     </gw2-match-status>
 
     <gw2-match-selector>
-        <ul>
-            {{#each matches}}
-                <li class="match" data-match-id="{{id}}">
-                    <div class="green">
-                        {{main_worlds.green}}
-                        {{#if link_worlds.green}}
-                            <div class="linked">
-                                {{#each link_worlds.green}}<span>{{this}}</span>{{/each}}
-                            </div>
-                        {{/if}}
-                    </div>
-                    <div class="blue">
-                        {{main_worlds.blue}}
-                        {{#if link_worlds.blue}}
-                            <div class="linked">
-                                {{#each link_worlds.blue}}<span>{{this}}</span>{{/each}}
-                            </div>
-                        {{/if}}
-                    </div>
-                    <div class="red">
-                        {{main_worlds.red}}
-                        {{#if link_worlds.red}}
-                            <div class="linked">
-                                {{#each link_worlds.red}}<span>{{this}}</span>{{/each}}
-                            </div>
-                        {{/if}}
-                    </div>
-                </li>
-            {{/each}}
-        </ul>
+        {{#each matches}}
+            <div class="match-selector-match" data-match-id="{{id}}">
+                <div class="match-selector-world green">
+                    {{main_worlds.green}}
+                    {{#if link_worlds.green}}
+                        <div class="linked">
+                            {{#each link_worlds.green}}<span>{{this}}</span>{{/each}}
+                        </div>
+                    {{/if}}
+                </div>
+                <div class="match-selector-world blue">
+                    {{main_worlds.blue}}
+                    {{#if link_worlds.blue}}
+                        <div class="linked">
+                            {{#each link_worlds.blue}}<span>{{this}}</span>{{/each}}
+                        </div>
+                    {{/if}}
+                </div>
+                <div class="match-selector-world red">
+                    {{main_worlds.red}}
+                    {{#if link_worlds.red}}
+                        <div class="linked">
+                            {{#each link_worlds.red}}<span>{{this}}</span>{{/each}}
+                        </div>
+                    {{/if}}
+                </div>
+            </div>
+        {{/each}}
     </gw2-match-selector>
 
 </div>

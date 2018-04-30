@@ -20,7 +20,7 @@
     "travis-build:css": "postcss ./src/public/stylesheets/style.css -o ./dist/public/stylesheets/style.css -u postcss-import --no-map",
     "travis-build:imgs": "cp -r src/public/images dist/public",
     "watch:backend": "cross-env NODE_ENV=development nodemon",
-    "watch:frontend": "watchify --debug --verbose -t [ babelify ] -e ./src/public/javascripts/app.js -o ./dist/public/javascripts/app.js",
+    "watch:frontend": "watchify --debug --verbose --poll -t [ babelify ] -e ./src/public/javascripts/app.js -o ./dist/public/javascripts/app.js",
     "watch:css": "postcss ./src/public/stylesheets/style.css -o ./dist/public/stylesheets/style.css -u postcss-import --watch --poll",
     "watch:imgs": "cpx src/public/**/*.{jpg,png} dist/public --watch"
   },
