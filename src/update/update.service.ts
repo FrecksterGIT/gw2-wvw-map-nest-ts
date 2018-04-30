@@ -37,10 +37,7 @@ export class UpdateService {
   }
 
   public async pushFullUpdate(matchId: string): Promise<void> {
-    let match = this.matchStates.find((matchState) => matchState.id === matchId);
-    if (!match) {
-      match = await this.gw2ApiService.getMatch(matchId);
-    }
+    const match = await this.gw2ApiService.getMatch(matchId);
     const display = await this.gw2ApiService.getMatchDisplay(match);
     const update = new SubscribeUpdate(display);
     this.updateGateway.sendUpdate(update);

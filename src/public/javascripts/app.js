@@ -1,4 +1,5 @@
 import 'babel-polyfill';
+import '@webcomponents/custom-elements';
 import MatchSelector from './elements/match-selector';
 import Objective from './elements/objective';
 import MatchStatus from './elements/match-status';
