@@ -68,6 +68,7 @@
     "@nestjs/microservices": "^4.6.6",
     "@nestjs/testing": "^4.6.6",
     "@nestjs/websockets": "^4.6.6",
+    "date-fns": "^1.29.0",
     "deep-diff": "^1.0.0",
     "express": "^4.16.3",
     "express-minify-html": "^0.12.0",

@@ -67,11 +67,11 @@ export default class Objective extends UpdateReceiverElement {
     const receivedData = data.payload.find((objective) => objective.id === this.id);
     if (receivedData) {
       this.dataOwner = receivedData.owner;
-      this.dataTier = this.calculateTier(receivedData.yaks_delivered);
+      this.dataTier = Objective.calculateTier(receivedData.yaks_delivered);
       this.dataIsClaimed = !!receivedData.claimed_by;
       this.dataLastFlipped = receivedData.last_flipped;
       this.dataClaimedAt = receivedData.claimed_at;
-      this.yakCounterElement.innerHTML = this.getDolyaksOutput(receivedData.yaks_delivered);
+      this.yakCounterElement.innerHTML = Objective.getDolyaksOutput(receivedData.yaks_delivered);
       if (receivedData.claimed_by) {
         this.guildInfoElement.innerHTML = receivedData.guild.name + ' [' + receivedData.guild.tag + ']';
         this.infoElement.style.backgroundImage =
@@ -83,7 +83,7 @@ export default class Objective extends UpdateReceiverElement {
     }
   }
 
-  calculateTier(yaks = 0) {
+  static calculateTier(yaks = 0) {
     if (yaks >= 140) {
       return 3;
     }
@@ -96,7 +96,7 @@ export default class Objective extends UpdateReceiverElement {
     return 0;
   }
 
-  getDolyaksOutput(yaks = 0) {
+  static getDolyaksOutput(yaks = 0) {
     if (yaks < 20) {
       return yaks + '/ 20';
     }
@@ -119,6 +119,7 @@ export default class Objective extends UpdateReceiverElement {
     }
     else {
       clearInterval(this.turnedTimer);
+      this.updateTurnedTimer();
     }
   }
 

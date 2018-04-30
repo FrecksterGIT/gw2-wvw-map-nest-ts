@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import {Cache} from '../cache/cache.decorator';
 import {IGuild} from './interfaces/guild.interface';
 import {IMatchDisplay} from './interfaces/match-display.interface';
-import {IMatch} from './interfaces/match.interface';
+import {IMatch, ISkirmish} from './interfaces/match.interface';
 import {IObjectiveDisplay} from './interfaces/objective-display.interface';
 import {IObjective} from './interfaces/objective.interface';
 import {IWorld} from './interfaces/world.interface';
@@ -15,11 +15,22 @@ interface IWorldNames {
 
 export class Gw2ApiService {
 
+  public static getCurrentSkirmish(skirmishes: ISkirmish[]): ISkirmish {
+    return skirmishes.reduce((prev, skirmish) => {
+      if (!prev) {
+        return skirmish;
+      }
+      if (skirmish.id > prev.id) {
+        return skirmish;
+      }
+      return prev;
+    }, null);
+  }
+
   private static worldsUrl: string = 'https://api.guildwars2.com/v2/worlds?ids=all';
   private static matchesUrl: string = 'https://api.guildwars2.com/v2/wvw/matches?ids=';
   private static objectivesUrl: string = 'https://api.guildwars2.com/v2/wvw/objectives?ids=all';
   private static guildUrl: string = 'https://api.guildwars2.com/v2/guild/';
-
   private static MAP_SIZES = {
     38: [[8958, 12798], [12030, 15870]],
     95: [[5630, 11518], [8702, 14590]],
@@ -28,29 +39,19 @@ export class Gw2ApiService {
   };
 
   private static async getJSONArray(url: string): Promise<any[]> {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error('failed loading url: ' + url);
-      }
-      return await response.json();
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error('failed loading url: ' + url);
     }
-    catch (e) {
-      return [];
-    }
+    return await response.json();
   }
 
   private static async getJSONObject(url: string): Promise<any> {
-    try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error('failed loading url: ' + url);
-      }
-      return await response.json();
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error('failed loading url: ' + url);
     }
-    catch (e) {
-      return {};
-    }
+    return await response.json();
   }
 
   @Cache(3600)
@@ -58,7 +59,7 @@ export class Gw2ApiService {
     return await Gw2ApiService.getJSONArray((Gw2ApiService.worldsUrl));
   }
 
-  @Cache(5)
+  @Cache(4)
   public async getMatches(matchIds: string[] = ['all']): Promise<IMatch[]> {
     const matchIdsParam = matchIds.join(',');
     return await Gw2ApiService.getJSONArray(Gw2ApiService.matchesUrl + matchIdsParam);
@@ -74,11 +75,8 @@ export class Gw2ApiService {
     return await Gw2ApiService.getJSONObject(Gw2ApiService.guildUrl + guildId);
   }
 
-  public async getMatch(id: string): Promise<IMatch> {
-    const matches = await this.getMatches([id]);
-    if (!matches) {
-      throw new Error('getMatch failed: ' + id);
-    }
+  public async getMatch(matchId: string): Promise<IMatch> {
+    const matches = await this.getMatches([matchId]);
     return matches.pop();
   }
 
@@ -139,7 +137,7 @@ export class Gw2ApiService {
     return [0, 0];
   }
 
-  private async getWorldNamesForMatch(match: IMatch, color: string, worlds: IWorld[]): Promise<IWorldNames> {
+  private getWorldNamesForMatch(match: IMatch, color: string, worlds: IWorld[]): IWorldNames {
     const allWorlds: string[] = [];
     const mainWorld = this.getWorldNameForId(match.worlds[color], worlds);
     allWorlds.push(mainWorld);
