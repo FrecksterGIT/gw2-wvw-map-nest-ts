@@ -13,6 +13,7 @@ export default class MatchSelector extends HTMLElement {
       this.handleMatchSwitcher(data);
     });
     this.initSwitchMatchHandler();
+    this.initClickOutside();
   }
 
   initSwitchMatchHandler() {
@@ -29,5 +30,13 @@ export default class MatchSelector extends HTMLElement {
     });
     this.querySelector('.match-selector-match[data-match-id="' + data + '"]').classList.add('selected');
     this.setAttribute('data-open', 'false');
+  }
+
+  initClickOutside() {
+    document.querySelector('body').addEventListener('click', (event) => {
+      if (!this.contains(event.target) && !event.target.closest('gw2-match-status')) {
+        this.setAttribute('data-open', 'false');
+      }
+    });
   }
 }
