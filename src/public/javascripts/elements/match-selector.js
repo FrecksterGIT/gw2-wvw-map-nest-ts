@@ -16,7 +16,7 @@ export default class MatchSelector extends HTMLElement {
   }
 
   initSwitchMatchHandler() {
-    delegate(this, '.match', 'click', (event) => {
+    delegate(this, '.match-selector-match', 'click', (event) => {
       const matchId = event.delegateTarget.getAttribute('data-match-id');
       socket.emit('subscribe', matchId);
     });
@@ -24,9 +24,10 @@ export default class MatchSelector extends HTMLElement {
 
   handleMatchSwitcher(data) {
     logger('match selector subscribed for updates', data);
-    this.querySelectorAll('.match').forEach((match) => {
+    this.querySelectorAll('.match-selector-match').forEach((match) => {
       match.classList.remove('selected');
     });
-    this.querySelector('.match[data-match-id="' + data + '"]').classList.add('selected');
+    this.querySelector('.match-selector-match[data-match-id="' + data + '"]').classList.add('selected');
+    this.setAttribute('data-open', 'false');
   }
 }

@@ -1,4 +1,5 @@
 body {
+    color: var(--color-gray);
     font: 11px/13px 'Open Sans', sans-serif, arial;
     margin: 0;
     padding: 0;
@@ -12,5 +13,6 @@ body {
 
 .container {
     margin: 0 auto;
+    position: relative;
     width: 90%;
 }

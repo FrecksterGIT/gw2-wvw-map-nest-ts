@@ -1,4 +1,15 @@
-gw2-match-status .worlds div {
+gw2-match-status {
+    display: flex;
+    flex-flow: nowrap row;
+    width: 50%;
+}
+
+gw2-match-status ul,
+gw2-match-status li {
+    list-style: none;
+}
+
+gw2-match-status .worlds li {
     position: relative;
 }
 
@@ -6,16 +17,18 @@ gw2-match-status .worlds .linked {
     background: #fff;
     border: 1px solid #ccc;
     border-radius: 4px;
+    color: var(--color-gray);
     display: none;
     font-weight: normal;
     left: 100px;
     padding: 4px;
     position: absolute;
     top: 0;
+    white-space: nowrap;
     z-index: 1;
 }
 
-gw2-match-status .worlds div:hover .linked {
+gw2-match-status .worlds li:hover .linked {
     display: block;
 }
 

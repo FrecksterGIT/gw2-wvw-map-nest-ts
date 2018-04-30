@@ -14,6 +14,10 @@ export default class MatchStatus extends UpdateReceiverElement {
 
     const numbersTemplate = this.querySelector('#numbers-template').innerHTML;
     this.numbersFunction = Handlebars.compile(numbersTemplate);
+
+    this.addEventListener('click', () => {
+      document.querySelector('gw2-match-selector').setAttribute('data-open', 'true');
+    });
   }
 
   handleSubscribeUpdate(data) {
@@ -22,9 +26,23 @@ export default class MatchStatus extends UpdateReceiverElement {
   }
 
   handleScoreUpdate(data) {
-    this.querySelector('.scores').innerHTML = this.numbersFunction(data.payload.scores);
-    this.querySelector('.income').innerHTML = this.numbersFunction(data.payload.income);
-    this.querySelector('.victory_points').innerHTML = this.numbersFunction(data.payload.victoryPoints);
+    const scores = {
+      header: 'Points',
+      values: data.payload.scores
+    };
+
+    const income = {
+      header: 'Income',
+      values: data.payload.income
+    };
+    const victoryPoints = {
+      header: 'Victory Points',
+      values: data.payload.victoryPoints
+    };
+
+    this.querySelector('.scores').innerHTML = this.numbersFunction(scores);
+    this.querySelector('.income').innerHTML = this.numbersFunction(income);
+    this.querySelector('.victory_points').innerHTML = this.numbersFunction(victoryPoints);
   }
 
   renderWorldsTemplates(data) {
