@@ -7,7 +7,7 @@ install:
 scripts:
 - npm test -- --coverage
 before_deploy:
-- rm -rf node_modules
+- rm -rf node_modulesd
 - npm install -only=production
 deploy:
   on:
@@ -16,4 +16,4 @@ deploy:
   skip_cleanup: true
   api_key:
     secure: RPtvqoIdy8YJwb1WkIBswCLHaKYmcPhCkBA6oAN7dbJVfU8luxdLMMASl82+EWc52NujZCNrGmdYwVkqvJXG5e2peG5XxauhqlzwQRwMK1PaWaI7rt3ksGnIgVHSDcQbCDFadTrww+T9LTCQAsJBwOILrK1LNWdiy+I4CZHZ5RgdiLUzcnnAVcBQBI7YLZym7vlslw2oFpwILF3ty7qrpgVfhE84QU6MiKwDYT1ILUbKDpXHwvjXtFyqXuZfMy0FFQyObouXVxXeatUlV0AecUj1xGfIY2T0DZSecIuZQmHe8TKGKbxw3O6QTYAr83Sn2OsCwME3VTL+cBIJDarDzvrP9Ud9xB9YHXKrtJRtg08iXjjFFK8UzVS5KMGtctaVAAL8YgzVuuIhlrrpyc2rQcVcI53SliGlr0hU8MNe9EwnnPwcmGlo7vjPX+zs6OJ36qqkvs2HzKwUaJ33Ei8Bibfy85z/BXcvY6uCBDGUqzxYvwebQgvRtcwlpUFRFOo0zHw8HV0TvmRmX8PFjyw35TpIAuFzKK3ZSVJA//PMpbBE5BzLPVTy+mKwskw3Yzyf13rk6rzYMOIX0DZMtF8grKttXh3j3/kRZQroGBpJll82vX4c5AGJHqgBVlJg0k29tX53wC4PSORVyNUzWBD2nJvZ3lCPIM6ObMK4zuq0XxI=
-  app: rocky-bastion-93075
+  app: gw2-map
