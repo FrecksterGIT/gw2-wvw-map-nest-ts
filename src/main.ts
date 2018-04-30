@@ -11,7 +11,7 @@ async function bootstrap() {
   const app = await NestFactory.create(ApplicationModule);
   setupViewEngine(app);
   await app.startAllMicroservicesAsync();
-  await app.listen(PORT, '0.0.0.0');
+  await app.listen(PORT);
 }
 
 function setupViewEngine(app: INestApplication) {
