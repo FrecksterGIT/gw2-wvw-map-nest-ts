@@ -71,9 +71,10 @@ export class Gw2ApiService {
 
   public async getMatchDisplay(match: IMatch): Promise<IMatchDisplay> {
     const display: IMatchDisplay = match;
-    const blueWorlds: IWorldNames = await this.getWorldNamesForMatch(match, 'blue');
-    const greenWorlds: IWorldNames = await this.getWorldNamesForMatch(match, 'green');
-    const redWorlds: IWorldNames = await this.getWorldNamesForMatch(match, 'red');
+    const worlds = await this.getWorlds();
+    const blueWorlds: IWorldNames = await this.getWorldNamesForMatch(match, 'blue', worlds);
+    const greenWorlds: IWorldNames = await this.getWorldNamesForMatch(match, 'green', worlds);
+    const redWorlds: IWorldNames = await this.getWorldNamesForMatch(match, 'red', worlds);
     display.world_names = {
       blue: blueWorlds.allWorlds,
       green: greenWorlds.allWorlds,
@@ -134,8 +135,7 @@ export class Gw2ApiService {
     return aMap.id;
   }
 
-  private async getWorldNamesForMatch(match: IMatch, color: string): Promise<IWorldNames> {
-    const worlds = await this.getWorlds();
+  private async getWorldNamesForMatch(match: IMatch, color: string, worlds: IWorld[]): Promise<IWorldNames> {
     const allWorlds: string[] = [];
     const mainWorld = this.getWorldNameForId(match.worlds[color], worlds);
     allWorlds.push(mainWorld);
