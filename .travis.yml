@@ -7,8 +7,8 @@ install:
 scripts:
 - npm test -- --coverage
 before_deploy:
-- rm -rf node_modulesd
-- npm install -only=production
+- rm -rf node_modules
+- npm install --only=production
 deploy:
   on:
     branch: master
