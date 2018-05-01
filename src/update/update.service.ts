@@ -105,8 +105,16 @@ export class UpdateService {
   private async handleObjectiveChanges(matchState: IMatch, changedObjectives: IMatchObjective[]): Promise<void> {
     if (changedObjectives.length > 0) {
 
+      const validTypes = [
+        'Camp',
+        'Tower',
+        'Keep',
+        'Castle'
+      ];
+
       let objectives = changedObjectives
-        .filter((v, i, a) => a.indexOf(v) === i);
+        .filter((v, i, a) => a.indexOf(v) === i)
+        .filter((v) => validTypes.includes(v.type));
 
       objectives = await Promise.all<IMatchObjective>(
         objectives.map(async (obj): Promise<IMatchObjective> => {

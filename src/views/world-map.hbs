@@ -6,7 +6,10 @@
         {{#each map as |objectives mapId|}}
             <div class="map" data-map-id="{{mapId}}">
                 {{#each objectives}}
-                    <gw2-objective data-subscribe="ObjectiveUpdate" data-id="{{id}}" data-type="{{type}}"
+                    <gw2-objective data-subscribe="ObjectiveUpdate"
+                                   data-id="{{id}}"
+                                   data-type="{{type}}"
+                                   data-name="{{name}}"
                                    data-chat-link="{{chat_link}}"
                                    style="left:{{display_coord.[0]}}%;top:{{display_coord.[1]}}%;">
                         <section>
@@ -115,12 +118,12 @@
             {{/each}}
         </gw2-match-selector>
 
-        <gw2-match-logger data-subscribe="ObjectiveUpdate">
+        <gw2-match-logger data-subscribe="SubscribeUpdate,ObjectiveUpdate">
             <script id="log-owner-template" type="text/x-handlebars-template">
-                <div data-changed-objective="\{{id}}">\{{at}}: \{{name}} turned by \{{to}}. was \{{from}}.</div>
+                <div data-changed-objective="\{{id}}"><span>\{{formatTime at}}:</span> <span class="\{{toClass}}">\{{name}}</span> captured by <span class="\{{toClass}}">\{{to}}</span>\{{#if from}} from <span class="\{{fromClass}}">\{{from}}</span>.\{{/if}}.</div>
             </script>
             <script id="log-claim-template" type="text/x-handlebars-template">
-                <div data-changed-objective="\{{id}}">\{{at}}: \{{name}} claimed by \{{to}}.</div>
+                <div data-changed-objective="\{{id}}"><span>\{{formatTime at}}:</span> <span class="\{{objectiveClass}}">\{{name}}</span> claimed by <span class="\{{objectiveClass}}">\{{to}}</span>.</div>
             </script>
         </gw2-match-logger>
     </aside>

@@ -13,3 +13,7 @@ gw2-match-logger {
     overflow-y: scroll;
     width: 50%;
 }
+
+gw2-match-logger span {
+    font-weight: bold;
+}
