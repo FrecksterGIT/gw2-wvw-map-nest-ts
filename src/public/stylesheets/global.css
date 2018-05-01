@@ -16,3 +16,8 @@ body {
     position: relative;
     width: 90%;
 }
+
+.infoarea {
+    display: flex;
+    flex-flow: nowrap;
+}
