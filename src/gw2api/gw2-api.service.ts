@@ -1,3 +1,4 @@
+import {Injectable} from '@nestjs/common';
 import fetch from 'node-fetch';
 import {Cache} from '../cache/cache.decorator';
 import {IGuild} from './interfaces/guild.interface';
@@ -13,6 +14,7 @@ interface IWorldNames {
   linkWorlds: string[];
 }
 
+@Injectable()
 export class Gw2ApiService {
 
   public static getCurrentSkirmish(skirmishes: ISkirmish[]): ISkirmish {

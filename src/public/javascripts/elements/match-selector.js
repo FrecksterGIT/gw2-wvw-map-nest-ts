@@ -47,7 +47,7 @@ export default class MatchSelector extends UpdateReceiverElement {
   }
 
   handleMatchSwitcher(matchId) {
-    this.querySelectorAll('.match-selector-match').forEach((match) => {
+    [...this.querySelectorAll('.match-selector-match')].forEach((match) => {
       match.classList.remove('selected');
     });
     this.querySelector('.match-selector-match[data-match-id="' + matchId + '"]').classList.add('selected');
@@ -62,6 +62,9 @@ export default class MatchSelector extends UpdateReceiverElement {
 
   initCloseOnClickOutside() {
     document.querySelector('body').addEventListener('click', (event) => {
+      if (!event.target.closest) {
+        return;
+      }
       if (!this.contains(event.target) && !event.target.closest('[data-open-match-selector="true"]')) {
         this.isOpen = false;
       }
