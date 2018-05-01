@@ -64,7 +64,6 @@ export default class MatchLogger extends UpdateReceiverElement {
 
   logChanges(changes) {
     changes.forEach((change) => {
-      logger(change);
       let content = '';
       switch (change.type) {
         case 'owner':

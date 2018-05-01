@@ -20,9 +20,6 @@ export default class Objective extends UpdateReceiverElement {
 
   attributeChangedCallback(name, oldValue, newValue) {
     switch (name) {
-      case 'data-owner':
-        logger(this.id, oldValue, newValue);
-        break;
       case 'data-last-flipped':
         this.initTurnedTimer(newValue);
         break;
