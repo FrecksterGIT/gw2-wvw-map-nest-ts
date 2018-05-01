@@ -33,6 +33,7 @@ export default class MatchLogger extends UpdateReceiverElement {
 
   handleSubscribeUpdate(data) {
     this.innerHTML = '';
+    this.loggedData = [];
     worlds = data.payload.main_worlds;
   }
 
