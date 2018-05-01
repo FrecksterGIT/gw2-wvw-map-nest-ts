@@ -17,7 +17,7 @@ async function bootstrap() {
   await app.listen(PORT);
 }
 
-function setupViewEngine(app: INestApplication) {
+function setupViewEngine(app) {
   app.use('/static', express.static(path.join(__dirname, '../dist/public')));
   app.set('views', Config.viewDirectory);
   app.set('view options', {layout: 'layouts/main'});

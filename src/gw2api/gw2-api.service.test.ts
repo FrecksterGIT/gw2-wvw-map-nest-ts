@@ -14,7 +14,7 @@ describe('Gw2ApiService', () => {
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
-      components: [Gw2ApiService]
+      providers: [Gw2ApiService]
     }).compile();
 
     gw2ApiService = module.get(Gw2ApiService);

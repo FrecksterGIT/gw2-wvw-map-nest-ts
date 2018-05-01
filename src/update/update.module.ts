@@ -4,8 +4,8 @@ import {UpdateGateway} from './update.gateway';
 import {UpdateService} from './update.service';
 
 @Module({
-  components: [UpdateGateway, UpdateService],
-  imports: [Gw2ApiModule]
+  imports: [Gw2ApiModule],
+  providers: [UpdateGateway, UpdateService]
 })
 export class UpdateModule {
 }

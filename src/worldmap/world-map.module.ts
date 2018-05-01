@@ -5,9 +5,9 @@ import {WorldMapController} from './world-map.controller';
 import {WorldMapService} from './world-map.service';
 
 @Module({
-  components: [WorldMapService],
   controllers: [WorldMapController],
-  imports: [Gw2ApiModule, UpdateModule]
+  imports: [Gw2ApiModule, UpdateModule],
+  providers: [WorldMapService]
 })
 export class WorldMapModule {
 }

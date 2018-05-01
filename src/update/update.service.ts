@@ -1,4 +1,4 @@
-import {Component, forwardRef, Inject, Logger} from '@nestjs/common';
+import {forwardRef, Inject, Injectable, Logger} from '@nestjs/common';
 import {diff} from 'deep-diff';
 import deepcopy from 'ts-deepcopy';
 import {Gw2ApiService} from '../gw2api/gw2-api.service';
@@ -9,7 +9,7 @@ import {ScoreUpdate} from './updates/score-update';
 import {SubscribeUpdate} from './updates/subscribe-update';
 import IDiff = deepDiff.IDiff;
 
-@Component()
+@Injectable()
 export class UpdateService {
 
   private matchStates: IMatch[] = [];

@@ -1,11 +1,11 @@
-import {Component} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {Gw2ApiService} from '../gw2api/gw2-api.service';
 import {IMatchDisplay} from '../gw2api/interfaces/match-display.interface';
 import {IMatch} from '../gw2api/interfaces/match.interface';
 import {IObjectiveDisplay} from '../gw2api/interfaces/objective-display.interface';
 import {IObjective} from '../gw2api/interfaces/objective.interface';
 
-@Component()
+@Injectable()
 export class WorldMapService {
 
   constructor(private readonly gw2ApiService: Gw2ApiService) {
