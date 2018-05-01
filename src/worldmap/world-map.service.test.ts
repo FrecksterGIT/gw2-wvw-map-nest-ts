@@ -8,7 +8,7 @@ describe('MapService', () => {
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
-      components: [WorldMapService, Gw2ApiService]
+      providers: [WorldMapService, Gw2ApiService]
     }).compile();
 
     mapService = module.get(WorldMapService);
