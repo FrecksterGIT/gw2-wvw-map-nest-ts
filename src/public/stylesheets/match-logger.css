@@ -1,0 +1,15 @@
+::-webkit-scrollbar {
+    background: #fff;
+    height: 5px;
+    width: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(200, 200, 200, 0.8);
+}
+
+gw2-match-logger {
+    height: 80px;
+    overflow-y: scroll;
+    width: 50%;
+}
