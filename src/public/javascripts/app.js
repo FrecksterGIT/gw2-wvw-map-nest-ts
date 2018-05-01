@@ -7,7 +7,7 @@ import MatchLogger from './elements/match-logger';
 
 import log from 'debug';
 
-log.enable('MatchSelector, MatchStatus, MatchLogger, Socket');
+log.enable('MatchSelector, MatchStatus, MatchLogger, Objective, Socket');
 
 window.customElements.define('gw2-match-selector', MatchSelector);
 window.customElements.define('gw2-match-status', MatchStatus);

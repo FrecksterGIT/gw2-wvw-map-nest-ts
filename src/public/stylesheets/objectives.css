@@ -164,6 +164,10 @@ gw2-objective section {
     width: 170px;
 }
 
+gw2-objective section.left {
+    left: -330px;
+}
+
 gw2-objective:hover section {
     display: block;
 }
@@ -195,7 +199,7 @@ gw2-objective aside {
     color: #fff;
     display: none;
     position: absolute;
-    text-shadow: 0px -1px #000000, 1px 0px #000000, 0px 1px #000000, -1px 0px #000000, 0px -1px 2px #000000, 1px 0px 2px #000000, 0px 1px 2px #000000, -1px 0px 2px #000000, 0px -1px 2px #000000, 1px 0px 2px #000000, 0px 1px 2px #000000, -1px 0px 2px #000000;
+    text-shadow: 0 -1px #000000, 1px 0 #000000, 0 1px #000000, -1px 0 #000000, 0 -1px 2px #000000, 1px 0 2px #000000, 0 1px 2px #000000, -1px 0 2px #000000, 0 -1px 2px #000000, 1px 0 2px #000000, 0 1px 2px #000000, -1px 0 2px #000000;
     top: 26px;
 }
 
