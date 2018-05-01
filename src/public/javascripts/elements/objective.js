@@ -6,16 +6,90 @@ const logger = log('Objective');
 
 export default class Objective extends UpdateReceiverElement {
 
+  static get observedAttributes() {
+    return ['data-owner', 'data-last-flipped'];
+  }
+
+  get dataNewTurn() {
+    return this.getAttribute('data-new-turn');
+  }
+
+  set dataNewTurn(newTurn) {
+    this.setAttributeIfChanged('data-new-turn', newTurn);
+  }
+
+  get dataOwner() {
+    return this.getAttribute('data-owner');
+  }
+
+  set dataOwner(owner) {
+    this.setAttributeIfChanged('data-owner', owner);
+  }
+
+  get dataTier() {
+    return this.getAttribute('data-tier');
+  }
+
+  set dataTier(tier) {
+    this.setAttributeIfChanged('data-tier', tier);
+  }
+
+  get dataIsClaimed() {
+    return this.getAttribute('data-is-claimed');
+  }
+
+  set dataIsClaimed(isClaimed) {
+    this.setAttributeIfChanged('data-is-claimed', isClaimed);
+  }
+
+  get dataLastFlipped() {
+    return this.getAttribute('data-last-flipped');
+  }
+
+  set dataLastFlipped(lastFlipped) {
+    this.setAttributeIfChanged('data-last-flipped', lastFlipped);
+  }
+
+  get dataClaimedAt() {
+    return this.getAttribute('data-claimed-at');
+  }
+
+  set dataClaimedAt(claimedAt) {
+    this.setAttributeIfChanged('data-claimed-at', claimedAt);
+  }
+
+  static calculateTier(yaks = 0) {
+    if (yaks >= 140) {
+      return 3;
+    }
+    if (yaks >= 60) {
+      return 2;
+    }
+    if (yaks >= 20) {
+      return 1;
+    }
+    return 0;
+  }
+
+  static getDolyaksOutput(yaks = 0) {
+    if (yaks < 20) {
+      return yaks + '/ 20';
+    }
+    if (yaks <= 60) {
+      return (yaks - 20) + ' / 40';
+    }
+    if (yaks < 140) {
+      return (yaks - 60) + ' / 80';
+    }
+    return '';
+  }
+
   connectedCallback() {
     super.connectedCallback();
     this.id = this.getAttribute('data-id');
     this.initElements();
     this.initInfoUpdates();
     this.initCopyChatCode();
-  }
-
-  static get observedAttributes() {
-    return ['data-owner', 'data-last-flipped'];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -37,10 +111,12 @@ export default class Objective extends UpdateReceiverElement {
 
   initInfoUpdates() {
     this.addEventListener('mouseover', () => {
+      this.checkInfoBoxVisibility();
       this.startInfoTimers();
     });
     this.addEventListener('mouseout', () => {
       this.stopInfoTimers();
+      this.infoElement.classList.remove('left');
     });
   }
 
@@ -48,6 +124,14 @@ export default class Objective extends UpdateReceiverElement {
     this.addEventListener('click', () => {
       this.copyChatCode();
     });
+  }
+
+  checkInfoBoxVisibility() {
+    const right = this.infoElement.getBoundingClientRect().right;
+    const windowWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    if (right > windowWidth) {
+      this.infoElement.classList.add('left');
+    }
   }
 
   copyChatCode() {
@@ -78,32 +162,6 @@ export default class Objective extends UpdateReceiverElement {
         this.infoElement.style.backgroundImage = '';
       }
     }
-  }
-
-  static calculateTier(yaks = 0) {
-    if (yaks >= 140) {
-      return 3;
-    }
-    if (yaks >= 60) {
-      return 2;
-    }
-    if (yaks >= 20) {
-      return 1;
-    }
-    return 0;
-  }
-
-  static getDolyaksOutput(yaks = 0) {
-    if (yaks < 20) {
-      return yaks + '/ 20';
-    }
-    if (yaks <= 60) {
-      return (yaks - 20) + ' / 40';
-    }
-    if (yaks < 140) {
-      return (yaks - 60) + ' / 80';
-    }
-    return '';
   }
 
   initTurnedTimer(lastFlipped) {
@@ -146,54 +204,6 @@ export default class Objective extends UpdateReceiverElement {
   updateInfoTimers() {
     this.heldInfoElement.innerHTML = timetools.getPassedTime(this.dataLastFlipped);
     this.claimedInfoElement.innerHTML = timetools.getPassedTime(this.dataClaimedAt);
-  }
-
-  set dataNewTurn(newTurn) {
-    this.setAttributeIfChanged('data-new-turn', newTurn);
-  }
-
-  get dataNewTurn() {
-    return this.getAttribute('data-new-turn');
-  }
-
-  set dataOwner(owner) {
-    this.setAttributeIfChanged('data-owner', owner);
-  }
-
-  get dataOwner() {
-    return this.getAttribute('data-owner');
-  }
-
-  set dataTier(tier) {
-    this.setAttributeIfChanged('data-tier', tier);
-  }
-
-  get dataTier() {
-    return this.getAttribute('data-tier');
-  }
-
-  set dataIsClaimed(isClaimed) {
-    this.setAttributeIfChanged('data-is-claimed', isClaimed);
-  }
-
-  get dataIsClaimed() {
-    return this.getAttribute('data-is-claimed');
-  }
-
-  set dataLastFlipped(lastFlipped) {
-    this.setAttributeIfChanged('data-last-flipped', lastFlipped);
-  }
-
-  get dataLastFlipped() {
-    return this.getAttribute('data-last-flipped');
-  }
-
-  set dataClaimedAt(claimedAt) {
-    this.setAttributeIfChanged('data-claimed-at', claimedAt);
-  }
-
-  get dataClaimedAt() {
-    return this.getAttribute('data-claimed-at');
   }
 
   setAttributeIfChanged(attribute, value) {
