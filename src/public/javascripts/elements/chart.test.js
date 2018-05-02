@@ -25,8 +25,8 @@ describe('Chart', () => {
 
   it('should calculate diffs correctly', () => {
     const newPaths = [{percent: 40}, {percent: 50}, {percent: 10}];
-    const move = chart.calculateDiffs(newPaths);
-    expect(move).toEqual([
+    chart.calculateDiffs(newPaths);
+    expect(chart.diffs).toEqual([
       {
         endFrom: 30,
         endTo: 40,
@@ -50,7 +50,7 @@ describe('Chart', () => {
   it('should start an animation when needed', () => {
     expect(chart.isAnimationNeeded()).toBe(false);
     const newPaths = [{percent: 40}, {percent: 50}, {percent: 10}];
-    chart.diffs = chart.calculateDiffs(newPaths);
+    chart.calculateDiffs(newPaths);
     expect(chart.isAnimationNeeded()).toBe(true);
   });
 });
