@@ -61,11 +61,11 @@
     "webpack-cli": "^2.1.2"
   },
   "dependencies": {
-    "@nestjs/common": "^5.0.0-rc.1",
-    "@nestjs/core": "^5.0.0-rc.1",
-    "@nestjs/microservices": "^5.0.0-rc.1",
-    "@nestjs/testing": "^5.0.0-rc.1",
-    "@nestjs/websockets": "^5.0.0-rc.1",
+    "@nestjs/common": "^5.0.0-rc.2",
+    "@nestjs/core": "^5.0.0-rc.2",
+    "@nestjs/microservices": "^5.0.0-rc.2",
+    "@nestjs/testing": "^5.0.0-rc.2",
+    "@nestjs/websockets": "^5.0.0-rc.2",
     "date-fns": "^1.29.0",
     "deep-diff": "^1.0.0",
     "express": "^4.16.3",
