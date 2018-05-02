@@ -1,12 +1,25 @@
 gw2-match-status {
     display: flex;
     flex-flow: nowrap row;
+    margin-top: 10px;
     width: 50%;
+}
+
+gw2-match-status svg {
+    height: 75px;
+    transform: rotate(-0.25turn);
+    width: 75px;
 }
 
 gw2-match-status ul,
 gw2-match-status li {
     list-style: none;
+    margin: 0;
+    padding: 1px 10px;
+}
+
+gw2-match-status .income {
+    width: 50px;
 }
 
 gw2-match-status .worlds li {
