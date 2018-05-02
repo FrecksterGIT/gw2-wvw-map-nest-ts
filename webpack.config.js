@@ -3,7 +3,7 @@ const path = require('path');
 require.extensions = false;
 
 module.exports = {
-  devtool: process.env.NODE_ENV === 'development' ? 'eval' : false,
+  devtool: process.env.NODE_ENV === 'development' ? 'source-map' : false,
   entry: './src/public/javascripts/app.js',
   mode: process.env.NODE_ENV === 'development' ? 'development' : 'production',
   module: {
