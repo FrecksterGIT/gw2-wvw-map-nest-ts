@@ -157,7 +157,7 @@ gw2-objective section {
     border: 1px solid #ccc;
     border-radius: 4px;
     display: none;
-    left: 50px;
+    left: 40px;
     padding: 6px 11px;
     position: relative;
     top: 0;
@@ -165,6 +165,10 @@ gw2-objective section {
 }
 
 gw2-objective section.left {
+    left: -210px;
+}
+
+gw2-objective[data-is-claimed="true"] section.left {
     left: -330px;
 }
 
