@@ -1,8 +1,9 @@
 import {INestApplication} from '@nestjs/common';
 import {NestFactory} from '@nestjs/core';
 import * as express from 'express';
-
 import * as minifyHTML from 'express-minify-html';
+
+import compression = require('compression');
 import * as path from 'path';
 import {Config} from './app.config';
 import {ApplicationModule} from './app.module';
@@ -11,8 +12,10 @@ const PORT = process.env.PORT || 3000;
 
 async function bootstrap() {
   const app = await NestFactory.create(ApplicationModule);
+  app.use(compression());
   setupViewEngine(app);
   setupMinify(app);
+  app.disable('x-powered-by');
   await app.startAllMicroservicesAsync();
   await app.listen(PORT);
 }

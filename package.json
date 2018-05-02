@@ -7,7 +7,7 @@
     "coverage": "jest --coverage",
     "postbuild": "npm-run-all -s postbuild:views postbuild:public postbuild:js postbuild:css",
     "postbuild:views": "cpx ./src/views/** ./dist/views",
-    "postbuild:public": "cpx ./src/public/**/*.{jpg,png} ./dist/public",
+    "postbuild:public": "cpx ./src/public/**/*.{jpg,png,ico} ./dist/public",
     "postbuild:js": "webpack",
     "postbuild:css": "postcss ./src/public/stylesheets/style.css -o ./dist/public/stylesheets/style.css -u postcss-import --no-map",
     "start": "node dist/main",
@@ -23,7 +23,7 @@
     "watch:backend": "nodemon",
     "watch:frontend": "webpack",
     "watch:css": "postcss --watch ./src/public/stylesheets/style.css -o ./dist/public/stylesheets/style.css -u postcss-import",
-    "watch:imgs": "cpx src/public/**/*.{jpg,png} dist/public --watch"
+    "watch:imgs": "cpx src/public/**/*.{jpg,png,ico} dist/public --watch"
   },
   "devDependencies": {
     "@babel/polyfill": "^7.0.0-beta.46",
@@ -66,6 +66,7 @@
     "@nestjs/microservices": "^5.0.0-rc.2",
     "@nestjs/testing": "^5.0.0-rc.2",
     "@nestjs/websockets": "^5.0.0-rc.2",
+    "compression": "^1.7.2",
     "date-fns": "^1.29.0",
     "deep-diff": "^1.0.0",
     "express": "^4.16.3",
