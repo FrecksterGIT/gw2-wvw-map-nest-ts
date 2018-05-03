@@ -3,7 +3,7 @@ import InMemoryCache from './impl/in-memory-cache.class';
 import NoCache from './impl/no-cache.class';
 import {ICacheHolder} from './interfaces/cache-holder.interface';
 
-const cachesHolder = [];
+const cachesHolders: ICacheHolder[] = [];
 
 function createStorage(type: CacheTypes): ICacheHolder {
   switch (type) {
@@ -21,19 +21,15 @@ function createStorage(type: CacheTypes): ICacheHolder {
 }
 
 function getStorage(cacheType: CacheTypes): ICacheHolder {
-  let cacheHolder: ICacheHolder = cachesHolder.find((c: ICacheHolder) => c.type === cacheType);
-  if (!cacheHolder) {
-    cacheHolder = createStorage(cacheType);
-    cachesHolder.push(cacheHolder);
+  let cache: ICacheHolder = cachesHolders.find((c: ICacheHolder) => c.type === cacheType);
+  if (!cache) {
+    cache = createStorage(cacheType);
+    cachesHolders.push(cache);
   }
-  return cacheHolder;
+  return cache;
 }
 
 function getCacheKey(propertyKey, args): string {
-  /*
-  const buff = new Buffer(propertyKey + JSON.stringify(args));
-  return buff.toString('base64');
-  */
   return propertyKey + JSON.stringify((args));
 }
 
@@ -51,9 +47,7 @@ export function Cache(cacheTime: number, cacheType: CacheTypes = CacheTypes.InMe
       const cacheKey = getCacheKey(propertyKey, args);
       const result = cacheHolder.cache.readFromCache(cacheKey);
       if (result !== undefined) {
-        return new Promise((resolve) => {
-          resolve(result);
-        });
+        return Promise.resolve(result);
       }
       return method.apply(null, args).then((r) => {
         if (r) {

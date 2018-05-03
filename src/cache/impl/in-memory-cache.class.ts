@@ -1,40 +1,37 @@
+import {Logger} from '@nestjs/common';
 import ICache from '../interfaces/cache.interface';
 import IStorageItem from '../interfaces/storage-item.interface';
 
 import addSeconds = require('date-fns/add_seconds');
-import isAfter = require('date-fns/is_after');
+import isFuture = require('date-fns/is_future');
 
 export default class InMemoryCache implements ICache {
   private storage: IStorageItem[] = [];
 
   public readFromCache(cacheKey: string): any {
-    const storedItem = this.storage.find((item) => item.key === cacheKey);
+    Logger.log('items: ' + String(this.storage.length), 'Cache');
+    const storedItem = this.storage.find((item) => item.key === cacheKey && isFuture(item.validUntil));
     if (storedItem) {
-      const now = new Date();
-      if (isAfter(storedItem.validUntil, now)) {
-        return storedItem.value;
-      } else {
-        const index = this.storage.findIndex((item) => item.key === cacheKey);
-        if (index >= 0) {
-          this.storage.splice(index, 1);
-        }
-      }
+      return JSON.parse(storedItem.value);
     }
+    this.deleteCacheKey(cacheKey);
     return undefined;
   }
 
   public writeToCache(cacheKey: string, cacheValue: any, cacheTime: number) {
-    const now = new Date();
-    const validUntil = addSeconds(now, cacheTime);
-    const index = this.storage.findIndex((item) => item.key === cacheKey);
-    if (index >= 0) {
-      this.storage.splice(index, 1);
+    this.deleteCacheKey(cacheKey);
+    if (!!cacheValue) {
+      const validUntil = addSeconds(new Date(), cacheTime);
+      this.storage.push({
+        key: cacheKey,
+        validUntil,
+        value: JSON.stringify(cacheValue)
+      });
     }
-    this.storage.splice(index, 1);
-    this.storage.push({
-      key: cacheKey,
-      validUntil,
-      value: cacheValue
-    });
+
+  }
+
+  private deleteCacheKey(cacheKey: string) {
+    this.storage = this.storage.filter((item) => item.key !== cacheKey && isFuture(item.validUntil));
   }
 }
