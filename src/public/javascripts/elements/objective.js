@@ -1,6 +1,8 @@
 import log from 'debug';
+import Handlebars from 'handlebars';
 import UpdateReceiverElement from './update-receiver-element';
 import {timetools} from '../utils/timetools';
+import guildUpgrades from '../utils/guild-upgrades';
 
 const logger = log('Objective');
 
@@ -90,6 +92,10 @@ export default class Objective extends UpdateReceiverElement {
     this.initElements();
     this.initInfoUpdates();
     this.initCopyChatCode();
+    this.guildUpgrades = [];
+
+    const upgradeTemplate = document.querySelector('#upgrade-template').innerHTML;
+    this.upgradeFunction = Handlebars.compile(upgradeTemplate);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -107,6 +113,7 @@ export default class Objective extends UpdateReceiverElement {
     this.guildInfoElement = this.querySelector('.guild.value');
     this.heldInfoElement = this.querySelector('.turned.value');
     this.claimedInfoElement = this.querySelector('.claimed.value');
+    this.upgradesElement = this.querySelector('.upgrades');
   }
 
   initInfoUpdates() {
@@ -152,6 +159,11 @@ export default class Objective extends UpdateReceiverElement {
       this.dataIsClaimed = !!receivedData.claimed_by;
       this.dataLastFlipped = receivedData.last_flipped;
       this.dataClaimedAt = receivedData.claimed_at;
+
+      guildUpgrades.getUpgrades(receivedData.guild_upgrades).then((upgrades) => {
+        this.updateGuildUpgrades(upgrades);
+      });
+
       this.yakCounterElement.innerHTML = Objective.getDolyaksOutput(receivedData.yaks_delivered);
       if (receivedData.claimed_by) {
         this.guildInfoElement.innerHTML = receivedData.guild.name + ' [' + receivedData.guild.tag + ']';
@@ -204,6 +216,17 @@ export default class Objective extends UpdateReceiverElement {
   updateInfoTimers() {
     this.heldInfoElement.innerHTML = timetools.getPassedTime(this.dataLastFlipped);
     this.claimedInfoElement.innerHTML = timetools.getPassedTime(this.dataClaimedAt);
+  }
+
+  updateGuildUpgrades(upgrades) {
+    const notBothEmpty = this.guildUpgrades.length !== 0 && upgrades.length !== 0;
+    if (!upgrades.every((upgrade) => this.guildUpgrades.includes(upgrade)) && !notBothEmpty) {
+      this.upgradesElement.innerHTML = '';
+      upgrades.forEach((upgrade) => {
+        this.upgradesElement.insertAdjacentHTML('beforeend', this.upgradeFunction(upgrade));
+      });
+    }
+    this.guildUpgrades = upgrades;
   }
 
   setAttributeIfChanged(attribute, value) {

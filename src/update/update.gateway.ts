@@ -6,6 +6,7 @@ import {
   WebSocketGateway,
   WsResponse
 } from '@nestjs/websockets';
+import {Gw2ApiService} from '../gw2api/gw2-api.service';
 import {IMatchClient} from './interfaces/match-client.interface';
 import {IUpdateData} from './interfaces/UpdateData.interface';
 import {UpdateService} from './update.service';
@@ -17,16 +18,18 @@ export class UpdateGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   private clients: IMatchClient[] = [];
 
-  public get subscribedMatches(): string[] {
-    return this.clients.map((match): string => {
-      return match.matchId;
-    });
-  }
-
   constructor(
     @Inject(forwardRef(() => UpdateService))
-    private readonly updateService: UpdateService
+    private readonly updateService: UpdateService,
+    @Inject(forwardRef(() => Gw2ApiService))
+    private readonly gw2ApiService: Gw2ApiService
   ) {
+  }
+
+  public get subscribedMatches(): string[] {
+    return this.clients
+      .map((match): string => match.matchId)
+      .filter((matchId) => matchId !== '');
   }
 
   public handleConnection(client) {
@@ -55,6 +58,12 @@ export class UpdateGateway implements OnGatewayConnection, OnGatewayDisconnect {
     });
     this.updateService.pushFullUpdate(data).then().catch();
     return client.emit('subscribed', data);
+  }
+
+  @SubscribeMessage('upgrades')
+  public async onUpgrades(client, data): Promise<WsResponse<string>> {
+    const upgrades = await this.gw2ApiService.getGuildUpgrades(data);
+    return client.emit('upgrades', upgrades);
   }
 
   public sendUpdate(data: IUpdateData): void {

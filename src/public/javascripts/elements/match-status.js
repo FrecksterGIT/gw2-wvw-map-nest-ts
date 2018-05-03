@@ -1,7 +1,7 @@
 import log from 'debug';
 import UpdateReceiverElement from './update-receiver-element';
 import Handlebars from 'handlebars';
-import Chart from './chart';
+import Chart from '../utils/chart';
 
 const logger = log('MatchStatus');
 

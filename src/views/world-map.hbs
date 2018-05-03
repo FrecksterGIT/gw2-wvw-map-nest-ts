@@ -24,6 +24,7 @@
                                 <dt class="yaks">Dolyaks</dt>
                                 <dd class="yaks value"></dd>
                             </dl>
+                            <div class="upgrades"></div>
                         </section>
                         <aside></aside>
                         <figure class="waypoint"></figure>
@@ -129,4 +130,11 @@
             </script>
         </gw2-match-logger>
     </aside>
+
+    <script id="upgrade-template" type="text/x-handlebars-template">
+        <div class="upgrade">
+            <img src="\{{icon}}" alt="\{{name}}" title="\{{name}}"/><br/>
+            \{{name}}
+        </div>
+    </script>
 </div>
