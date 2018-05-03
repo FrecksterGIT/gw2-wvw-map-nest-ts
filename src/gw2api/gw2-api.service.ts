@@ -17,6 +17,20 @@ interface IWorldNames {
 @Injectable()
 export class Gw2ApiService {
 
+  private static worldsUrl: string = 'https://api.guildwars2.com/v2/worlds?ids=all';
+  private static matchesUrl: string = 'https://api.guildwars2.com/v2/wvw/matches?ids=';
+  private static objectivesUrl: string = 'https://api.guildwars2.com/v2/wvw/objectives?ids=all';
+  private static guildUrl: string = 'https://api.guildwars2.com/v2/guild/';
+  private static guildUpgradeUrl: string = 'https://api.guildwars2.com/v2/guild/upgrades/';
+  private static guildUpgradesUrl: string = 'https://api.guildwars2.com/v2/guild/upgrades?ids=';
+
+  private static MAP_SIZES = {
+    38: [[8958, 12798], [12030, 15870]],
+    95: [[5630, 11518], [8702, 14590]],
+    96: [[12798, 10878], [15870, 13950]],
+    1099: [[9214, 8958], [12286, 12030]]
+  };
+
   public static getCurrentSkirmish(skirmishes: ISkirmish[]): ISkirmish {
     return skirmishes.reduce((prev, skirmish) => {
       if (!prev) {
@@ -28,17 +42,6 @@ export class Gw2ApiService {
       return prev;
     }, null);
   }
-
-  private static worldsUrl: string = 'https://api.guildwars2.com/v2/worlds?ids=all';
-  private static matchesUrl: string = 'https://api.guildwars2.com/v2/wvw/matches?ids=';
-  private static objectivesUrl: string = 'https://api.guildwars2.com/v2/wvw/objectives?ids=all';
-  private static guildUrl: string = 'https://api.guildwars2.com/v2/guild/';
-  private static MAP_SIZES = {
-    38: [[8958, 12798], [12030, 15870]],
-    95: [[5630, 11518], [8702, 14590]],
-    96: [[12798, 10878], [15870, 13950]],
-    1099: [[9214, 8958], [12286, 12030]]
-  };
 
   private static async getJSONArray(url: string): Promise<any[]> {
     const response = await fetch(url);
@@ -56,6 +59,28 @@ export class Gw2ApiService {
     return await response.json();
   }
 
+  private static getDisplayCoordForObjective(obj: IObjective, mapId: number): number[] {
+    const map = Gw2ApiService.MAP_SIZES[mapId];
+    if (map) {
+      const mapSize = [
+        map[1][0] - map[0][0],
+        map[1][1] - map[0][1]
+      ];
+      const point = obj.coord;
+      if (point) {
+        const coord = [
+          point[0] - map[0][0],
+          point[1] - map[0][1]
+        ];
+        return [
+          coord[0] / mapSize[0] * 100,
+          coord[1] / mapSize[1] * 100
+        ];
+      }
+    }
+    return [0, 0];
+  }
+
   @Cache(3600)
   public async getWorlds(): Promise<IWorld[]> {
     return await Gw2ApiService.getJSONArray((Gw2ApiService.worldsUrl));
@@ -63,6 +88,9 @@ export class Gw2ApiService {
 
   @Cache(4)
   public async getMatches(matchIds: string[] = ['all']): Promise<IMatch[]> {
+    if (matchIds.length === 0) {
+      return [];
+    }
     const matchIdsParam = matchIds.join(',');
     return await Gw2ApiService.getJSONArray(Gw2ApiService.matchesUrl + matchIdsParam);
   }
@@ -70,6 +98,20 @@ export class Gw2ApiService {
   @Cache(3600)
   public async getObjectives(): Promise<IObjective[]> {
     return await Gw2ApiService.getJSONArray(Gw2ApiService.objectivesUrl);
+  }
+
+  @Cache(3600)
+  public async getGuildUpgrade(upgradeId: number): Promise<any> {
+    return await Gw2ApiService.getJSONObject(Gw2ApiService.guildUpgradeUrl + upgradeId);
+  }
+
+  @Cache(3600)
+  public async getGuildUpgrades(upgradeIds: string[] = ['all']): Promise<any> {
+    if (upgradeIds.length === 0) {
+      return [];
+    }
+    const upgradeIdsParam = upgradeIds.join(',');
+    return await Gw2ApiService.getJSONArray(Gw2ApiService.guildUpgradesUrl + upgradeIdsParam);
   }
 
   @Cache(3600)
@@ -110,33 +152,11 @@ export class Gw2ApiService {
     const display: IObjectiveDisplay[] = await Promise.all(
       objectives.map(async (obj) => {
         const ret: IObjectiveDisplay = obj;
-        ret.display_coord = this.getDisplayCoordForObjective(obj, ret.map_id);
+        ret.display_coord = Gw2ApiService.getDisplayCoordForObjective(obj, ret.map_id);
         return ret;
       }));
     const validMapIds = Object.keys(Gw2ApiService.MAP_SIZES);
     return display.filter((obj) => validMapIds.includes(String(obj.map_id)));
-  }
-
-  private getDisplayCoordForObjective(obj: IObjective, mapId: number): number[] {
-    const map = Gw2ApiService.MAP_SIZES[mapId];
-    if (map) {
-      const mapSize = [
-        map[1][0] - map[0][0],
-        map[1][1] - map[0][1]
-      ];
-      const point = obj.coord;
-      if (point) {
-        const coord = [
-          point[0] - map[0][0],
-          point[1] - map[0][1]
-        ];
-        return [
-          coord[0] / mapSize[0] * 100,
-          coord[1] / mapSize[1] * 100
-        ];
-      }
-    }
-    return [0, 0];
   }
 
   private getWorldNamesForMatch(match: IMatch, color: string, worlds: IWorld[]): IWorldNames {

@@ -3,12 +3,11 @@
     "tslint:recommended"
   ],
   "rules": {
-    "indent": {
-      "options": [
-        "spaces",
-        2
-      ]
-    },
+    "indent": [
+      true,
+      "spaces",
+      2
+    ],
     "quotemark": [
       true,
       "single"
@@ -20,17 +19,15 @@
         "multiline": "never"
       }
     ],
-    "one-line": [
-      false
-    ]
+    "member-ordering": false,
+    "one-line": false
   },
   "jsRules": {
-    "indent": {
-      "options": [
-        "spaces",
-        2
-      ]
-    },
+    "indent": [
+      true,
+      "spaces",
+      2
+    ],
     "quotemark": [
       true,
       "single"
@@ -42,8 +39,6 @@
         "multiline": "never"
       }
     ],
-    "one-line": [
-      false
-    ]
+    "one-line": false
   }
 }
