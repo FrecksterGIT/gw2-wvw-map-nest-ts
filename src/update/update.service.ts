@@ -12,7 +12,7 @@ import IDiff = deepDiff.IDiff;
 @Injectable()
 export class UpdateService {
 
-  private matchStates: IMatch[] = [];
+  private matchStates = [];
   private updateRunning;
 
   constructor(
@@ -25,7 +25,9 @@ export class UpdateService {
     if (!this.updateRunning) {
       Logger.log('starting updates', 'UpdateService');
       this.updateRunning = setInterval(async () => {
-        this.matchUpdate().then().catch();
+        this.updateGateway.getSubscribedLanguages().forEach((language) => {
+          this.matchUpdate(language).then().catch();
+        });
       }, 5000);
     }
   }
@@ -36,29 +38,30 @@ export class UpdateService {
     this.updateRunning = null;
   }
 
-  public async pushFullUpdate(matchId: string): Promise<void> {
-    const match = await this.gw2ApiService.getMatch(matchId);
-    const display = await this.gw2ApiService.getMatchDisplay(match);
+  public async pushFullUpdate(matchId: string, lang: string): Promise<void> {
+    const match = await this.gw2ApiService.getMatch(matchId, lang);
+    const display = await this.gw2ApiService.getMatchDisplay(match, lang);
     const update = new SubscribeUpdate(display);
-    this.updateGateway.sendUpdate(update);
-    await this.handleDiff(match);
+    this.updateGateway.sendUpdate(update, lang);
+    await this.handleDiff(match, null, lang);
   }
 
-  public async matchUpdate(): Promise<void> {
-    const subscribedMatches = this.updateGateway.subscribedMatches;
+  public async matchUpdate(lang): Promise<void> {
+    const subscribedMatches = this.updateGateway.getSubscribedMatches(lang);
     if (subscribedMatches.length === 0) {
       return;
     }
-    const currentMatchStates = await this.gw2ApiService.getMatches(subscribedMatches);
+    this.matchStates[lang] = this.matchStates[lang] || [];
+    const currentMatchStates = await this.gw2ApiService.getMatches(subscribedMatches, lang);
     const saveCurrentMatchStates: IMatch[] = deepcopy<IMatch[]>(currentMatchStates);
     currentMatchStates.forEach(async (currentMatchState) => {
-      const oldMatchState = this.matchStates.find((oldMatch) => oldMatch.id === currentMatchState.id);
-      await this.handleDiff(currentMatchState, oldMatchState);
+      const oldMatchState = this.matchStates[lang].find((oldMatch) => oldMatch.id === currentMatchState.id);
+      await this.handleDiff(currentMatchState, oldMatchState, lang);
     });
-    this.matchStates = saveCurrentMatchStates;
+    this.matchStates[lang] = saveCurrentMatchStates;
   }
 
-  private async handleDiff(newMatchState: IMatch, oldMatchState?: IMatch): Promise<void> {
+  private async handleDiff(newMatchState: IMatch, oldMatchState: IMatch, lang: string): Promise<void> {
     let oldMatch = {};
     if (oldMatchState) {
       oldMatch = oldMatchState;
@@ -76,14 +79,14 @@ export class UpdateService {
             break;
           case 'scores':
             if (!scoresSend) {
-              this.handleScoresChange(newMatchState);
+              this.handleScoresChange(newMatchState, lang);
               scoresSend = true;
             }
             break;
         }
       });
       const changed: IMatchObjective[] = [...changedObjectives];
-      await this.handleObjectiveChanges(newMatchState, changed);
+      await this.handleObjectiveChanges(newMatchState, changed, lang);
     }
   }
 
@@ -102,7 +105,10 @@ export class UpdateService {
     return objectives;
   }
 
-  private async handleObjectiveChanges(matchState: IMatch, changedObjectives: IMatchObjective[]): Promise<void> {
+  private async handleObjectiveChanges(
+    matchState: IMatch,
+    changedObjectives: IMatchObjective[],
+    lang: string): Promise<void> {
     if (changedObjectives.length > 0) {
 
       const validTypes = [
@@ -124,18 +130,18 @@ export class UpdateService {
           return obj;
         }));
       const update = new ObjectiveUpdate(matchState.id, objectives);
-      this.updateGateway.sendUpdate(update);
+      this.updateGateway.sendUpdate(update, lang);
     }
   }
 
-  private handleScoresChange(matchState: IMatch): void {
+  private handleScoresChange(matchState: IMatch, lang: string): void {
     const currentScores = Gw2ApiService.getCurrentSkirmish(matchState.skirmishes).scores;
     const update = new ScoreUpdate(matchState.id, {
       income: this.calculateIncome(matchState),
       scores: currentScores,
       victoryPoints: matchState.victory_points
     });
-    this.updateGateway.sendUpdate(update);
+    this.updateGateway.sendUpdate(update, lang);
   }
 
   private calculateIncome(matchState: IMatch): IColorsWithNumbers {

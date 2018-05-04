@@ -1,4 +1,4 @@
-import {Controller, Get, Render} from '@nestjs/common';
+import {Controller, Get, Logger, Param, Render} from '@nestjs/common';
 import {IMatchDisplay} from '../gw2api/interfaces/match-display.interface';
 import {WorldMapService} from './world-map.service';
 
@@ -8,11 +8,12 @@ export class WorldMapController {
   constructor(private readonly mapService: WorldMapService) {
   }
 
-  @Get()
+  @Get(':lang?')
   @Render('world-map')
-  public async root() {
-    const matches: IMatchDisplay[] = await this.mapService.getMatchesData();
-    const objectives = await this.mapService.getObjectives();
+  public async root(@Param('lang') lang: string = 'en') {
+    Logger.log(lang, 'Controller');
+    const matches: IMatchDisplay[] = await this.mapService.getMatchesData(lang);
+    const objectives = await this.mapService.getObjectives(lang);
     return {
       map: objectives,
       matches,

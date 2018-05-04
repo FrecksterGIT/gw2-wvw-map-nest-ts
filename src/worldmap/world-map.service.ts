@@ -11,17 +11,17 @@ export class WorldMapService {
   constructor(private readonly gw2ApiService: Gw2ApiService) {
   }
 
-  public async getObjectives(): Promise<any> {
-    const objectives = await this.gw2ApiService.getObjectives();
+  public async getObjectives(lang: string): Promise<any> {
+    const objectives = await this.gw2ApiService.getObjectives(lang);
     const filledObjectives: IObjectiveDisplay[] = await this.fillObjectives(objectives);
     return this.sortObjectives(filledObjectives);
   }
 
-  public async getMatchesData(): Promise<IMatchDisplay[]> {
-    await this.gw2ApiService.getWorlds();
-    const matchData = await this.gw2ApiService.getMatches();
+  public async getMatchesData(lang: string): Promise<IMatchDisplay[]> {
+    await this.gw2ApiService.getWorlds(lang);
+    const matchData = await this.gw2ApiService.getMatches(['all'], lang);
     return await Promise.all(
-      matchData.map(async (match): Promise<IMatchDisplay> => await this.fillMatch(match))
+      matchData.map(async (match): Promise<IMatchDisplay> => await this.fillMatch(match, lang))
     );
   }
 
@@ -38,7 +38,7 @@ export class WorldMapService {
     return await this.gw2ApiService.getObjectivesDisplay(objectives);
   }
 
-  private async fillMatch(match: IMatch): Promise<IMatchDisplay> {
-    return this.gw2ApiService.getMatchDisplay(match);
+  private async fillMatch(match: IMatch, lang): Promise<IMatchDisplay> {
+    return this.gw2ApiService.getMatchDisplay(match, lang);
   }
 }

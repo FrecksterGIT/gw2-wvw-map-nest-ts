@@ -26,15 +26,22 @@ export class UpdateGateway implements OnGatewayConnection, OnGatewayDisconnect {
   ) {
   }
 
-  public get subscribedMatches(): string[] {
+  public getSubscribedMatches(lang: string): string[] {
     return this.clients
-      .map((match): string => match.matchId)
-      .filter((matchId) => matchId !== '');
+      .filter((client) => client.matchId !== '' && client.language === lang)
+      .map((client): string => client.matchId);
+  }
+
+  public getSubscribedLanguages(): string[] {
+    return this.clients
+      .filter((client) => client.matchId !== '')
+      .map((client): string => client.language);
   }
 
   public handleConnection(client) {
     this.clients.push({
       client,
+      language: '',
       matchId: ''
     });
     this.updateService.startUpdates();
@@ -52,23 +59,24 @@ export class UpdateGateway implements OnGatewayConnection, OnGatewayDisconnect {
     Logger.log('client subscribed: ' + JSON.stringify(data), 'UpdateGateway');
     this.clients = this.clients.map((c) => {
       if (c.client === client) {
-        c.matchId = data;
+        c.matchId = data.matchId;
+        c.language = data.language;
       }
       return c;
     });
-    this.updateService.pushFullUpdate(data).then().catch();
+    this.updateService.pushFullUpdate(data.matchId, data.language).then().catch();
     return client.emit('subscribed', data);
   }
 
   @SubscribeMessage('upgrades')
   public async onUpgrades(client, data): Promise<WsResponse<string>> {
-    const upgrades = await this.gw2ApiService.getGuildUpgrades(data);
+    const upgrades = await this.gw2ApiService.getGuildUpgrades(data.data, data.language);
     return client.emit('upgrades', upgrades);
   }
 
-  public sendUpdate(data: IUpdateData): void {
+  public sendUpdate(data: IUpdateData, lang): void {
     this.clients.forEach((client) => {
-      if (client.matchId === data.id) {
+      if (client.matchId === data.id && client.language === lang) {
         client.client.emit('update', data);
       }
     });
