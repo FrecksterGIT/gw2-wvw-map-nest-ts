@@ -1,5 +1,5 @@
-import {IObjectivesPayload} from '../interfaces/ObjectivesPayload.interface';
-import {IUpdateData} from '../interfaces/UpdateData.interface';
+import {IObjectivesPayload} from '../interfaces/objectives-payload.interface';
+import {IUpdateData} from '../interfaces/update-data.interface';
 
 export class ObjectiveUpdate implements IUpdateData {
 

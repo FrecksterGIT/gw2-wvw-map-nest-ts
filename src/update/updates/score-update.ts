@@ -1,5 +1,5 @@
-import {IScorePayload} from '../interfaces/ScorePayload.interface';
-import {IUpdateData} from '../interfaces/UpdateData.interface';
+import {IScorePayload} from '../interfaces/score-payload.interface';
+import {IUpdateData} from '../interfaces/update-data.interface';
 
 export class ScoreUpdate implements IUpdateData {
 

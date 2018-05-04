@@ -1,7 +1,7 @@
 import {Gw2ApiService} from '../../gw2api/gw2-api.service';
 import {IMatchDisplay} from '../../gw2api/interfaces/match-display.interface';
-import {ISubscribePayload} from '../interfaces/SubscribePayload.interface';
-import {IUpdateData} from '../interfaces/UpdateData.interface';
+import {ISubscribePayload} from '../interfaces/subscribe-payload.interface';
+import {IUpdateData} from '../interfaces/update-data.interface';
 
 export class SubscribeUpdate implements IUpdateData {
 

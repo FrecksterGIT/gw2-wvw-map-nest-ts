@@ -8,7 +8,7 @@ import {
 } from '@nestjs/websockets';
 import {Gw2ApiService} from '../gw2api/gw2-api.service';
 import {IMatchClient} from './interfaces/match-client.interface';
-import {IUpdateData} from './interfaces/UpdateData.interface';
+import {IUpdateData} from './interfaces/update-data.interface';
 import {UpdateService} from './update.service';
 
 @WebSocketGateway({
