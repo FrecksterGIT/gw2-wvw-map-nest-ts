@@ -14,7 +14,7 @@ class SocketConnection {
   static getLanguage() {
     const path = window.location.pathname;
     const match = /([a-z]{2})/.exec(path);
-    return match[1] || 'en';
+    return match && match[1] ? match[1] : 'en';
   }
 
   subscribe() {
