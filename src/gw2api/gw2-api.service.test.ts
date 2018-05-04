@@ -1,9 +1,3 @@
-/*
-  public async getWorlds(): Promise<IWorld[]> {
-  public async getMatches(): Promise<IMatch[]> {
-  public async getMatch(id: string): Promise<IMatch> {
-*/
-
 import {Test} from '@nestjs/testing';
 import {Gw2ApiService} from './gw2-api.service';
 import {IMatch} from './interfaces/match.interface';
@@ -21,7 +15,7 @@ describe('Gw2ApiService', () => {
   });
 
   it('should get all 51 worlds', async () => {
-    const result = await gw2ApiService.getWorlds();
+    const result = await gw2ApiService.getWorlds('en');
     expect(result.length).toEqual(51);
   });
 
@@ -31,17 +25,17 @@ describe('Gw2ApiService', () => {
   });
 
   it('should get data for all 9 matches', async () => {
-    const result = await gw2ApiService.getMatches();
+    const result = await gw2ApiService.getMatches(['all'], 'en');
     expect(result.length).toEqual(9);
   });
 
   it('should get data for selected matches', async () => {
-    const result = await gw2ApiService.getMatches(['1-1', '2-1']);
+    const result = await gw2ApiService.getMatches(['1-1', '2-1'], 'en');
     expect(result.length).toEqual(2);
   });
 
   it('should get current match data (start- and end-time)', async () => {
-    const result: IMatch = await gw2ApiService.getMatch('2-1');
+    const result: IMatch = await gw2ApiService.getMatch('2-1', 'en');
     expect(result).toHaveProperty('scores');
     const startTime = Date.parse(result.start_time);
     const endTime = Date.parse(result.end_time);
