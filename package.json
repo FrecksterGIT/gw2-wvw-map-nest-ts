@@ -74,7 +74,7 @@
     "hbs": "^4.0.1",
     "node-fetch": "^2.1.2",
     "reflect-metadata": "^0.1.12",
-    "rxjs": "^6.0.0",
+    "rxjs": "^6.1.0",
     "ts-deepcopy": "^0.1.4"
   },
   "jest": {
