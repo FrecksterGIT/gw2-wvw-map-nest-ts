@@ -31,7 +31,7 @@ class SocketConnection {
 
   sendSubscribe(matchId) {
     const subscribeData = {
-      language: Socket.getLanguage(),
+      language: SocketConnection.getLanguage(),
       matchId: matchId ? matchId : '2-1'
     };
     this.emit('subscribe', subscribeData);
@@ -40,7 +40,7 @@ class SocketConnection {
   guildUpgrades(upgradeIds) {
     const data = {
       data: upgradeIds,
-      language: Socket.getLanguage()
+      language: SocketConnection.getLanguage()
     };
     this.emit('upgrades', data);
   }
