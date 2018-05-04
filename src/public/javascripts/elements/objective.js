@@ -75,7 +75,7 @@ export default class Objective extends UpdateReceiverElement {
 
   static getDolyaksOutput(yaks = 0) {
     if (yaks < 20) {
-      return yaks + '/ 20';
+      return yaks + ' / 20';
     }
     if (yaks <= 60) {
       return (yaks - 20) + ' / 40';
