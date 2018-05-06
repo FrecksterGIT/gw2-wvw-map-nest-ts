@@ -14,6 +14,7 @@ export class WorldMapController {
     const matches: IMatchDisplay[] = await this.mapService.getMatchesData(lang);
     const objectives = await this.mapService.getObjectives(lang);
     return {
+      locale: lang,
       map: objectives,
       matches,
       title: 'GW2 - WvW Map'
