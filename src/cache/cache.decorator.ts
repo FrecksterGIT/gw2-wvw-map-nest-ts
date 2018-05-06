@@ -49,7 +49,7 @@ export function Cache(cacheTime: number, cacheType: CacheTypes = CacheTypes.InMe
       if (result !== undefined) {
         return Promise.resolve(result);
       }
-      return method.apply(null, args).then((r) => {
+      return method.apply(target, args).then((r) => {
         if (r) {
           cacheHolder.cache.writeToCache(cacheKey, r, cacheTime);
         }

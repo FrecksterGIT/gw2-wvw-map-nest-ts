@@ -19,9 +19,9 @@ export class WorldMapService {
 
   public async getMatchesData(lang: string): Promise<IMatchDisplay[]> {
     await this.gw2ApiService.getWorlds(lang);
-    const matchData = await this.gw2ApiService.getMatches(['all'], lang);
+    const matchData = await this.gw2ApiService.getMatches(lang);
     return await Promise.all(
-      matchData.map(async (match): Promise<IMatchDisplay> => await this.fillMatch(match, lang))
+      matchData.map((match): Promise<IMatchDisplay> => this.fillMatch(match, lang))
     );
   }
 

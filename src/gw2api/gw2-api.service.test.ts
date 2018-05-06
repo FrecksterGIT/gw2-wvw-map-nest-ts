@@ -25,12 +25,12 @@ describe('Gw2ApiService', () => {
   });
 
   it('should get data for all 9 matches', async () => {
-    const result = await gw2ApiService.getMatches(['all'], 'en');
+    const result = await gw2ApiService.getMatches('en');
     expect(result.length).toEqual(9);
   });
 
   it('should get data for selected matches', async () => {
-    const result = await gw2ApiService.getMatches(['1-1', '2-1'], 'en');
+    const result = await gw2ApiService.getMatchesByIds(['1-1', '2-1'], 'en');
     expect(result.length).toEqual(2);
   });
 

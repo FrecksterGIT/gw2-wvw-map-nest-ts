@@ -52,8 +52,9 @@ export class UpdateService {
       return;
     }
     this.matchStates[lang] = this.matchStates[lang] || [];
-    const currentMatchStates = await this.gw2ApiService.getMatches(subscribedMatches, lang);
+    const currentMatchStates = await this.gw2ApiService.getMatchesByIds(subscribedMatches, lang);
     const saveCurrentMatchStates: IMatch[] = deepcopy<IMatch[]>(currentMatchStates);
+
     currentMatchStates.forEach(async (currentMatchState) => {
       const oldMatchState = this.matchStates[lang].find((oldMatch) => oldMatch.id === currentMatchState.id);
       await this.handleDiff(currentMatchState, oldMatchState, lang);
