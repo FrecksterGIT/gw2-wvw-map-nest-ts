@@ -1,4 +1,4 @@
-import {INestApplication, Logger} from '@nestjs/common';
+import {INestApplication} from '@nestjs/common';
 import {NestFactory} from '@nestjs/core';
 import * as express from 'express';
 import * as minifyHTML from 'express-minify-html';
@@ -36,7 +36,6 @@ function setupI18n() {
     locales: ['en', 'de', 'es', 'fr']
   });
   hbs.registerHelper('t', (key, locale) => {
-    Logger.log(key + ' ' + locale, 'I18n');
     return i18n.__({phrase: key, locale});
   });
 }
