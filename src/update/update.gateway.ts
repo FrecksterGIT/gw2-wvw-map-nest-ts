@@ -58,7 +58,7 @@ export class UpdateGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('subscribe')
   public onSubscribe(client, data): WsResponse<any> {
     Logger.log('client subscribed: ' + JSON.stringify(data), 'UpdateGateway');
-    if (!data.matchId && data.language) {
+    if (!data.matchId || !data.language) {
       return {event: 'subscribed', data: ''};
     }
     this.clients = this.clients.map((c) => {
