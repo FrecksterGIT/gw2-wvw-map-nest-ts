@@ -6,5 +6,8 @@
   "World": "Welten",
   "Income": "Einkommen",
   "Points": "Punkte",
-  "Victory Points": "Siegpunkte"
+  "Victory Points": "Siegpunkte",
+  "captured by": "wurde eingenommen von",
+  "from": "von",
+  "claimed by": "wurde beansprucht von"
 }

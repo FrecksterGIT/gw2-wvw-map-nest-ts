@@ -6,5 +6,8 @@
   "World": "World",
   "Income": "Income",
   "Points": "Points",
-  "Victory Points": "Victory Points"
+  "Victory Points": "Victory Points",
+  "captured by": "captured by",
+  "from": "from",
+  "claimed by": "claimed by"
 }
