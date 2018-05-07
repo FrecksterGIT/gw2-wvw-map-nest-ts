@@ -4,7 +4,7 @@ import Cookie from 'js-cookie';
 
 const logger = log('Socket');
 
-class SocketConnection {
+export class SocketConnection {
 
   constructor() {
     this.socketConnection = io('/update');

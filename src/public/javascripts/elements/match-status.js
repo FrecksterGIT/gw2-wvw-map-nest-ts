@@ -3,6 +3,7 @@ import UpdateReceiverElement from './update-receiver-element';
 import Handlebars from 'handlebars';
 import Chart from '../utils/chart';
 
+const i18n = require('i18n-for-browser');
 const logger = log('MatchStatus');
 
 export default class MatchStatus extends UpdateReceiverElement {
@@ -31,16 +32,16 @@ export default class MatchStatus extends UpdateReceiverElement {
 
   handleScoreUpdate(data, updateChart = true) {
     const scores = {
-      header: 'Points',
+      header: i18n.__('Points'),
       values: data.payload.scores
     };
 
     const income = {
-      header: 'Income',
+      header: i18n.__('Income'),
       values: data.payload.income
     };
     const victoryPoints = {
-      header: 'Victory Points',
+      header: i18n.__('Victory Points'),
       values: data.payload.victoryPoints
     };
     this.querySelector('.scores').innerHTML = this.numbersFunction(scores);

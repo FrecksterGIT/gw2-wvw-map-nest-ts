@@ -32,8 +32,9 @@ function setupViewEngine(app) {
 
 function setupI18n() {
   i18n.configure({
-    directory: path.join(__dirname, '../locales'),
-    locales: ['en', 'de', 'es', 'fr']
+    directory: path.join(__dirname, '../dist/public/locales'),
+    locales: ['en', 'de', 'es', 'fr'],
+    updateFiles: false
   });
   hbs.registerHelper('t', (key, locale) => {
     return i18n.__({phrase: key, locale});
