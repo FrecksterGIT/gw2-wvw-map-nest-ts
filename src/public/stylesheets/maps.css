@@ -1,6 +1,5 @@
 .world {
-    background-image: url(/static/images/world.jpg);
-    background-repeat: no-repeat;
+    background: url(../images/world.jpg) no-repeat;
     background-size: contain;
     display: block;
     height: 0;
