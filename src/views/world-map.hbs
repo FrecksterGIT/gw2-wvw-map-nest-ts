@@ -2,6 +2,13 @@
     <h1>{{title}}</h1>
     <p>Welcome to {{title}}</p>
 
+    <div class="lang-switch">
+        <a href="/">en</a>
+        <a href="/es">es</a>
+        <a href="/de">de</a>
+        <a href="/fr">fr</a>
+    </div>
+
     <div class="world">
         {{#each map as |objectives mapId|}}
             <div class="map" data-map-id="{{mapId}}">
