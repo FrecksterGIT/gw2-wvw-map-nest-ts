@@ -10,6 +10,22 @@
     width: 100%;
 }
 
+.world:before, .world:after {
+    background: url(../images/map-border.png) no-repeat top left;
+    content: "";
+    height: 50px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.world:after {
+    bottom: 0;
+    top: auto;
+    transform: rotate(180deg);
+}
+
 .map {
     height: auto;
     position: absolute;
