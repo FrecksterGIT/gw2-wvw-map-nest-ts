@@ -17,7 +17,7 @@ export class WorldMapController {
       locale: lang,
       map: objectives,
       matches,
-      title: 'GW2 - WvW Map'
+      title: 'Guild Wars 2 - WvW Map'
     };
   }
 
