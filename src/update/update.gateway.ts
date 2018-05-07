@@ -29,13 +29,15 @@ export class UpdateGateway implements OnGatewayConnection, OnGatewayDisconnect {
   public getSubscribedMatches(lang: string): string[] {
     return this.clients
       .filter((client) => client.matchId !== '' && client.language === lang)
-      .map((client): string => client.matchId);
+      .map((client): string => client.matchId)
+      .filter((v, i, a) => a.indexOf(v) === i);
   }
 
   public getSubscribedLanguages(): string[] {
     return this.clients
       .filter((client) => client.matchId !== '')
-      .map((client): string => client.language);
+      .map((client): string => client.language)
+      .filter((v, i, a) => a.indexOf(v) === i);
   }
 
   public handleConnection(client) {
@@ -44,7 +46,6 @@ export class UpdateGateway implements OnGatewayConnection, OnGatewayDisconnect {
       language: '',
       matchId: ''
     });
-    this.updateService.startUpdates();
   }
 
   public handleDisconnect(client) {
@@ -55,7 +56,7 @@ export class UpdateGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   @SubscribeMessage('subscribe')
-  public async onSubscribe(client, data): Promise<WsResponse<string>> {
+  public onSubscribe(client, data): WsResponse<any> {
     Logger.log('client subscribed: ' + JSON.stringify(data), 'UpdateGateway');
     this.clients = this.clients.map((c) => {
       if (c.client === client) {
@@ -64,14 +65,15 @@ export class UpdateGateway implements OnGatewayConnection, OnGatewayDisconnect {
       }
       return c;
     });
+    this.updateService.startUpdates();
     this.updateService.pushFullUpdate(data.matchId, data.language).then().catch();
-    return client.emit('subscribed', data);
+    return {event: 'subscribed', data};
   }
 
   @SubscribeMessage('upgrades')
-  public async onUpgrades(client, data): Promise<WsResponse<string>> {
+  public async onUpgrades(client, data): Promise<WsResponse<any>> {
     const upgrades = await this.gw2ApiService.getGuildUpgrades(data.data, data.language);
-    return client.emit('upgrades', upgrades);
+    return {event: 'upgrades', data: upgrades};
   }
 
   public sendUpdate(data: IUpdateData, lang): void {
