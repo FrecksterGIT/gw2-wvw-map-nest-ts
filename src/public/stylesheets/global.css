@@ -21,3 +21,13 @@ body {
     display: flex;
     flex-flow: nowrap;
 }
+
+.lang-switch {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.lang-switch a {
+    color: var(--color-gray);
+    text-decoration: none;
+}

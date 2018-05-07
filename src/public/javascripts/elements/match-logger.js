@@ -67,10 +67,10 @@ export default class MatchLogger extends UpdateReceiverElement {
       let content = '';
       switch (change.type) {
         case 'owner':
-          content = this.ownerLogFunction(change, {data: this.intlData});
+          content = this.ownerLogFunction(change);
           break;
         case 'claim':
-          content = this.claimLogFunction(change, {data: this.intlData});
+          content = this.claimLogFunction(change);
           break;
       }
       this.insertAdjacentHTML('afterbegin', content);

@@ -164,6 +164,11 @@ gw2-objective section {
     width: 170px;
 }
 
+[lang="de"] gw2-objective section,
+[lang="es"] gw2-objective section{
+    width: 200px;
+}
+
 gw2-objective section.left {
     left: -210px;
 }
@@ -188,6 +193,11 @@ gw2-objective dl {
 
 gw2-objective dt {
     width: 50px;
+}
+
+[lang="de"] gw2-objective dt,
+[lang="es"] gw2-objective dt {
+    width: 80px;
 }
 
 gw2-objective dd {
@@ -222,6 +232,11 @@ gw2-objective[data-is-claimed="true"] section {
     background-size: 50px 50px;
     padding-left: 70px;
     width: 230px;
+}
+
+[lang="de"] gw2-objective[data-is-claimed="true"] section,
+[lang="es"] gw2-objective[data-is-claimed="true"] section {
+    width: 260px;
 }
 
 gw2-objective[data-tier="3"] .yaks {

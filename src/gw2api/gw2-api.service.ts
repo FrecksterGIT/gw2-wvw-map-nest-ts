@@ -18,7 +18,8 @@ interface IWorldNames {
 export class Gw2ApiService {
 
   private static worldsUrl: string = 'https://api.guildwars2.com/v2/worlds?ids=all';
-  private static matchesUrl: string = 'https://api.guildwars2.com/v2/wvw/matches?ids=';
+  private static matchIdsUrl: string = 'https://api.guildwars2.com/v2/wvw/matches';
+  private static matchesUrl: string = 'https://api.guildwars2.com/v2/wvw/matches/';
   private static objectivesUrl: string = 'https://api.guildwars2.com/v2/wvw/objectives?ids=all';
   private static guildUrl: string = 'https://api.guildwars2.com/v2/guild/';
   private static guildUpgradeUrl: string = 'https://api.guildwars2.com/v2/guild/upgrades/';
@@ -82,36 +83,46 @@ export class Gw2ApiService {
   }
 
   @Cache(3600)
-  public async getWorlds(): Promise<IWorld[]> {
-    return await Gw2ApiService.getJSONArray((Gw2ApiService.worldsUrl));
+  public async getWorlds(lang: string): Promise<IWorld[]> {
+    return await Gw2ApiService.getJSONArray((Gw2ApiService.worldsUrl + '&lang=' + lang));
+  }
+
+  public async getMatches(lang) {
+    const allMatchIds = await Gw2ApiService.getJSONArray(Gw2ApiService.matchIdsUrl);
+    return await this.getMatchesByIds(allMatchIds, lang);
+  }
+
+  public async getMatchesByIds(matchIds: string[] = [], lang: string): Promise<IMatch[]> {
+    return Promise.all(matchIds.map((matchId) => {
+      return this.getMatch(matchId, lang);
+    }));
   }
 
   @Cache(4)
-  public async getMatches(matchIds: string[] = ['all']): Promise<IMatch[]> {
-    if (matchIds.length === 0) {
-      return [];
+  public async getMatch(matchId: string, lang: string): Promise<IMatch> {
+    if (matchId.match(/\d-\d/)) {
+      return await Gw2ApiService.getJSONObject(Gw2ApiService.matchesUrl + matchId + '?lang=' + lang);
     }
-    const matchIdsParam = matchIds.join(',');
-    return await Gw2ApiService.getJSONArray(Gw2ApiService.matchesUrl + matchIdsParam);
+    return null;
   }
 
   @Cache(3600)
-  public async getObjectives(): Promise<IObjective[]> {
-    return await Gw2ApiService.getJSONArray(Gw2ApiService.objectivesUrl);
+  public async getObjectives(lang: string): Promise<IObjective[]> {
+    return await Gw2ApiService.getJSONArray(Gw2ApiService.objectivesUrl + '&lang=' + lang);
   }
 
   @Cache(3600)
-  public async getGuildUpgrade(upgradeId: number): Promise<any> {
-    return await Gw2ApiService.getJSONObject(Gw2ApiService.guildUpgradeUrl + upgradeId);
+  public async getGuildUpgrade(upgradeId: number, lang: string): Promise<any> {
+    return await Gw2ApiService.getJSONObject(Gw2ApiService.guildUpgradeUrl + upgradeId + '?lang=' + lang);
   }
 
   @Cache(3600)
-  public async getGuildUpgrades(upgradeIds: string[] = ['all']): Promise<any> {
+  public async getGuildUpgrades(upgradeIds: string[] = ['all'], lang: string): Promise<any> {
     if (upgradeIds.length === 0) {
       return [];
     }
     const upgradeIdsParam = upgradeIds.join(',');
-    return await Gw2ApiService.getJSONArray(Gw2ApiService.guildUpgradesUrl + upgradeIdsParam);
+    return await Gw2ApiService.getJSONArray(Gw2ApiService.guildUpgradesUrl + upgradeIdsParam + '&lang=' + lang);
   }
 
   @Cache(3600)
@@ -119,14 +130,9 @@ export class Gw2ApiService {
     return await Gw2ApiService.getJSONObject(Gw2ApiService.guildUrl + guildId);
   }
 
-  public async getMatch(matchId: string): Promise<IMatch> {
-    const matches = await this.getMatches([matchId]);
-    return matches.pop();
-  }
-
-  public async getMatchDisplay(match: IMatch): Promise<IMatchDisplay> {
+  public async getMatchDisplay(match: IMatch, lang: string): Promise<IMatchDisplay> {
     const display: IMatchDisplay = match;
-    const worlds = await this.getWorlds();
+    const worlds = await this.getWorlds(lang);
     const blueWorlds: IWorldNames = await this.getWorldNamesForMatch(match, 'blue', worlds);
     const greenWorlds: IWorldNames = await this.getWorldNamesForMatch(match, 'green', worlds);
     const redWorlds: IWorldNames = await this.getWorldNamesForMatch(match, 'red', worlds);

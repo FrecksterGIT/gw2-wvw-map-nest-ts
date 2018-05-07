@@ -1,6 +1,13 @@
-<div class="container">
+<div class="container" lang="{{locale}}">
     <h1>{{title}}</h1>
     <p>Welcome to {{title}}</p>
+
+    <div class="lang-switch">
+        <a href="/">en</a>
+        <a href="/es">es</a>
+        <a href="/de">de</a>
+        <a href="/fr">fr</a>
+    </div>
 
     <div class="world">
         {{#each map as |objectives mapId|}}
@@ -15,13 +22,13 @@
                         <section>
                             <b>{{name}}</b>
                             <dl>
-                                <dt class="turned">Turned</dt>
+                                <dt class="turned">{{t 'Turned' ../../locale}}</dt>
                                 <dd class="turned value"></dd>
-                                <dt class="guild">Guild</dt>
+                                <dt class="guild">{{t 'Guild' ../../locale}}</dt>
                                 <dd class="guild value"></dd>
-                                <dt class="claimed">Claimed</dt>
+                                <dt class="claimed">{{t 'Claimed' ../../locale}}</dt>
                                 <dd class="claimed value"></dd>
-                                <dt class="yaks">Dolyaks</dt>
+                                <dt class="yaks">{{t 'Dolyaks' ../../locale}}</dt>
                                 <dd class="yaks value"></dd>
                             </dl>
                             <div class="upgrades"></div>
@@ -45,7 +52,7 @@
 
             <script id="worlds-template" type="text/x-handlebars-template">
                 <ul class="worlds" data-match-id="\{{id}}">
-                    <li class="header">World</li>
+                    <li class="header">{{t "World" locale}}</li>
                     <li class="green">
                         \{{main_worlds.green}}
                         \{{#if link_worlds.green}}
@@ -123,10 +130,10 @@
 
         <gw2-match-logger data-subscribe="SubscribeUpdate,ObjectiveUpdate">
             <script id="log-owner-template" type="text/x-handlebars-template">
-                <div data-changed-objective="\{{id}}"><span>\{{formatTime at}}:</span> <span class="\{{toClass}}">\{{name}}</span> captured by <span class="\{{toClass}}">\{{to}}</span>\{{#if from}} from <span class="\{{fromClass}}">\{{from}}</span>\{{/if}}.</div>
+                <div data-changed-objective="\{{id}}"><span>\{{formatTime at}}:</span> <span class="\{{toClass}}">\{{name}}</span> \{{t 'captured by'}} <span class="\{{toClass}}">\{{to}}</span>\{{#if from}} \{{t 'from'}} <span class="\{{fromClass}}">\{{from}}</span>\{{/if}}.</div>
             </script>
             <script id="log-claim-template" type="text/x-handlebars-template">
-                <div data-changed-objective="\{{id}}"><span>\{{formatTime at}}:</span> <span class="\{{objectiveClass}}">\{{name}}</span> claimed by <span class="\{{objectiveClass}}">\{{to}}</span>.</div>
+                <div data-changed-objective="\{{id}}"><span>\{{formatTime at}}:</span> <span class="\{{objectiveClass}}">\{{name}}</span> \{{t 'claimed by'}} <span class="\{{objectiveClass}}">\{{to}}</span>.</div>
             </script>
         </gw2-match-logger>
     </aside>

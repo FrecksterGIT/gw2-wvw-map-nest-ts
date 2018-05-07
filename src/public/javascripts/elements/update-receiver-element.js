@@ -37,7 +37,11 @@ export default class UpdateReceiverElement extends HTMLElement {
   }
 
   get relevantUpdates() {
-    const subscribe = this.getAttribute('data-subscribe');
-    return subscribe.split(',').map((type) => type.trim());
+    this.subscribed = this.subscribed || [];
+    if (this.subscribed.length === 0) {
+      this.subscribed = this.getAttribute('data-subscribe')
+        .split(',').map((type) => type.trim());
+    }
+    return this.subscribed;
   }
 }

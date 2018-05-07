@@ -15,11 +15,33 @@ gw2-match-status ul,
 gw2-match-status li {
     list-style: none;
     margin: 0;
+    padding: 0;
+}
+
+gw2-match-status li {
     padding: 1px 10px;
+}
+
+gw2-match-status li.header {
+    padding-top: 0;
 }
 
 gw2-match-status .income {
     width: 50px;
+}
+
+[lang="de"] gw2-match-status .income {
+    width: 70px;
+}
+
+[lang="es"] gw2-match-status .scores .header {
+    padding-right: 0;
+    width: 85px;
+}
+
+[lang="es"] gw2-match-status .victory_points .header {
+    padding-right:0;
+    width: 92px;
 }
 
 gw2-match-status .worlds li {

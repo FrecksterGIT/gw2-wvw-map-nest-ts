@@ -9,12 +9,12 @@ class GuildUpgrades {
     });
   }
 
-  getUpgrades(upgradeIds) {
+  getUpgrades(upgradeIds = []) {
     if (this.isDataAvailable(upgradeIds)) {
       return Promise.resolve(this.getUpgradesData(upgradeIds));
     }
 
-    socket.emit('upgrades', upgradeIds);
+    socket.guildUpgrades(upgradeIds);
 
     const started = Date.now();
     return new Promise((resolve, reject) => {

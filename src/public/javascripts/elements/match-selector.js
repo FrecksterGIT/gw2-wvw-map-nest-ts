@@ -8,6 +8,18 @@ const logger = log('MatchSelector');
 
 export default class MatchSelector extends UpdateReceiverElement {
 
+  get isOpen() {
+    return this.getAttribute('data-open') === 'true';
+  }
+
+  set isOpen(isOpen) {
+    this.setAttribute('data-open', isOpen);
+  }
+
+  set showShader(show) {
+    this.setAttribute('data-shader', show);
+  }
+
   connectedCallback() {
     super.connectedCallback();
     this.initSwitchMatchHandler();
@@ -19,7 +31,7 @@ export default class MatchSelector extends UpdateReceiverElement {
     delegate(this, '.match-selector-match', 'click', (event) => {
       const matchId = event.delegateTarget.getAttribute('data-match-id');
       this.setAttribute('data-selected-match', matchId);
-      socket.emit('subscribe', matchId);
+      socket.sendSubscribe(matchId);
       this.showShader = true;
     });
   }
@@ -69,17 +81,5 @@ export default class MatchSelector extends UpdateReceiverElement {
         this.isOpen = false;
       }
     });
-  }
-
-  get isOpen() {
-    return this.getAttribute('data-open') === 'true';
-  }
-
-  set isOpen(isOpen) {
-    this.setAttribute('data-open', isOpen);
-  }
-
-  set showShader(show) {
-    this.setAttribute('data-shader', show);
   }
 }
