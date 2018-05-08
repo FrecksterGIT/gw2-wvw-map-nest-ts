@@ -5,6 +5,10 @@ body {
     padding: 0;
 }
 
+h1 {
+    margin-bottom: 1.5em;
+}
+
 .page_wrapper {
     margin: 0 auto;
     max-width: 1200px;
@@ -25,9 +29,26 @@ body {
 .lang-switch {
     position: absolute;
     right: 0;
+    text-align: right;
     top: 0;
 }
+
 .lang-switch a {
     color: var(--color-gray);
     text-decoration: none;
+}
+
+.audio {
+    background: url(../images/volume.png) no-repeat center center;
+    background-size: contain;
+    display: inline-block;
+    height: 16px;
+    margin-top: 8px;
+    opacity: 0.3;
+    position: relative;
+    width: 16px;
+}
+
+.audio.on {
+    opacity: 1;
 }

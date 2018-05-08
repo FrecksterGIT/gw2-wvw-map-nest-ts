@@ -3,9 +3,17 @@ import UpdateReceiverElement from './update-receiver-element';
 import Handlebars from 'handlebars';
 import isToday from 'date-fns/is_today';
 
+const i18n = require('i18n-for-browser');
+const speechSynthesis = require('speech-synthesis');
 const logger = log('MatchLogger');
 
 let worlds = {};
+const speechMap = {
+  de: 'de-DE',
+  en: 'en-US',
+  es: 'es-ES',
+  fr: 'fr-FR'
+};
 
 export default class MatchLogger extends UpdateReceiverElement {
 
@@ -29,9 +37,26 @@ export default class MatchLogger extends UpdateReceiverElement {
 
     const claimTemplate = this.querySelector('#log-claim-template').innerHTML;
     this.claimLogFunction = Handlebars.compile(claimTemplate);
+    this.pauseAudio();
+    this.initializeAudioToggle();
+  }
+
+  initializeAudioToggle() {
+    const toggle = document.querySelector('.audio');
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('on');
+    });
+  }
+
+  pauseAudio() {
+    this.speechActive = false;
+    setTimeout(() => {
+      this.speechActive = true;
+    }, 2500);
   }
 
   handleSubscribeUpdate(data) {
+    this.pauseAudio();
     this.innerHTML = '';
     this.loggedData = [];
     worlds = data.payload.main_worlds;
@@ -74,6 +99,10 @@ export default class MatchLogger extends UpdateReceiverElement {
           break;
       }
       this.insertAdjacentHTML('afterbegin', content);
+      if (this.speechActive && document.querySelector('.audio.on')) {
+        const logText = this.querySelector('div:first-child .log_message').textContent;
+        speechSynthesis(logText, speechMap[i18n.getLocale()]);
+      }
     });
   }
 }
