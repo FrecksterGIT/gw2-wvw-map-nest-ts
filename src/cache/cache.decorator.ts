@@ -1,11 +1,11 @@
-import {CacheFactory} from './cache.factory';
+import CacheFactory from './cache.factory';
 import {CacheType} from './enums/cache-type.enum';
 
 function getCacheKey(propertyKey, args): string {
   return propertyKey + JSON.stringify((args));
 }
 
-export function Cache(cacheTime: number, cacheType: CacheType = CacheType.InMemory): MethodDecorator {
+export default function Cache(cacheTime: number, cacheType: CacheType = CacheType.InMemory): MethodDecorator {
   return (target, propertyKey: string, descriptor: PropertyDescriptor) => {
 
     const method = (typeof descriptor.get !== 'function') ? descriptor.value : descriptor.get.call(this);
@@ -18,7 +18,7 @@ export function Cache(cacheTime: number, cacheType: CacheType = CacheType.InMemo
       const cacheHolder = CacheFactory.getCache(cacheType);
       const cacheKey = getCacheKey(propertyKey, args);
       const result = cacheHolder.cache.get(cacheKey);
-      if (result !== undefined) {
+      if (result !== null) {
         return Promise.resolve(result);
       }
       return method.apply(target, args).then((r) => {

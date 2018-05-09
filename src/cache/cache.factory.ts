@@ -1,9 +1,9 @@
 import {CacheType} from './enums/cache-type.enum';
 import InMemoryCache from './impl/in-memory-cache.class';
 import NoCache from './impl/no-cache.class';
-import {ICacheHolder} from './interfaces/cache-holder.interface';
+import ICacheHolder from './interfaces/cache-holder.interface';
 
-export class CacheFactory {
+export default class CacheFactory {
 
   private static cachesHolders: ICacheHolder[] = [];
 

@@ -1,6 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import fetch from 'node-fetch';
-import {Cache} from '../cache/cache.decorator';
+import Cache from '../cache/cache.decorator';
 import {IGuild} from './interfaces/guild.interface';
 import {IMatchDisplay} from './interfaces/match-display.interface';
 import {IMatch, ISkirmish} from './interfaces/match.interface';

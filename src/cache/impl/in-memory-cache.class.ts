@@ -1,34 +1,26 @@
-import addSeconds = require('date-fns/add_seconds');
-import isFuture = require('date-fns/is_future');
 import ICache from '../interfaces/cache.interface';
-import IStorageItem from '../interfaces/storage-item.interface';
 
 export default class InMemoryCache implements ICache {
-  private storage: IStorageItem[] = [];
+  private storage: Map<string, string> = new Map<string, string>();
 
   public get(key: string): any {
-    const storedItem = this.storage.find((item) => item.key === key && isFuture(item.validUntil));
+    const storedItem = this.storage.get(key);
     if (storedItem) {
-      return JSON.parse(storedItem.value);
+      return JSON.parse(storedItem);
     }
-    this.remove(key);
-    return undefined;
+    return null;
   }
 
   public set(key: string, cacheValue: any, cacheTime: number) {
-    this.remove(key);
     if (!!cacheValue) {
-      const validUntil = addSeconds(new Date(), cacheTime);
-      this.storage.push({
-        key,
-        validUntil,
-        value: JSON.stringify(cacheValue)
-      });
+      this.storage.set(key, JSON.stringify(cacheValue));
+      setTimeout(() => {
+        this.remove(key);
+      }, cacheTime * 60);
     }
-
   }
 
   public remove(key: string) {
-    this.storage = this.storage.filter((item) => item.key !== key && isFuture(item.validUntil));
+    this.storage.delete(key);
   }
 }
