@@ -1,0 +1,27 @@
+{
+  "name": "gw2-ts",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./main"
+  },
+  "dependencies": {
+    "@nestjs/common": "^5.0.0-rc.4",
+    "@nestjs/core": "^5.0.0-rc.4",
+    "@nestjs/microservices": "^5.0.0-rc.4",
+    "@nestjs/testing": "^5.0.0-rc.4",
+    "@nestjs/websockets": "^5.0.0-rc.4",
+    "@types/hbs": "^4.0.0",
+    "compression": "^1.7.2",
+    "date-fns": "^1.29.0",
+    "deep-diff": "^1.0.0",
+    "express": "^4.16.3",
+    "express-minify-html": "^0.12.0",
+    "hbs": "^4.0.1",
+    "i18n": "^0.8.3",
+    "node-fetch": "^2.1.2",
+    "reflect-metadata": "^0.1.12",
+    "rxjs": "^6.1.0",
+    "ts-deepcopy": "^0.1.4"
+  }
+}

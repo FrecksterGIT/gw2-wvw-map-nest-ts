@@ -24,7 +24,9 @@ async function bootstrap() {
 }
 
 function setupViewEngine(app) {
-  app.use('/static', express.static(path.join(__dirname, '../dist/public')));
+
+  app.use('/static', express.static(
+    path.join(__dirname, (process.env.NODE_ENV === 'development') ? '../dist/public' : './public')));
   app.set('views', Config.viewDirectory);
   app.set('view options', {layout: 'layouts/main'});
   app.set('view engine', 'hbs');
@@ -32,7 +34,7 @@ function setupViewEngine(app) {
 
 function setupI18n() {
   i18n.configure({
-    directory: path.join(__dirname, '../dist/public/locales'),
+    directory: path.join(__dirname, './public/locales'),
     locales: ['en', 'de', 'es', 'fr'],
     updateFiles: false
   });
