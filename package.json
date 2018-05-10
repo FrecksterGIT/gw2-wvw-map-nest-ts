@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "cross-env NODE_ENV=production tsc",
+    "build": "cross-env NODE_ENV=production tsc --sourceMap false",
     "coverage": "jest --coverage",
     "prebuild": "rimraf dist",
     "postbuild": "cross-env NODE_ENV=production npm-run-all -s postbuild:views postbuild:public postbuild:js postbuild:css postbuild:locales postbuild:package",
