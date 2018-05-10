@@ -24,6 +24,8 @@ module.exports = {
   },
   output: {
     filename: 'app.js',
+    library: 'gw2map',
+    libraryTarget: 'umd',
     path: path.resolve(__dirname, 'dist/public/javascripts')
   },
   resolve: {

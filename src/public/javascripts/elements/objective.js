@@ -152,7 +152,7 @@ export default class Objective extends UpdateReceiverElement {
   }
 
   handleObjectiveUpdate(data) {
-    const receivedData = data.payload.find((objective) => objective.id === this.id);
+    const receivedData = data.payload;
     if (receivedData) {
       this.dataOwner = receivedData.owner;
       this.dataTier = Objective.calculateTier(receivedData.yaks_delivered);
@@ -233,5 +233,12 @@ export default class Objective extends UpdateReceiverElement {
     if (this.getAttribute(attribute) !== value) {
       this.setAttribute(attribute, value);
     }
+  }
+
+  getRegisterOptions() {
+    return [{
+      id: this.getAttribute('data-id'),
+      type: 'ObjectiveUpdate'
+    }];
   }
 }

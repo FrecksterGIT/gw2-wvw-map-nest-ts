@@ -2,10 +2,17 @@ import socket from '../utils/socket';
 
 export default class UpdateReceiverElement extends HTMLElement {
 
+  get relevantUpdates() {
+    this.subscribed = this.subscribed || [];
+    if (this.subscribed.length === 0) {
+      this.subscribed = this.getAttribute('data-subscribe')
+        .split(',').map((type) => type.trim());
+    }
+    return this.subscribed;
+  }
+
   connectedCallback() {
-    socket.on('update', (data) => {
-      this.handleUpdate(data);
-    });
+    socket.register(this, 'update', this.getRegisterOptions());
   }
 
   handleUpdate(data) {
@@ -36,12 +43,7 @@ export default class UpdateReceiverElement extends HTMLElement {
     throw new Error('UpdateReceiverElement.handleObjectiveUpdate is abstract');
   }
 
-  get relevantUpdates() {
-    this.subscribed = this.subscribed || [];
-    if (this.subscribed.length === 0) {
-      this.subscribed = this.getAttribute('data-subscribe')
-        .split(',').map((type) => type.trim());
-    }
-    return this.subscribed;
+  getRegisterOptions() {
+    return [];
   }
 }

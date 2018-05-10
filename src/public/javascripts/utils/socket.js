@@ -1,6 +1,7 @@
 import io from 'socket.io-client';
 import log from 'debug';
 import Cookie from 'js-cookie';
+import {getLanguage} from '../app';
 
 const logger = log('Socket');
 
@@ -9,12 +10,6 @@ export class SocketConnection {
   constructor() {
     this.socketConnection = io('/update');
     this.subscribe();
-  }
-
-  static getLanguage() {
-    const path = window.location.pathname;
-    const match = /([a-z]{2})/.exec(path);
-    return match && match[1] ? match[1] : 'en';
   }
 
   subscribe() {
@@ -31,7 +26,7 @@ export class SocketConnection {
 
   sendSubscribe(matchId) {
     const subscribeData = {
-      language: SocketConnection.getLanguage(),
+      language: getLanguage(),
       matchId: matchId ? matchId : '2-1'
     };
     this.emit('subscribe', subscribeData);
@@ -40,7 +35,7 @@ export class SocketConnection {
   guildUpgrades(upgradeIds) {
     const data = {
       data: upgradeIds,
-      language: SocketConnection.getLanguage()
+      language: getLanguage()
     };
     this.emit('upgrades', data);
   }
@@ -53,6 +48,50 @@ export class SocketConnection {
     return this.socketConnection.emit.apply(this.socketConnection, args);
   }
 
+  register(object, event, options) {
+    this.subscribers = this.subscribers || [];
+    this.subscribers.push({
+      event,
+      object,
+      options
+    });
+    this.addListener(event);
+  }
+
+  addListener(event) {
+    this.listeners = this.listeners || [];
+    if (!this.listeners.includes(event)) {
+      this.listeners.push(event);
+      this.on(event, (data) => {
+        this.notify(data);
+      });
+    }
+  }
+
+  notify(data) {
+    this.subscribers.forEach((subscriber) => {
+      if (subscriber.object.relevantUpdates.includes(data.type)) {
+        if (subscriber.options.length > 0) {
+          this.notifyFilteredData(subscriber, data);
+        }
+        else {
+          subscriber.object.handleUpdate(data);
+        }
+      }
+    });
+  }
+
+  notifyFilteredData(subscriber, data) {
+    const options = subscriber.options.find((option) => option.type === data.type);
+    const payload = data.payload.find((received) => received.id === options.id);
+    if (payload) {
+      subscriber.object.handleUpdate({
+        id: data.id,
+        payload,
+        type: data.type
+      });
+    }
+  }
 }
 
 const socket = new SocketConnection();
