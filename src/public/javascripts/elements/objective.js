@@ -241,4 +241,13 @@ export default class Objective extends UpdateReceiverElement {
       type: 'ObjectiveUpdate'
     }];
   }
+
+  highlight(count = 0) {
+    this.classList.toggle('highlight');
+    if (count <= 2) {
+      setTimeout(() => {
+        this.highlight(++count);
+      }, 500);
+    }
+  }
 }

@@ -2,6 +2,7 @@ import log from 'debug';
 import UpdateReceiverElement from './update-receiver-element';
 import Handlebars from 'handlebars';
 import isToday from 'date-fns/is_today';
+import delegate from 'delegate';
 
 const i18n = require('i18n-for-browser');
 const speechSynthesis = require('speech-synthesis');
@@ -19,13 +20,15 @@ export default class MatchLogger extends UpdateReceiverElement {
 
   constructor() {
     super();
-    Handlebars.registerHelper('formatTime', dateTime => {
-      const date = new Date(dateTime);
-      if (!isToday(date)) {
-        return date.toLocaleString();
-      }
-      return date.toLocaleTimeString();
-    });
+    Handlebars.registerHelper('formatTime', dateTime => MatchLogger.formatTime(dateTime));
+  }
+
+  static formatTime(dateTime) {
+    const date = new Date(dateTime);
+    if (!isToday(date)) {
+      return date.toLocaleString();
+    }
+    return date.toLocaleTimeString();
   }
 
   connectedCallback() {
@@ -39,6 +42,15 @@ export default class MatchLogger extends UpdateReceiverElement {
     this.claimLogFunction = Handlebars.compile(claimTemplate);
     this.pauseAudio();
     this.initializeAudioToggle();
+    this.initializeHightlighter();
+  }
+
+  initializeHightlighter() {
+    delegate(this, '.log_entry', 'click', (event) => {
+      const objectId = event.delegateTarget.getAttribute('data-changed-objective');
+      const object = document.querySelector('gw2-objective[data-id="' + objectId + '"]');
+      object.highlight();
+    });
   }
 
   initializeAudioToggle() {

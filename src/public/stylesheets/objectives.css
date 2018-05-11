@@ -249,3 +249,9 @@ gw2-objective .upgrade {
     vertical-align: top;
     width: 64px;
 }
+
+gw2-objective.highlight {
+    border: 10px solid #fbe31488;
+    border-radius: 50%;
+    transform: translate(-23px, -23px);
+}

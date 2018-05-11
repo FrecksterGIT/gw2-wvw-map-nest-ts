@@ -5,7 +5,7 @@
         <a href="/">en</a>
         <a href="/es">es</a>
         <a href="/de">de</a>
-        <a href="/fr">fr</a><br />
+        <a href="/fr">fr</a><br/>
         <div class="audio"></div>
     </div>
 
@@ -130,10 +130,24 @@
 
         <gw2-match-logger data-subscribe="SubscribeUpdate,ObjectiveUpdate">
             <script id="log-owner-template" type="text/x-handlebars-template">
-                <div data-changed-objective="\{{id}}"><span>\{{formatTime at}}:</span> <span class="log_message"><span class="\{{toClass}}">\{{name}}</span> \{{t 'captured by'}} <span class="\{{toClass}}">\{{to}}</span>\{{#if from}} \{{t 'from'}} <span class="\{{fromClass}}">\{{from}}</span>\{{/if}}.</span></div>
+                <div class="log_entry" data-changed-objective="\{{id}}">
+                    <span>\{{formatTime at}}:</span>
+                    <span class="log_message">
+                        <span class="name \{{toClass}}">\{{name}}</span>
+                        \{{t 'captured by'}}
+                        <span class="\{{toClass}}">\{{to}}</span>\{{#if from}} \{{t 'from'}}<span class="\{{fromClass}}">\{{from}}</span>\{{/if}}.
+                    </span>
+                </div>
             </script>
             <script id="log-claim-template" type="text/x-handlebars-template">
-                <div data-changed-objective="\{{id}}"><span>\{{formatTime at}}:</span> <span class="log_message"><span class="\{{objectiveClass}}">\{{name}}</span> \{{t 'claimed by'}} <span class="\{{objectiveClass}}">\{{to}}</span>.</span></div>
+                <div class="log_entry" data-changed-objective="\{{id}}">
+                    <span>\{{formatTime at}}:</span>
+                    <span class="log_message">
+                        <span class="name \{{objectiveClass}}">\{{name}}</span>
+                        \{{t 'claimed by'}}
+                        <span class="\{{objectiveClass}}">\{{to}}</span>.
+                    </span>
+                </div>
             </script>
         </gw2-match-logger>
     </aside>
