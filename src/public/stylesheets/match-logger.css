@@ -15,6 +15,13 @@ gw2-match-logger {
     width: 50%;
 }
 
-gw2-match-logger span {
+gw2-match-logger .blue,
+gw2-match-logger .green,
+gw2-match-logger .red {
     font-weight: bold;
+}
+
+gw2-match-logger .name {
+    cursor: zoom-in;
+    text-decoration: underline;
 }
