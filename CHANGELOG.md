@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/compare/v0.1.0...v1.0.0) (2018-05-12)
+
+
+### Bug Fixes
+
+* fail safe for match updates ([ab11702](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/commit/ab11702))
+* missing space ([c148b88](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/commit/c148b88))
+* only read log entries for focussed map ([d4ff8bc](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/commit/d4ff8bc))
+* style fixes ([37a73d4](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/commit/37a73d4))
+
+
+### Features
+
+* highlight objective ([bf9789d](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/commit/bf9789d))
+* only notify objectives with their own data ([5681b5b](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/commit/5681b5b))
+* we speak now ([0c02ca2](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/commit/0c02ca2))
+
+
+
 <a name="0.1.0"></a>
 # 0.1.0 (2018-05-07)
 

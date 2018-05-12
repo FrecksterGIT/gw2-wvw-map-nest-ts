@@ -1,6 +1,6 @@
 {
   "name": "gw2-ts",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "build": "cross-env NODE_ENV=production tsc --sourceMap false",
@@ -15,7 +15,7 @@
     "postbuild:package": "cp ./package-dist.json ./dist/package.json",
     "start": "node dist/main",
     "start:watch": "cross-env NODE_ENV=development npm-run-all -p watch:*",
-    "prod": "node dist/main",
+    "release": "standard-version",
     "test": "jest",
     "travis-build": "npm-run-all travis-build:*",
     "travis-build:backend": "tsc",
