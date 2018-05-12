@@ -111,11 +111,17 @@ export default class MatchLogger extends UpdateReceiverElement {
           break;
       }
       this.insertAdjacentHTML('afterbegin', content);
-      if (this.speechActive && document.querySelector('.audio.on')) {
-        const logText = this.querySelector('div:first-child .log_message').textContent;
-        speechSynthesis(logText, speechMap[i18n.getLocale()]);
+      if (change.mapId !== this.focussedMap) {
+        if (this.speechActive && document.querySelector('.audio.on')) {
+          const logText = this.querySelector('div:first-child .log_message').textContent;
+          speechSynthesis(logText, speechMap[i18n.getLocale()]);
+        }
       }
     });
+  }
+
+  get focussedMap() {
+    return this.getAttribute('data-focussed-map');
   }
 }
 
