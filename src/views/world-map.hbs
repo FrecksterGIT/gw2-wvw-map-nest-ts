@@ -15,6 +15,7 @@
         {{#each objectives}}
           <gw2-objective data-subscribe="ObjectiveUpdate"
                          data-id="{{id}}"
+                         data-map-id="{{mapId}}"
                          data-type="{{type}}"
                          data-name="{{name}}"
                          data-chat-link="{{chat_link}}"
@@ -130,7 +131,7 @@
 
     <gw2-match-logger data-subscribe="SubscribeUpdate,ObjectiveUpdate">
       <script id="log-owner-template" type="text/x-handlebars-template">
-        <div class="log_entry" data-changed-objective="\{{id}}">
+        <div class="log_entry" data-changed-objective="\{{id}}" data-map-id="\{{mapId}}">
           <span class="log_time">\{{formatTime at}}:</span>
           <span class="log_message">
             <span class="name \{{toClass}}">\{{name}}</span>
@@ -140,7 +141,7 @@
         </div>
       </script>
       <script id="log-claim-template" type="text/x-handlebars-template">
-        <div class="log_entry" data-changed-objective="\{{id}}">
+        <div class="log_entry" data-changed-objective="\{{id}}" data-map-id="\{{mapId}}">
           <span class="log_time">\{{formatTime at}}:</span>
           <span class="log_message">
             <span class="name \{{objectiveClass}}">\{{name}}</span>

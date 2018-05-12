@@ -38,3 +38,17 @@ gw2-match-logger .name {
     cursor: zoom-in;
     text-decoration: underline;
 }
+
+gw2-match-logger[data-focussed-map="38"] .log_entry,
+gw2-match-logger[data-focussed-map="95"] .log_entry,
+gw2-match-logger[data-focussed-map="96"] .log_entry,
+gw2-match-logger[data-focussed-map="1099"] .log_entry {
+    display: none;
+}
+
+gw2-match-logger[data-focussed-map="38"] .log_entry[data-map-id="38"],
+gw2-match-logger[data-focussed-map="95"] .log_entry[data-map-id="95"],
+gw2-match-logger[data-focussed-map="96"] .log_entry[data-map-id="96"],
+gw2-match-logger[data-focussed-map="1099"] .log_entry[data-map-id="1099"] {
+    display: block;
+}

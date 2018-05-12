@@ -122,8 +122,10 @@ export default class MatchLogger extends UpdateReceiverElement {
 class LogObject {
 
   constructor(objective) {
+    const objectiveElement = document.querySelector('gw2-objective[data-id="' + objective.id + '"]');
     this.id = objective.id;
-    this.name = document.querySelector('gw2-objective[data-id="' + this.id + '"]').getAttribute('data-name');
+    this.name = objectiveElement.getAttribute('data-name');
+    this.mapId = objectiveElement.getAttribute('data-map-id');
   }
 
   getOwnerChange(objective) {
@@ -137,6 +139,7 @@ class LogObject {
         from: fromWorld,
         fromClass: fromClass,
         id: this.id,
+        mapId: this.mapId,
         name: this.name,
         to: toWorld,
         toClass: toClass,
@@ -154,6 +157,7 @@ class LogObject {
         at: objective.claimed_at,
         from: this.claimed_by,
         id: this.id,
+        mapId: this.mapId,
         name: this.name,
         objectiveClass: objective.owner.toLowerCase(),
         to: objective.guild.name + ' [' + objective.guild.tag + ']',
