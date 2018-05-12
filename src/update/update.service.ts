@@ -52,14 +52,18 @@ export class UpdateService {
       return;
     }
     this.matchStates[lang] = this.matchStates[lang] || [];
-    const currentMatchStates = await this.gw2ApiService.getMatchesByIds(subscribedMatches, lang);
-    const saveCurrentMatchStates: IMatch[] = deepcopy<IMatch[]>(currentMatchStates);
+    try {
+      const currentMatchStates = await this.gw2ApiService.getMatchesByIds(subscribedMatches, lang);
+      const saveCurrentMatchStates: IMatch[] = deepcopy<IMatch[]>(currentMatchStates);
 
-    currentMatchStates.forEach(async (currentMatchState) => {
-      const oldMatchState = this.matchStates[lang].find((oldMatch) => oldMatch.id === currentMatchState.id);
-      await this.handleDiff(currentMatchState, oldMatchState, lang);
-    });
-    this.matchStates[lang] = saveCurrentMatchStates;
+      currentMatchStates.forEach(async (currentMatchState) => {
+        const oldMatchState = this.matchStates[lang].find((oldMatch) => oldMatch.id === currentMatchState.id);
+        await this.handleDiff(currentMatchState, oldMatchState, lang);
+      });
+      this.matchStates[lang] = saveCurrentMatchStates;
+    } catch (e) {
+      // noop, just try again next time...
+    }
   }
 
   private async handleDiff(newMatchState: IMatch, oldMatchState: IMatch, lang: string): Promise<void> {
