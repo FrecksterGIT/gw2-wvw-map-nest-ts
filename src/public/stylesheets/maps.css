@@ -1,5 +1,5 @@
-.world {
-    background: url(../images/world.jpg) no-repeat;
+gw2-world {
+    background: url(../images/world.jpg) center center no-repeat;
     background-size: contain;
     display: block;
     height: 0;
@@ -9,7 +9,7 @@
     width: 100%;
 }
 
-.world:before, .world:after {
+gw2-world:before, gw2-world:after {
     background: url(../images/map-border.png) no-repeat top left;
     content: "";
     height: 50px;
@@ -19,42 +19,88 @@
     width: 100%;
 }
 
-.world:after {
+gw2-world:after {
     bottom: 0;
     top: auto;
     transform: rotate(180deg);
 }
 
-.map {
+gw2-world .map {
+    cursor: zoom-in;
     height: auto;
     position: absolute;
     width: 29.5%;
 }
 
-.map:before {
+gw2-world .map:before {
     content: "";
     float: left;
     padding-bottom: 100%;
     width: 100%;
 }
 
-.map[data-map-id="1099"] {
+gw2-world .map[data-map-id="1099"] {
     left: 38%;
     top: 0;
 }
 
-.map[data-map-id="96"] {
+gw2-world .map[data-map-id="96"] {
     left: 73.8%;
     top: 28.9%;
 }
 
-.map[data-map-id="95"] {
+gw2-world .map[data-map-id="95"] {
     left: 2%;
     top: 38.1%;
 }
 
-.map[data-map-id="38"] {
+gw2-world .map[data-map-id="38"] {
     left: 35.8%;
     top: 56.6%;
     width: 29%;
+}
+
+gw2-world[data-focussed-map="38"] {
+    background-image: url(../images/38.jpg);
+}
+
+gw2-world[data-focussed-map="95"],
+gw2-world[data-focussed-map="96"] {
+    background-image: url(../images/95,96.jpg);
+}
+
+gw2-world[data-focussed-map="1099"] {
+    background-image: url(../images/1099.jpg);
+}
+
+gw2-world[data-focussed-map="38"] .map,
+gw2-world[data-focussed-map="95"] .map,
+gw2-world[data-focussed-map="96"] .map,
+gw2-world[data-focussed-map="1099"] .map {
+    display: none;
+}
+
+gw2-world[data-focussed-map="38"] .map[data-map-id="38"] {
+    cursor: zoom-out;
+    display: block;
+    left: 14%;
+    top: 0;
+    width: 70%;
+}
+
+gw2-world[data-focussed-map="95"] .map[data-map-id="95"],
+gw2-world[data-focussed-map="96"] .map[data-map-id="96"] {
+    cursor: zoom-out;
+    display: block;
+    left: 25%;
+    top: 0;
+    width: 61%;
+}
+
+gw2-world[data-focussed-map="1099"] .map[data-map-id="1099"] {
+    cursor: zoom-out;
+    display: block;
+    left: 16%;
+    top: 0;
+    width: 68%;
 }

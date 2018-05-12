@@ -9,7 +9,7 @@
     <div class="audio"></div>
   </div>
 
-  <div class="world">
+  <gw2-world data-focussed-map="">
     {{#each map as |objectives mapId|}}
       <div class="map" data-map-id="{{mapId}}">
         {{#each objectives}}
@@ -39,7 +39,7 @@
         {{/each}}
       </div>
     {{/each}}
-  </div>
+  </gw2-world>
 
   <aside class="infoarea">
     <gw2-match-status data-subscribe="SubscribeUpdate,ScoreUpdate" data-open-match-selector="true">
