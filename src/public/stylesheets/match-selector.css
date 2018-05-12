@@ -46,7 +46,7 @@ gw2-match-selector [data-match-id="2-5"] {
 }
 
 gw2-match-selector .selected {
-    font-weight: bold;
+    font-weight: 600;
 }
 
 gw2-match-selector .match-selector-match {

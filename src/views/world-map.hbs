@@ -1,161 +1,161 @@
 <div class="container" lang="{{locale}}">
-    <h1>{{title}}</h1>
+  <h1>{{title}}</h1>
 
-    <div class="lang-switch">
-        <a href="/">en</a>
-        <a href="/es">es</a>
-        <a href="/de">de</a>
-        <a href="/fr">fr</a><br/>
-        <div class="audio"></div>
-    </div>
+  <div class="lang-switch">
+    <a href="/">en</a>
+    <a href="/es">es</a>
+    <a href="/de">de</a>
+    <a href="/fr">fr</a><br/>
+    <div class="audio"></div>
+  </div>
 
-    <div class="world">
-        {{#each map as |objectives mapId|}}
-            <div class="map" data-map-id="{{mapId}}">
-                {{#each objectives}}
-                    <gw2-objective data-subscribe="ObjectiveUpdate"
-                                   data-id="{{id}}"
-                                   data-type="{{type}}"
-                                   data-name="{{name}}"
-                                   data-chat-link="{{chat_link}}"
-                                   style="left:{{display_coord.[0]}}%;top:{{display_coord.[1]}}%;">
-                        <section>
-                            <b>{{name}}</b>
-                            <dl>
-                                <dt class="turned">{{t 'Turned' ../../locale}}</dt>
-                                <dd class="turned value"></dd>
-                                <dt class="guild">{{t 'Guild' ../../locale}}</dt>
-                                <dd class="guild value"></dd>
-                                <dt class="claimed">{{t 'Claimed' ../../locale}}</dt>
-                                <dd class="claimed value"></dd>
-                                <dt class="yaks">{{t 'Dolyaks' ../../locale}}</dt>
-                                <dd class="yaks value"></dd>
-                            </dl>
-                            <div class="upgrades"></div>
-                        </section>
-                        <aside></aside>
-                        <figure class="waypoint"></figure>
-                    </gw2-objective>
-                {{/each}}
-            </div>
+  <div class="world">
+    {{#each map as |objectives mapId|}}
+      <div class="map" data-map-id="{{mapId}}">
+        {{#each objectives}}
+          <gw2-objective data-subscribe="ObjectiveUpdate"
+                         data-id="{{id}}"
+                         data-type="{{type}}"
+                         data-name="{{name}}"
+                         data-chat-link="{{chat_link}}"
+                         style="left:{{display_coord.[0]}}%;top:{{display_coord.[1]}}%;">
+            <section>
+              <b>{{name}}</b>
+              <dl>
+                <dt class="turned">{{t 'Turned' ../../locale}}</dt>
+                <dd class="turned value"></dd>
+                <dt class="guild">{{t 'Guild' ../../locale}}</dt>
+                <dd class="guild value"></dd>
+                <dt class="claimed">{{t 'Claimed' ../../locale}}</dt>
+                <dd class="claimed value"></dd>
+                <dt class="yaks">{{t 'Dolyaks' ../../locale}}</dt>
+                <dd class="yaks value"></dd>
+              </dl>
+              <div class="upgrades"></div>
+            </section>
+            <aside></aside>
+            <figure class="waypoint"></figure>
+          </gw2-objective>
         {{/each}}
-    </div>
+      </div>
+    {{/each}}
+  </div>
 
-    <aside class="infoarea">
-        <gw2-match-status data-subscribe="SubscribeUpdate,ScoreUpdate" data-open-match-selector="true">
-            <div class="worlds"></div>
-            <div class="income"></div>
-            <div class="scores"></div>
-            <svg id="chart" xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 2 2">
-            </svg>
-            <div class="victory_points"></div>
+  <aside class="infoarea">
+    <gw2-match-status data-subscribe="SubscribeUpdate,ScoreUpdate" data-open-match-selector="true">
+      <div class="worlds"></div>
+      <div class="income"></div>
+      <div class="scores"></div>
+      <svg id="chart" xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 2 2">
+      </svg>
+      <div class="victory_points"></div>
 
-            <script id="worlds-template" type="text/x-handlebars-template">
-                <ul class="worlds" data-match-id="\{{id}}">
-                    <li class="header">{{t "World" locale}}</li>
-                    <li class="green">
-                        \{{main_worlds.green}}
-                        \{{#if link_worlds.green}}
-                        <div class="linked">
-                            \{{#each link_worlds.green}}
-                            <span>\{{this}}</span>
-                            \{{/each}}
-                        </div>
-                        \{{/if}}
-                    </li>
-                    <li class="blue">
-                        \{{main_worlds.blue}}
-                        \{{#if link_worlds.blue}}
-                        <div class="linked">
-                            \{{#each link_worlds.blue}}
-                            <span>\{{this}}</span>
-                            \{{/each}}
-                        </div>
-                        \{{/if}}
-                    </li>
-                    <li class="red">
-                        \{{main_worlds.red}}
-                        \{{#if link_worlds.red}}
-                        <div class="linked">
-                            \{{#each link_worlds.red}}
-                            <span>\{{this}}</span>
-                            \{{/each}}
-                        </div>
-                        \{{/if}}
-                    </li>
-                </ul>
-            </script>
+      <script id="worlds-template" type="text/x-handlebars-template">
+        <ul class="worlds" data-match-id="\{{id}}">
+          <li class="header">{{t "World" locale}}</li>
+          <li class="green">
+            \{{main_worlds.green}}
+            \{{#if link_worlds.green}}
+            <div class="linked">
+              \{{#each link_worlds.green}}
+              <span>\{{this}}</span>
+              \{{/each}}
+            </div>
+            \{{/if}}
+          </li>
+          <li class="blue">
+            \{{main_worlds.blue}}
+            \{{#if link_worlds.blue}}
+            <div class="linked">
+              \{{#each link_worlds.blue}}
+              <span>\{{this}}</span>
+              \{{/each}}
+            </div>
+            \{{/if}}
+          </li>
+          <li class="red">
+            \{{main_worlds.red}}
+            \{{#if link_worlds.red}}
+            <div class="linked">
+              \{{#each link_worlds.red}}
+              <span>\{{this}}</span>
+              \{{/each}}
+            </div>
+            \{{/if}}
+          </li>
+        </ul>
+      </script>
 
-            <script id="numbers-template" type="text/x-handlebars-template">
-                <ul class="numbers">
-                    <li class="header">\{{header}}</li>
-                    <li>\{{values.green}}</li>
-                    <li>\{{values.blue}}</li>
-                    <li>\{{values.red}}</li>
-                </ul>
-            </script>
+      <script id="numbers-template" type="text/x-handlebars-template">
+        <ul class="numbers">
+          <li class="header">\{{header}}</li>
+          <li>\{{values.green}}</li>
+          <li>\{{values.blue}}</li>
+          <li>\{{values.red}}</li>
+        </ul>
+      </script>
 
-        </gw2-match-status>
-        <gw2-match-selector data-subscribe="SubscribeUpdate,ObjectiveUpdate" data-open="false">
-            <div class="shader"></div>
-            {{#each matches}}
-                <div class="match-selector-match" data-match-id="{{id}}">
-                    <div class="match-selector-world green">
-                        {{main_worlds.green}}
-                        {{#if link_worlds.green}}
-                            <div class="linked">
-                                {{#each link_worlds.green}}<span>{{this}}</span>{{/each}}
-                            </div>
-                        {{/if}}
-                    </div>
-                    <div class="match-selector-world blue">
-                        {{main_worlds.blue}}
-                        {{#if link_worlds.blue}}
-                            <div class="linked">
-                                {{#each link_worlds.blue}}<span>{{this}}</span>{{/each}}
-                            </div>
-                        {{/if}}
-                    </div>
-                    <div class="match-selector-world red">
-                        {{main_worlds.red}}
-                        {{#if link_worlds.red}}
-                            <div class="linked">
-                                {{#each link_worlds.red}}<span>{{this}}</span>{{/each}}
-                            </div>
-                        {{/if}}
-                    </div>
-                </div>
-            {{/each}}
-        </gw2-match-selector>
-
-        <gw2-match-logger data-subscribe="SubscribeUpdate,ObjectiveUpdate">
-            <script id="log-owner-template" type="text/x-handlebars-template">
-                <div class="log_entry" data-changed-objective="\{{id}}">
-                    <span class="log_time">\{{formatTime at}}:</span>
-                    <span class="log_message">
-                        <span class="name \{{toClass}}">\{{name}}</span>
-                        \{{t 'captured by'}}
-                        <span class="\{{toClass}}">\{{to}}</span>\{{#if from}} \{{t 'from'}} <span class="\{{fromClass}}">\{{from}}</span>\{{/if}}.
-                    </span>
-                </div>
-            </script>
-            <script id="log-claim-template" type="text/x-handlebars-template">
-                <div class="log_entry" data-changed-objective="\{{id}}">
-                    <span class="log_time">\{{formatTime at}}:</span>
-                    <span class="log_message">
-                        <span class="name \{{objectiveClass}}">\{{name}}</span>
-                        \{{t 'claimed by'}}
-                        <span class="\{{objectiveClass}}">\{{to}}</span>.
-                    </span>
-                </div>
-            </script>
-        </gw2-match-logger>
-    </aside>
-
-    <script id="upgrade-template" type="text/x-handlebars-template">
-        <div class="upgrade">
-            <img src="\{{icon}}" alt="\{{name}}" title="\{{name}}"/><br/>
-            \{{name}}
+    </gw2-match-status>
+    <gw2-match-selector data-subscribe="SubscribeUpdate,ObjectiveUpdate" data-open="false">
+      <div class="shader"></div>
+      {{#each matches}}
+        <div class="match-selector-match" data-match-id="{{id}}">
+          <div class="match-selector-world green">
+            {{main_worlds.green}}
+            {{#if link_worlds.green}}
+              <div class="linked">
+                {{#each link_worlds.green}}<span>{{this}}</span>{{/each}}
+              </div>
+            {{/if}}
+          </div>
+          <div class="match-selector-world blue">
+            {{main_worlds.blue}}
+            {{#if link_worlds.blue}}
+              <div class="linked">
+                {{#each link_worlds.blue}}<span>{{this}}</span>{{/each}}
+              </div>
+            {{/if}}
+          </div>
+          <div class="match-selector-world red">
+            {{main_worlds.red}}
+            {{#if link_worlds.red}}
+              <div class="linked">
+                {{#each link_worlds.red}}<span>{{this}}</span>{{/each}}
+              </div>
+            {{/if}}
+          </div>
         </div>
-    </script>
+      {{/each}}
+    </gw2-match-selector>
+
+    <gw2-match-logger data-subscribe="SubscribeUpdate,ObjectiveUpdate">
+      <script id="log-owner-template" type="text/x-handlebars-template">
+        <div class="log_entry" data-changed-objective="\{{id}}">
+          <span class="log_time">\{{formatTime at}}:</span>
+          <span class="log_message">
+            <span class="name \{{toClass}}">\{{name}}</span>
+            \{{t 'captured by'}}
+            <span class="\{{toClass}}">\{{to}}</span>
+            \{{#if from}} \{{t 'from'}} <span class="\{{fromClass}}">\{{from}}</span>\{{/if}}.</span>
+        </div>
+      </script>
+      <script id="log-claim-template" type="text/x-handlebars-template">
+        <div class="log_entry" data-changed-objective="\{{id}}">
+          <span class="log_time">\{{formatTime at}}:</span>
+          <span class="log_message">
+            <span class="name \{{objectiveClass}}">\{{name}}</span>
+            \{{t 'claimed by'}}
+            <span class="\{{objectiveClass}}">\{{to}}</span>.
+          </span>
+        </div>
+      </script>
+    </gw2-match-logger>
+  </aside>
+
+  <script id="upgrade-template" type="text/x-handlebars-template">
+    <div class="upgrade">
+      <img src="\{{icon}}" alt="\{{name}}" title="\{{name}}"/><br/>
+      \{{name}}
+    </div>
+  </script>
 </div>

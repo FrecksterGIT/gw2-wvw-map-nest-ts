@@ -31,7 +31,7 @@ gw2-match-logger .log_message {
 gw2-match-logger .blue,
 gw2-match-logger .green,
 gw2-match-logger .red {
-    font-weight: bold;
+    font-weight: 600;
 }
 
 gw2-match-logger .name {

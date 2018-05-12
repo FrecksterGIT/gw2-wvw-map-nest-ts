@@ -165,7 +165,7 @@ gw2-objective section {
 }
 
 [lang="de"] gw2-objective section,
-[lang="es"] gw2-objective section{
+[lang="es"] gw2-objective section {
     width: 200px;
 }
 
@@ -183,6 +183,7 @@ gw2-objective:hover section {
 
 gw2-objective b {
     display: block;
+    font-weight: 600;
     text-align: center;
 }
 
