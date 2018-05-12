@@ -44,7 +44,7 @@ function setupI18n() {
 }
 
 function setupMinify(app: INestApplication) {
-  // if (process.env.NODE_ENV !== 'development') {
+  if (process.env.NODE_ENV !== 'development') {
     app.use(minifyHTML({
       exception_url: false,
       htmlMinifier: {
@@ -58,7 +58,7 @@ function setupMinify(app: INestApplication) {
       },
       override: true
     }));
-  // }
+  }
 }
 
 bootstrap();
