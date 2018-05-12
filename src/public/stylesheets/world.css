@@ -92,9 +92,9 @@ gw2-world[data-focussed-map="95"] .map[data-map-id="95"],
 gw2-world[data-focussed-map="96"] .map[data-map-id="96"] {
     cursor: zoom-out;
     display: block;
-    left: 25%;
-    top: 0;
-    width: 61%;
+    left: 26%;
+    top: 3%;
+    width: 57%;
 }
 
 gw2-world[data-focussed-map="1099"] .map[data-map-id="1099"] {

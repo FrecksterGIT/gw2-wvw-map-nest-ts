@@ -41,6 +41,7 @@ h1 {
 .audio {
     background: url(../images/volume.png) no-repeat center center;
     background-size: contain;
+    cursor: pointer;
     display: inline-block;
     height: 16px;
     margin-top: 8px;
