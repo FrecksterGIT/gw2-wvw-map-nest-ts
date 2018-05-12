@@ -15,6 +15,19 @@ gw2-match-logger {
     width: 50%;
 }
 
+gw2-match-logger .log_entry {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+gw2-match-logger .log_time {
+    white-space: nowrap;
+}
+
+gw2-match-logger .log_message {
+    padding-left: 2px;
+}
+
 gw2-match-logger .blue,
 gw2-match-logger .green,
 gw2-match-logger .red {

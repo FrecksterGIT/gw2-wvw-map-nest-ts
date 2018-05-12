@@ -44,20 +44,21 @@ function setupI18n() {
 }
 
 function setupMinify(app: INestApplication) {
-  if (process.env.NODE_ENV !== 'development') {
+  // if (process.env.NODE_ENV !== 'development') {
     app.use(minifyHTML({
       exception_url: false,
       htmlMinifier: {
         collapseBooleanAttributes: true,
         collapseWhitespace: true,
         minifyJS: true,
+        processScripts: ['text/x-handlebars-template'],
         removeAttributeQuotes: true,
         removeComments: true,
         removeEmptyAttributes: true
       },
       override: true
     }));
-  }
+  // }
 }
 
 bootstrap();
