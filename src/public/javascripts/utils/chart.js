@@ -53,7 +53,6 @@ export default class Chart {
     this.startTime = 0;
     this.calculateDiffs(slices);
     if (this.isAnimationNeeded()) {
-      logger('redraw chart...');
       this.step();
       this.slices = slices;
     }
@@ -67,7 +66,7 @@ export default class Chart {
       const [startX, startY] = Chart.getCoordinatesForPercent(currentStart);
       const [endX, endY] = Chart.getCoordinatesForPercent(currentEnd);
       const largeArcFlag = currentEnd - currentStart > .5 ? 1 : 0;
-      const [translateX, translateY] = this.getCurrentQuarter(currentStart, currentEnd);
+      const [translateX, translateY] = Chart.getCurrentQuarter(currentStart, currentEnd);
       const pathData = `M ${startX} ${startY} A 1 1 0 ${largeArcFlag} 1 ${endX} ${endY} L 0 0`;
       this.pathElements[index].setAttribute('d', pathData);
       this.pathElements[index].style.transform = 'translate(' + translateX + 'px, ' + translateY + 'px)';
@@ -77,7 +76,7 @@ export default class Chart {
     }
   }
 
-  getCurrentQuarter(start, end) {
+  static getCurrentQuarter(start, end) {
     const center = Math.floor((start + ((end - start) / 2)) * 4);
     switch (center) {
       case 0:
