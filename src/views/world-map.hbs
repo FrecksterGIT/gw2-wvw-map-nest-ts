@@ -49,7 +49,7 @@
       <div class="worlds"></div>
       <div class="income"></div>
       <div class="scores"></div>
-      <svg id="chart" xmlns="http://www.w3.org/2000/svg" viewBox="-1 -1 2 2">
+      <svg id="chart" xmlns="http://www.w3.org/2000/svg" viewBox="-1.05 -1.05 2.1 2.1">
       </svg>
       <div class="victory_points"></div>
 
@@ -95,6 +95,15 @@
           <li>\{{values.green}}</li>
           <li>\{{values.blue}}</li>
           <li>\{{values.red}}</li>
+        </ul>
+      </script>
+
+      <script id="victory-points-template" type="text/x-handlebars-template">
+        <ul class="numbers">
+          <li class="header">\{{header}}</li>
+          <li><span class="value">\{{values.green}}</span><span>\{{#if diffs.green}}\{{diffs.green}}\{{/if}}</span></li>
+          <li><span class="value">\{{values.blue}}</span><span>\{{#if diffs.blue}}\{{diffs.blue}}\{{/if}}</span></li>
+          <li><span class="value">\{{values.red}}</span><span>\{{#if diffs.red}}\{{diffs.red}}\{{/if}}</span></li>
         </ul>
       </script>
 

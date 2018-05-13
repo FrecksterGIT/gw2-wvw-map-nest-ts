@@ -36,8 +36,6 @@ export default class Chart {
     const pathElement = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     pathElement.setAttribute('d', path);
     pathElement.setAttribute('fill', slice.color);
-    pathElement.style.stroke = '#fff';
-    pathElement.style.strokeWidth = '0.05';
     return pathElement;
   }
 
@@ -69,12 +67,29 @@ export default class Chart {
       const [startX, startY] = Chart.getCoordinatesForPercent(currentStart);
       const [endX, endY] = Chart.getCoordinatesForPercent(currentEnd);
       const largeArcFlag = currentEnd - currentStart > .5 ? 1 : 0;
+      const [translateX, translateY] = this.getCurrentQuarter(currentStart, currentEnd);
       const pathData = `M ${startX} ${startY} A 1 1 0 ${largeArcFlag} 1 ${endX} ${endY} L 0 0`;
       this.pathElements[index].setAttribute('d', pathData);
+      this.pathElements[index].style.transform = 'translate(' + translateX + 'px, ' + translateY + 'px)';
     });
     if (elapsedTime < this.animationTime) {
       window.requestAnimationFrame(this.step.bind(this));
     }
+  }
+
+  getCurrentQuarter(start, end) {
+    const center = Math.floor((start + ((end - start) / 2)) * 4);
+    switch (center) {
+      case 0:
+        return [.02, .02];
+      case 1:
+        return [-.02, .02];
+      case 2:
+        return [-.02, -.02];
+      case 3:
+        return [.02, -.02];
+    }
+    return [0, 0];
   }
 
   getCurrentValues(diff, elapsedTime) {

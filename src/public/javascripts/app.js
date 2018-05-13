@@ -33,7 +33,7 @@ i18n.setLocale(getLanguage());
 
 Handlebars.registerHelper('t', i18n.__);
 
-log.enable('MatchSelector, MatchStatus, MatchLogger, Objective, Socket, World');
+log.enable('MatchSelector, MatchStatus, MatchLogger, Objective, Socket, World, Chart');
 
 window.customElements.define('gw2-world', World);
 window.customElements.define('gw2-match-selector', MatchSelector);

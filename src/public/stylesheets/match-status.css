@@ -1,14 +1,16 @@
 gw2-match-status {
     display: flex;
     flex-flow: nowrap row;
+    height: 60px;
     margin-top: 10px;
     width: 50%;
 }
 
 gw2-match-status svg {
-    height: 75px;
+    align-self: flex-end;
+    height: 50px;
     transform: rotate(-0.25turn);
-    width: 75px;
+    width: 50px;
 }
 
 gw2-match-status ul,
@@ -20,6 +22,13 @@ gw2-match-status li {
 
 gw2-match-status li {
     padding: 1px 10px;
+}
+
+gw2-match-status .victory_points .value {
+    display: inline-block;
+    margin-right: 10px;
+    text-align: right;
+    width: 25px;
 }
 
 gw2-match-status li.header {

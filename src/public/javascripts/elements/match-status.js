@@ -17,6 +17,9 @@ export default class MatchStatus extends UpdateReceiverElement {
     const numbersTemplate = this.querySelector('#numbers-template').innerHTML;
     this.numbersFunction = Handlebars.compile(numbersTemplate);
 
+    const victoryPointsTemplate = this.querySelector('#victory-points-template').innerHTML;
+    this.victoryPointsFunction = Handlebars.compile(victoryPointsTemplate);
+
     const chartElement = this.querySelector('#chart');
     this.chart = new Chart(chartElement, [
       {color: '#1e7b2d', percent: 0},
@@ -41,12 +44,13 @@ export default class MatchStatus extends UpdateReceiverElement {
       values: data.payload.income
     };
     const victoryPoints = {
+      diffs: this.getDiffs(data.payload.victoryPoints),
       header: i18n.__('Victory Points'),
       values: data.payload.victoryPoints
     };
     this.querySelector('.scores').innerHTML = this.numbersFunction(scores);
     this.querySelector('.income').innerHTML = this.numbersFunction(income);
-    this.querySelector('.victory_points').innerHTML = this.numbersFunction(victoryPoints);
+    this.querySelector('.victory_points').innerHTML = this.victoryPointsFunction(victoryPoints);
 
     if (updateChart) {
       const sum = data.payload.income.red + data.payload.income.blue + data.payload.income.green;
@@ -56,6 +60,16 @@ export default class MatchStatus extends UpdateReceiverElement {
         {percent: data.payload.income.red / sum}
       ]);
     }
+  }
+
+  getDiffs(numbers) {
+    const max = Math.max(...Object.values(numbers));
+    return {
+      blue: numbers.blue - max,
+      green: numbers.green - max,
+      red: numbers.red - max
+    };
+
   }
 
   renderWorldsTemplates(data) {
