@@ -14,7 +14,6 @@ export class SocketConnection {
 
   subscribe() {
     this.on('connect', () => {
-      logger('connected, subscribing for match');
       const matchId = Cookie.get('match');
       this.sendSubscribe(matchId ? matchId : '2-1');
     });

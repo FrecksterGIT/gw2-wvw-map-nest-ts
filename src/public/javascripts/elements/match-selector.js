@@ -37,7 +37,6 @@ export default class MatchSelector extends UpdateReceiverElement {
   }
 
   handleSubscribeUpdate(data) {
-    logger('match selector subscribed for updates', data.id);
     const matchId = data.id;
     Cookie.set('match', matchId, {expires: 31});
     this.handleMatchSwitcher(matchId);
