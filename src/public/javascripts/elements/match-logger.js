@@ -111,7 +111,7 @@ export default class MatchLogger extends UpdateReceiverElement {
           break;
       }
       this.insertAdjacentHTML('afterbegin', content);
-      if (change.mapId !== this.focussedMap) {
+      if (this.focussedMap === '' || change.mapId === this.focussedMap) {
         if (this.speechActive && document.querySelector('.audio.on')) {
           const logText = this.querySelector('div:first-child .log_message').textContent;
           speechSynthesis(logText, speechMap[i18n.getLocale()]);
