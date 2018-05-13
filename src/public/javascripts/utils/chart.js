@@ -8,7 +8,6 @@ export default class Chart {
     this.svg = svg;
     this.slices = slices;
     this.pathElements = [];
-    this.diffs = [];
     this.draw();
   }
 
@@ -71,6 +70,10 @@ export default class Chart {
       this.pathElements[index].setAttribute('d', pathData);
       this.pathElements[index].style.transform = 'translate(' + translateX + 'px, ' + translateY + 'px)';
     });
+
+    const [, svgRotate] = this.getCurrentValues(this.diffs[0], elapsedTime);
+    this.svg.style.transform = 'rotate(-' + (svgRotate * 360 + 90) + 'deg)';
+
     if (elapsedTime < this.animationTime) {
       window.requestAnimationFrame(this.step.bind(this));
     }
