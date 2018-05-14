@@ -27,6 +27,8 @@ export default class UpdateReceiverElement extends HTMLElement {
         case 'SubscribeUpdate':
           this.handleSubscribeUpdate(data);
           break;
+        case 'BloodlustUpdate':
+          this.handleBloodlustUpdate(data);
       }
     }
   }
@@ -41,6 +43,10 @@ export default class UpdateReceiverElement extends HTMLElement {
 
   handleObjectiveUpdate(data) {
     throw new Error('UpdateReceiverElement.handleObjectiveUpdate is abstract');
+  }
+
+  handleBloodlustUpdate(data) {
+    throw new Error('UpdateReceiverElement.handleBloodlustUpdate is abstract');
   }
 
   getRegisterOptions() {

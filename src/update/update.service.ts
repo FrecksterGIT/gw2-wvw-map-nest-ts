@@ -3,7 +3,9 @@ import {diff} from 'deep-diff';
 import deepcopy from 'ts-deepcopy';
 import {Gw2ApiService} from '../gw2api/gw2-api.service';
 import {IColorsWithNumbers, IMatch, IMatchObjective} from '../gw2api/interfaces/match.interface';
+import IBloodlustData from './interfaces/bloodlust-payload.interface';
 import {UpdateGateway} from './update.gateway';
+import {BloodlustUpdate} from './updates/bloodlust-update';
 import {ObjectiveUpdate} from './updates/objective-update';
 import {ScoreUpdate} from './updates/score-update';
 import {SubscribeUpdate} from './updates/subscribe-update';
@@ -44,6 +46,7 @@ export class UpdateService {
     const update = new SubscribeUpdate(display);
     this.updateGateway.sendUpdate(update, lang);
     await this.handleDiff(match, null, lang);
+    await this.handleBloodlustChange(match, null, lang);
   }
 
   public async matchUpdate(lang): Promise<void> {
@@ -71,6 +74,7 @@ export class UpdateService {
     if (oldMatchState) {
       oldMatch = oldMatchState;
     }
+    this.handleBloodlustChange(newMatchState, oldMatchState, lang);
     const changes: IDiff[] = diff(oldMatch, newMatchState);
     if (changes) {
       const changedObjectives: IMatchObjective[] = [];
@@ -147,6 +151,31 @@ export class UpdateService {
       victoryPoints: matchState.victory_points
     });
     this.updateGateway.sendUpdate(update, lang);
+  }
+
+  private handleBloodlustChange(newMatchState, oldMatchState, lang) {
+    const oldBloodlust: IBloodlustData[] = this.getBloodlustData(oldMatchState);
+    const newBloodlust: IBloodlustData[] = this.getBloodlustData(newMatchState);
+
+    const diffs = diff(oldBloodlust, newBloodlust);
+    if (diffs) {
+      const update = new BloodlustUpdate(newMatchState.id, newBloodlust);
+      this.updateGateway.sendUpdate(update, lang);
+    }
+  }
+
+  private getBloodlustData(state): IBloodlustData[] {
+    if (!state || !state.maps) {
+      return null;
+    }
+    return state.maps
+      .filter((map) => [95, 96, 1099].includes(map.id))
+      .map((map): IBloodlustData => {
+        return {
+          bonus: map.bonuses.find((bonus) => bonus.type === 'Bloodlust'),
+          mapId: map.id
+        };
+      });
   }
 
   private calculateIncome(matchState: IMatch): IColorsWithNumbers {
