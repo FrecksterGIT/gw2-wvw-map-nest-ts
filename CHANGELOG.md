@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/compare/v1.1.3...v1.2.0) (2018-05-14)
+
+
+### Bug Fixes
+
+* chart tests ([e3eda1b](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/commit/e3eda1b))
+
+
+### Features
+
+* **bloodlust:** show icons an maps ([f8cdb25](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/commit/f8cdb25))
+* **bloodlust:** write bloodlust data to data-attribute ([158bc34](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/commit/158bc34))
+
+
+
 <a name="1.1.3"></a>
 ## [1.1.3](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/compare/v1.1.2...v1.1.3) (2018-05-13)
 
