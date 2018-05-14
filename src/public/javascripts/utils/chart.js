@@ -6,6 +6,7 @@ export default class Chart {
   constructor(svg, slices = []) {
     this.animationTime = 500;
     this.svg = svg;
+    this.diffs = [];
     this.slices = slices;
     this.pathElements = [];
     this.draw();
