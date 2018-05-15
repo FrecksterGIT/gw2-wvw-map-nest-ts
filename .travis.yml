@@ -14,5 +14,5 @@ deploy:
   provider: heroku
   skip_cleanup: true
   api_key:
-    secure: ${HEROKU_KEY}
+    secure: $HEROKU_KEY
   app: gw2-map
