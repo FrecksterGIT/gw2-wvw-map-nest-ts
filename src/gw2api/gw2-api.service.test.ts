@@ -24,6 +24,11 @@ describe('Gw2ApiService', () => {
     expect(result.length).toEqual(178);
   });
 
+  it('should get all objectives for relevant maps', async () => {
+    const result = await gw2ApiService.getObjectivesDisplay('en');
+    expect(result.length).toEqual(91);
+  });
+
   it('should get data for all 9 matches', async () => {
     const result = await gw2ApiService.getMatches('en');
     expect(result.length).toEqual(9);
@@ -41,5 +46,24 @@ describe('Gw2ApiService', () => {
     const endTime = Date.parse(result.end_time);
     expect(startTime).toBeLessThan(Date.now());
     expect(endTime).toBeGreaterThan(Date.now());
+  });
+
+  it('should get data for guilds', async () => {
+    const guild = await gw2ApiService.getGuild('d5666a91-2c0a-4417-a8aa-f79c1587d642');
+    expect(guild.name).toEqual('Art Of Skills');
+  });
+
+  it('should get guild upgrades', async () => {
+    const upgrades = await gw2ApiService.getGuildUpgrades(['all'], 'en');
+    expect(upgrades.length).toEqual(729);
+    const upgrades2 = await gw2ApiService.getGuildUpgrades([38, 43], 'en');
+    expect(upgrades2.length).toEqual(2);
+    expect(upgrades2[0].name).toEqual('Guild Armorer 1');
+  });
+
+  it('should get a skirmish for a match', async () => {
+    const match = await gw2ApiService.getMatch('2-1', 'en');
+    const skirmish = Gw2ApiService.getCurrentSkirmish(match.skirmishes);
+    expect(skirmish.scores.red).toBeDefined();
   });
 });
