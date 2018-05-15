@@ -154,15 +154,21 @@ export class Gw2ApiService {
     return display;
   }
 
-  public async getObjectivesDisplay(objectives: IObjective[]): Promise<IObjectiveDisplay[]> {
-    const display: IObjectiveDisplay[] = await Promise.all(
-      objectives.map(async (obj) => {
-        const ret: IObjectiveDisplay = obj;
-        ret.display_coord = Gw2ApiService.getDisplayCoordForObjective(obj, ret.map_id);
-        return ret;
-      }));
+  public async getObjectivesDisplay(lang): Promise<IObjectiveDisplay[]> {
+    const objectives = await this.getObjectives(lang);
+    return this.filterAndFillObjectives(objectives);
+  }
+
+  private filterAndFillObjectives(objectives: IObjective[]): IObjectiveDisplay[] {
     const validMapIds = Object.keys(Gw2ApiService.MAP_SIZES);
-    return display.filter((obj) => validMapIds.includes(String(obj.map_id)));
+    return objectives
+      .filter((obj) => validMapIds.includes(String(obj.map_id)))
+      .map((obj) => Gw2ApiService.getObjectiveCoord(obj));
+  }
+
+  private static getObjectiveCoord(objective: IObjectiveDisplay): IObjectiveDisplay {
+    objective.display_coord = Gw2ApiService.getDisplayCoordForObjective(objective, objective.map_id);
+    return objective;
   }
 
   private getWorldNamesForMatch(match: IMatch, color: string, worlds: IWorld[]): IWorldNames {

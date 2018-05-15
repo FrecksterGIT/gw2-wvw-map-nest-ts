@@ -1,9 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {Gw2ApiService} from '../gw2api/gw2-api.service';
 import {IMatchDisplay} from '../gw2api/interfaces/match-display.interface';
-import {IMatch} from '../gw2api/interfaces/match.interface';
 import {IObjectiveDisplay} from '../gw2api/interfaces/objective-display.interface';
-import {IObjective} from '../gw2api/interfaces/objective.interface';
 
 @Injectable()
 export class WorldMapService {
@@ -12,16 +10,14 @@ export class WorldMapService {
   }
 
   public async getObjectives(lang: string): Promise<any> {
-    const objectives = await this.gw2ApiService.getObjectives(lang);
-    const filledObjectives: IObjectiveDisplay[] = await this.fillObjectives(objectives);
-    return this.sortObjectives(filledObjectives);
+    const objectives = await this.gw2ApiService.getObjectivesDisplay(lang);
+    return this.sortObjectives(objectives);
   }
 
   public async getMatchesData(lang: string): Promise<IMatchDisplay[]> {
-    await this.gw2ApiService.getWorlds(lang);
     const matchData = await this.gw2ApiService.getMatches(lang);
-    return await Promise.all(
-      matchData.map((match): Promise<IMatchDisplay> => this.fillMatch(match, lang))
+    return Promise.all(
+      matchData.map((match): Promise<IMatchDisplay> => this.gw2ApiService.getMatchDisplay(match, lang))
     );
   }
 
@@ -34,11 +30,4 @@ export class WorldMapService {
     return ordered;
   }
 
-  private async fillObjectives(objectives: IObjective[]): Promise<IObjectiveDisplay[]> {
-    return await this.gw2ApiService.getObjectivesDisplay(objectives);
-  }
-
-  private async fillMatch(match: IMatch, lang): Promise<IMatchDisplay> {
-    return this.gw2ApiService.getMatchDisplay(match, lang);
-  }
 }
