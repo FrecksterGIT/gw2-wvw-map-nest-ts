@@ -92,6 +92,10 @@
     "ts-deepcopy": "^0.1.4"
   },
   "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{ts,js}",
+      "!**/node_modules/**"
+    ],
     "transform": {
       "^.+\\.tsx?$": "ts-jest",
       "^.+\\.jsx?$": "babel-jest"
