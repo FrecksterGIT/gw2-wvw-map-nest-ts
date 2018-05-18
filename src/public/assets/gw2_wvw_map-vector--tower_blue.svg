@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>gw2_wvw_map-vector--tower_blue</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <radialGradient cx="50%" cy="53.5812623%" fx="50%" fy="53.5812623%" r="49.1860098%" gradientTransform="translate(0.500000,0.535813),rotate(-0.000001),scale(1.000000,0.941915),translate(-0.500000,-0.535813)" id="radialGradient-1">
+            <stop stop-color="#839AC0" offset="0%"></stop>
+            <stop stop-color="#1C4B97" offset="100%"></stop>
+        </radialGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-9" transform="translate(2.000000, 2.000000)">
+            <circle id="Oval-2" fill="#000000" cx="22" cy="22" r="22"></circle>
+            <circle id="Oval-2" fill="url(#radialGradient-1)" cx="22" cy="22" r="20"></circle>
+            <path d="M22.3191418,7.35270976 L30.8,12.7878716 L30.8,20.8170732 L27.7321005,23.9938539 L27.7321005,33.8523885 L29.2502245,35.1779197 L29.2502245,36.6976477 L24.8368459,36.6976477 L24.8368459,30.8334619 L22.2,27.7987917 L19.5631541,30.8334619 L19.5631541,36.6976477 L15.1497755,36.6976477 L15.1497755,35.1779197 L16.6678995,33.8523885 L16.6678995,23.9938539 L13.6,20.8170732 L13.6,12.7878716 L22.0808582,7.35270976 L22.0808582,7.2 L22.2,7.27635488 L22.3191418,7.2 L22.3191418,7.35270976 Z M16.4,13.4976477 L16.4,19.8976477 L18.4,19.8976477 L18.4,13.4976477 L16.4,13.4976477 Z M21.2,13.4976477 L21.2,19.8976477 L23.2,19.8976477 L23.2,13.4976477 L21.2,13.4976477 Z M26,13.4976477 L26,19.8976477 L28,19.8976477 L28,13.4976477 L26,13.4976477 Z" id="Combined-Shape" fill="#000000"></path>
+        </g>
+    </g>
+</svg>
