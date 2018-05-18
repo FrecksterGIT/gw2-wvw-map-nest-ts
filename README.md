@@ -7,4 +7,4 @@
 
 All the data handling happens on the server. Clients subscribe through a websocket for a matchup and only get relevant updates.
 
-Master branch is published to https://gw2-map.herokuapp.com/
+Master branch is published to Heroku.
