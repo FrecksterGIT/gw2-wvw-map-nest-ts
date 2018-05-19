@@ -105,30 +105,23 @@ gw2-world[data-focussed-map="1099"] .map[data-map-id="1099"] {
     width: 68%;
 }
 
-gw2-world .map:after {
-    background-size: contain;
-    content: "";
-    display: block;
-    height: 20px;
-    left: calc(41% - 10px);
+gw2-world .bloodlust {
+    height: 30px;
+    left: calc(41% - 15px);
+    opacity: 0;
     position: absolute;
-    top: calc(65% - 10px);
-    width: 20px;
+    top: calc(65% - 15px);
+    width: 30px;
 }
 
-gw2-world .map[data-map-id="1099"]:after {
-    left: calc(50.5% - 10px);
-    top: calc(65% - 10px);
+
+gw2-world .map[data-map-id="1099"] .bloodlust {
+    left: calc(50.5% - 15px);
+    top: calc(55% - 15px);
 }
 
-gw2-world .map[data-bloodlust="red"]:after {
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAABR1BMVEUAAAABAQAGAAAIAwAIAAEGAAAAAAAIAAEIAAEAAAAIAAEEAAAIAAEIAAEAAAAAAAD+/v/FAAakCArNCA8IAAHNEBhqCgy9CAb/9vi0CAugBQaDCQX8+v+9CAyTDQL/7vB7BwysAQCkGB+sCAycCAzeEBZVCAm9ICXaCxPNEBF7EBCOCA5zCQuLCAkBAgDVCBKRCg7kp6neUVfJCxOsEBGLFxC6DRCBCg+WBgtfEArNAALrt7veMTnFKS69GB6JCA6yCQWFAAO3CALps7XtoqTTZWneWlvQWFqcEBNaCAV+BwVAAgSsBgDCAQD03+D0qq3Zl5npcHbYcHXYcHPpXWK/T1HFCBDNAAbuzs3gsrXmrK3CZWrIV1vVKTS9CBBHCg41BAVHAAIrAQG3AwD2zdH2xcb0r7PulJzei4zNSkzYNj7VIChqEBZSLLy4AAAAEHRSTlMA2iTt7ZFtvbe2WUa2Ph0ZOZv22gAAAdZJREFUOMt9z2l3mkAYhmGx1SzdQLGCmiCCqGURjBUVCBq3tiYxamKzN0335f9/zjsoi0nM/YlznuswM6HlXq2vvQitbnOdHA7Jtc0VcxQjszRdrUokFn24volit20aqkLpWyzyemkOR7CbOkHEoQQUj/M3WCQcmMmvbQLyAEQPyZeL+24oaF6AvxUX0PRQ2XAAJrV98Ou7CyBZCTsgzbJsbTbbSZRKJYbK5/PFYrlMQDHSA7XabAeBPkONVgDYEegfH89BgiASPqhdXSUQ6He7oxES5eI/0//DdjI5oDLGxNJwpx/m+CfDdAki5QEQmczEwBcxJtqDADKMScYD4zFD3AeWZfiAMc17oNUqFDIeoKjK5+bB/r4PWntPg73kY+DgWxBwhUInCCrNZtMDn2KQpl1SuFuvh29B2wFwRFGXmrt3ejh+ugxODilN46bz/Xy31+mc/g4CiIMsazo9HwzoXWjrjw8kkefFegx1cnRxkctx3PW1yrIp2QW6KIp1EOgo/AwBnlfZlOoBUdR123bIIZ7L5Xiel1U1CHRJytq2jV5z5gBZ1lM++P8WykLvoQ9QGnoH6cocfPFBo4G+XSAEgSAI2UZjDj5CAuQC5Tn07JEULBy6AwUPb+pp1/zXAAAAAElFTkSuQmCC);
-}
-
-gw2-world .map[data-bloodlust="blue"]:after {
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAABVlBMVEUAAAABAAEAAwcAAAgAAwYABAgAAAAABAgAAAAABAgAAgQABAgAAAAAAAD+//4AAwYISaQAVMUQY832/P8IRI8IYM0IXM0AWMUIVL0PaN0IT70KNWr6//ru9/8IZNYHO3sYV6QIR5wHNoMAVM0IT7QITqwPXc0gY70AQ6wALZQIPYsQO3sKMWoBRLcJNnMHJ1W30OtRj94yft1wntgKXsgNVboIU7QQT6wQOosKJl+nweMpbcUYYL0ARL0FRrIFRp8IRZYIQYkDHD+rzPRakN5lldNYicsATcICR6wAPqwFRKEFQaEQS5wFN5EAOoYALYMIPYAFM34FJFqyyulwpuldmumrxecIW8VPfr/e6vbN2e6kw+6fwOuyx+CWtdspedVXitNlj8IQQ4MKKlcKJkcAH0cBESvN4fbF2vbe4u6UwO6Lrd6WrdUgcdVKgM0AQpQAKHMAFTEg7B/vAAAADnRSTlMA2iTtkbdtvbZZRj4dGTT8l8wAAAHRSURBVDjLfc5ZW9pAGIZhQgG1S8ZkpkJtAgl70wIxESiJLGETu1hatqpVq23t5vr/T/wSyYKKz+l7z3eNb7YnwYXHvvktBVGziRaW5swhCsVKpXI5j6jQ3fVZiDqJl6AyFD+hAk9nZn+AuroIh59DLLSyIjapgN8zo1/bYcgBULKJgtP/LsLMMFOgrNkgCWTRAtTltgv+/bYBJCG/BT5ls9niZLLOptNpHr+AotEoAy27oFicrJugzeOWJe4C2E3QHo1uLrAMw7qgeHjImqC9t9dqjSxwprgXXq2ufsecrOpj2uqPMmzx/DeGeecAEBynyvQ0XjF3L4BkWeUcMBzyzG2g67ILeEWZAdVqrZbJcA7AeC2R2Nzaeu+AWu5hkKveBzZzXtDLZGQvAJFwwOdlSNO6mLbrdOgI9NEDTjHuavY+6ND07iz4+hdrWkq92ccbncFg978XQClI11V13O0mN6DIuQvyRBRJAxBcOjg6EoRUKhIhvV5dskGfENJoWGCH3jcBvOjViQMI6fcNwyI7tCAIoihKhHhBP5+PGYYB4GDfApJ0XHfBS7MY9Bb6AMWh19DxFPx0QaXyBrLBDy8oFAqxCmSCL1ABsgF6NCdE+X3XJb1xXQim04MAAAAASUVORK5CYII=);
-}
-
-gw2-world .map[data-bloodlust="green"]:after {
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAABR1BMVEUAAAAAAQEABgAACAMBCAAABgABCAAAAAABCAAAAAABCAAABAABCAAAAAAAAAD//v4TxQAUpAgBCAAlzRATagr5//YWtAgUjQgezQgazQgYvQgTvQgUnQb//PoDkwQHrADx/+4f1ggUewcopBgMgwck3hAYrAgNVQgQzQAvvSAdzRAXexAOoQUAAQKu5KkQiw4XkQoexwkTcwkItwF72HBg3lEbrBAbug0bnA0KXwoVlga/67dF3jE5xSkpvRgWiQgMsgUFvQC56bNw02Vk3loi2w0VgAgLfgUIWgUNrAIIQAIMwgANhgACgwCy9Kqs7aWc2ZZ+6XBr6V1Yv0/i9t7O7s3P9sm44LKn659wwmVjzVph01diyFdA1SkdgxASRwoDKwEHRwDe7t+39K+i7pSR3otUzUpJ2DY11SAcahANOQgCcwAFMQA+RBqbAAAAD3RSTlMA2iTt7ZG3bb22WUY+HRniiXNpAAAB1UlEQVQ4y33OWVfaUBSGYUILqB0Skyan4okJBAjQJgaITEkMk7SgZbAO1aq18+T/v3YnkAFF36uz1vesvU5ksefxlWeRh1uL08MhvbL2wJwg6DTHVatlmkjcX18miOsMB1WhzDURe7EwR2PETZOiXkMMtLGB/xGxaGimvx5QkA8gbkjH5/9dVZx5Dn7veIDjhsqqC4j/BwH4ceIBaFuJuuCDIAi1UqnEFItFkc1ms3upVIqC1mkf1OagJ7IjAHvLAJwG0Ds8nF1gKIoJQO3yknFAbzwejUAA+GMGF7Y2Nz+zvKFbY9LtxJx+F8VPFPXWByB4XjfIeaLp7GEAGYbO+2A6Fam7wLKMAIimuQDa7VarUOB9wLI7+fy+IASgVXkcVNrLwH4lDAaFQicMQOR98G4dUtULlvTqdskktBUCE5a9UL290yXJ40Xw8Rurqjl9tqu73U7n+GcYQDnIsnRdPT/ndqHkrwCUUb2OmoDg0uTsTJJyuWRSGwww8kAfIdRsuuCIPHUAxtoAaz5AqN+3bZcckZIkYYyRpoVBv1xO27YNYHLqAoSucAD+voLS0DZUhzLQG+hKmYEvAWg0nLcH5DCQZTndaMzAe0iGPKA8hZ4sSSGikVst7G2lpPJmggAAAABJRU5ErkJggg==);
+gw2-world .map[data-bloodlust="red"] .bloodlust-red,
+gw2-world .map[data-bloodlust="blue"] .bloodlust-blue,
+gw2-world .map[data-bloodlust="green"] .bloodlust-green {
+    opacity: 1;
 }

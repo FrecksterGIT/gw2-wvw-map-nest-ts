@@ -89,13 +89,15 @@ export default class Objective extends UpdateReceiverElement {
   connectedCallback() {
     super.connectedCallback();
     this.id = this.getAttribute('data-id');
+
+    const upgradeTemplate = document.querySelector('#upgrade-template').innerHTML;
+    this.upgradeFunction = Handlebars.compile(upgradeTemplate);
+
+    this.initSvg();
     this.initElements();
     this.initInfoUpdates();
     this.initCopyChatCode();
     this.guildUpgrades = [];
-
-    const upgradeTemplate = document.querySelector('#upgrade-template').innerHTML;
-    this.upgradeFunction = Handlebars.compile(upgradeTemplate);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -104,6 +106,14 @@ export default class Objective extends UpdateReceiverElement {
         this.initTurnedTimer(newValue);
         break;
     }
+  }
+
+  initSvg() {
+    const type = this.getAttribute('data-type');
+    const templateId = '#' + type.toLowerCase() + '-template';
+    const templateElement = document.querySelector(templateId);
+    const iconFunction = templateElement ? Handlebars.compile(templateElement.innerHTML) : () => '';
+    this.insertAdjacentHTML('afterbegin', iconFunction());
   }
 
   initElements() {
@@ -168,7 +178,7 @@ export default class Objective extends UpdateReceiverElement {
       if (receivedData.claimed_by) {
         this.guildInfoElement.innerHTML = receivedData.guild.name + ' [' + receivedData.guild.tag + ']';
         this.infoElement.style.backgroundImage =
-          'url(https://wvw.sentientart.net/guild/' + receivedData.claimed_by + '.png)';
+          'url(http://www.e-sven.net/wvw/guild/' + receivedData.claimed_by + '.png)';
       }
       else {
         this.infoElement.style.backgroundImage = '';
@@ -227,12 +237,6 @@ export default class Objective extends UpdateReceiverElement {
       });
     }
     this.guildUpgrades = upgrades;
-  }
-
-  setAttributeIfChanged(attribute, value) {
-    if (this.getAttribute(attribute) !== value) {
-      this.setAttribute(attribute, value);
-    }
   }
 
   getRegisterOptions() {

@@ -1,26 +1,33 @@
 gw2-objective {
-    background: var(--color-gray) no-repeat;
-    background-size: contain;
-    border: 2px solid #000;
+    background-color: var(--color-gray);
     border-radius: 50%;
     display: block;
-    height: 22px;
+    height: 26px;
     position: absolute;
     transform: translateX(-13px) translateY(-13px);
-    width: 22px;
+    width: 26px;
+    z-index: 1;
+}
+
+gw2-objective svg {
+    height: 28px;
+    left: -1px;
+    position: relative;
+    top: -1px;
+    width: 28px;
     z-index: 1;
 }
 
 gw2-objective[data-owner="Green"] {
-    background-color: var(--color-green);
+    background-image: radial-gradient(circle at 50%, #7DBE63, #1e7b2d 53%);
 }
 
 gw2-objective[data-owner="Blue"] {
-    background-color: var(--color-blue);
+    background-image: radial-gradient(circle at 50%, #839AC0, #1a4da1 53%);
 }
 
 gw2-objective[data-owner="Red"] {
-    background-color: var(--color-red);
+    background-image: radial-gradient(circle at 50%, #BA7471, #b02822 53%);
 }
 
 gw2-objective:hover {
@@ -28,7 +35,8 @@ gw2-objective:hover {
 }
 
 gw2-objective[data-type="Spawn"],
-gw2-objective[data-type="Mercenary"] {
+gw2-objective[data-type="Mercenary"],
+gw2-objective[data-type="Ruins"] {
     display: none;
 }
 
@@ -43,39 +51,7 @@ gw2-objective[data-type="Keep"][data-tier="3"] .waypoint {
     position: absolute;
     right: -7px;
     width: 18px;
-}
-
-gw2-objective[data-type="Castle"] {
-    background-color: var(--color-gray);
-}
-
-gw2-objective[data-type="Castle"][data-owner="Green"] {
-    background-color: var(--color-green);
-}
-
-gw2-objective[data-type="Castle"][data-owner="Blue"] {
-    background-color: var(--color-blue);
-}
-
-gw2-objective[data-type="Castle"][data-owner="Red"] {
-    background-color: var(--color-red);
-}
-
-gw2-objective[data-type="Keep"] {
-    /* background image */
-}
-
-gw2-objective[data-type="Tower"] {
-    /* background image */
-}
-
-gw2-objective[data-type="Camp"] {
-    /* background image */
-}
-
-gw2-objective[data-type="Ruins"] {
-    /* background image */
-    display: none;
+    z-index: 2;
 }
 
 gw2-objective:after {
@@ -83,10 +59,11 @@ gw2-objective:after {
     background-size: contain;
     content: "";
     height: 12px;
-    left: -1px;
+    left: 1px;
     position: absolute;
     top: -5px;
     width: 24px;
+    z-index: 2;
 }
 
 gw2-objective[data-tier="1"]:after {
@@ -110,6 +87,7 @@ gw2-objective[data-is-claimed="true"]:before {
     left: -4px;
     position: absolute;
     width: 13px;
+    z-index: 2;
 }
 
 gw2-objective section {
