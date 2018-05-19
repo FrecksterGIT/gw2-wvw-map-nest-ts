@@ -1,6 +1,9 @@
 import log from 'debug';
 import UpdateReceiverElement from './update-receiver-element';
-import Handlebars from 'handlebars';
+
+import bloodlustRed from '../../assets/gw2_wvw_map-vector--bloodlust_red.svg';
+import bloodlustBlue from '../../assets/gw2_wvw_map-vector--bloodlust_blue.svg';
+import bloodlustGreen from '../../assets/gw2_wvw_map-vector--bloodlust_green.svg';
 
 const logger = log('World');
 
@@ -15,13 +18,12 @@ export default class World extends UpdateReceiverElement {
 
   initElements() {
     this.matchLogger = document.querySelector('gw2-match-logger');
-    const bloodlustTemplate = document.querySelector('#bloodlust-template').innerHTML;
-    const bloodlustFunction = Handlebars.compile(bloodlustTemplate);
+    const bloodlust = bloodlustRed + bloodlustGreen + bloodlustBlue;
     this.maps = {};
     MAP_IDS.forEach((id) => {
       this.maps[id] = this.querySelector('.map[data-map-id="' + id + '"]');
       if (id !== 38) {
-        this.maps[id].insertAdjacentHTML('afterbegin', bloodlustFunction());
+        this.maps[id].insertAdjacentHTML('afterbegin', bloodlust);
       }
     });
   }

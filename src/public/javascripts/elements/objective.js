@@ -4,6 +4,11 @@ import UpdateReceiverElement from './update-receiver-element';
 import {timetools} from '../utils/timetools';
 import guildUpgrades from '../utils/guild-upgrades';
 
+import campTemplate from '../../assets/gw2_wvw_map-vector--camp_transparent.svg';
+import towerTemplate from '../../assets/gw2_wvw_map-vector--tower_transparent.svg';
+import keepTemplate from '../../assets/gw2_wvw_map-vector--keep_transparent.svg';
+import castleTemplate from '../../assets/gw2_wvw_map-vector--castle_transparent.svg';
+
 const logger = log('Objective');
 
 export default class Objective extends UpdateReceiverElement {
@@ -109,11 +114,19 @@ export default class Objective extends UpdateReceiverElement {
   }
 
   initSvg() {
-    const type = this.getAttribute('data-type');
-    const templateId = '#' + type.toLowerCase() + '-template';
-    const templateElement = document.querySelector(templateId);
-    const iconFunction = templateElement ? Handlebars.compile(templateElement.innerHTML) : () => '';
-    this.insertAdjacentHTML('afterbegin', iconFunction());
+    const type = this.getAttribute('data-type').toLowerCase();
+    const template = Objective.getSvgTemplate(type);
+    this.insertAdjacentHTML('afterbegin', template);
+  }
+
+  static getSvgTemplate(type) {
+    switch (type) {
+      case 'camp': return campTemplate;
+      case 'tower': return towerTemplate;
+      case 'keep': return keepTemplate;
+      case 'castle': return castleTemplate;
+      default: return '';
+    }
   }
 
   initElements() {
