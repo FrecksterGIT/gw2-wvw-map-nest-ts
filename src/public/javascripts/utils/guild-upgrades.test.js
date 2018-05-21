@@ -26,7 +26,7 @@ describe('guildUpgrades', async () => {
     const spy = jest.spyOn(mockUpgrades, 'isDataAvailable');
     const upgrades = await mockUpgrades.getUpgrades([3, 4]);
     expect(upgrades).toEqual([{id: 3}, {id: 4}]);
-    expect(spy.mock.calls.length).toBeGreaterThanOrEqual(4);
+    expect(spy.mock.calls.length).toBeGreaterThanOrEqual(2);
     expect(spy.mock.calls.length).toBeLessThanOrEqual(8);
     spy.mockReset();
     spy.mockRestore();
