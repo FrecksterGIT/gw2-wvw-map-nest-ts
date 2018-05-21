@@ -1,4 +1,4 @@
-interface IEmblemDetailsDef {
+export interface IEmblemDetailsDef {
   id: number;
   colors: number[];
 }
@@ -6,6 +6,7 @@ interface IEmblemDetailsDef {
 interface IEmblemDef {
   background: IEmblemDetailsDef;
   foreground: IEmblemDetailsDef;
+  flags: string[];
 }
 
 export interface IGuild {
@@ -13,5 +14,4 @@ export interface IGuild {
   name: string;
   tag: string;
   emblem: IEmblemDef;
-  flags: string[];
 }
