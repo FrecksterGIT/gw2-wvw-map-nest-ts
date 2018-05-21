@@ -9,7 +9,7 @@ export class EmblemController {
 
   @Get('emblem/:guild_id/256.svg')
   @Header('Content-Type', 'image/svg+xml')
-  public root(@Param('guild_id') guildId: string) {
-    return this.emblemService.getEmblem(guildId);
+  public async root(@Param('guild_id') guildId: string) {
+    return await this.emblemService.getEmblem(guildId);
   }
 }
