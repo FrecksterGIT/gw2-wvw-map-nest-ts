@@ -1,9 +1,9 @@
 import log from 'debug';
 import UpdateReceiverElement from './update-receiver-element';
 
-import bloodlustRed from '../../assets/gw2_wvw_map-vector--bloodlust_red.svg';
-import bloodlustBlue from '../../assets/gw2_wvw_map-vector--bloodlust_blue.svg';
-import bloodlustGreen from '../../assets/gw2_wvw_map-vector--bloodlust_green.svg';
+import bloodlustRed from '../../../assets/gw2_wvw_map-vector--bloodlust_red.svg';
+import bloodlustBlue from '../../../assets/gw2_wvw_map-vector--bloodlust_blue.svg';
+import bloodlustGreen from '../../../assets/gw2_wvw_map-vector--bloodlust_green.svg';
 import {ID_ETERNAL_BATTLEGROUNDS, MAP_IDS} from '../utils/constants';
 
 const logger = log('World');

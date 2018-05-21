@@ -4,10 +4,10 @@ import UpdateReceiverElement from './update-receiver-element';
 import {timetools} from '../utils/timetools';
 import guildUpgrades from '../utils/guild-upgrades';
 
-import campTemplate from '../../assets/gw2_wvw_map-vector--camp_transparent.svg';
-import towerTemplate from '../../assets/gw2_wvw_map-vector--tower_transparent.svg';
-import keepTemplate from '../../assets/gw2_wvw_map-vector--keep_transparent.svg';
-import castleTemplate from '../../assets/gw2_wvw_map-vector--castle_transparent.svg';
+import campTemplate from '../../../assets/gw2_wvw_map-vector--camp_transparent.svg';
+import towerTemplate from '../../../assets/gw2_wvw_map-vector--tower_transparent.svg';
+import keepTemplate from '../../../assets/gw2_wvw_map-vector--keep_transparent.svg';
+import castleTemplate from '../../../assets/gw2_wvw_map-vector--castle_transparent.svg';
 
 const logger = log('Objective');
 
