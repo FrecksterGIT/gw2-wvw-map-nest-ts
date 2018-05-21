@@ -1,4 +1,4 @@
-import {Injectable, Logger} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import svgjs = require('svg.js');
 import window = require('svgdom');
 import {Gw2ApiService} from '../gw2api/gw2-api.service';
@@ -29,46 +29,51 @@ export class EmblemService {
   }
 
   private drawBackground(draw, guild) {
-    const matrix = EmblemService.getBackgroundMatrix(guild.emblem.flags);
     const def = backgroundDefs[guild.emblem.background.id];
+    const matrix = EmblemService.getBackgroundMatrix(guild.emblem.flags, def.size);
     const color = EmblemService.getColor(guild.emblem.background.colors[0]);
-    this.add(draw, def.p, color, matrix, .7);
+    const group = draw.group();
+    group.attr('transform', matrix);
+    this.add(group, def.p, color, .7);
   }
 
   private drawForeground(draw, guild) {
-    const matrix = EmblemService.getForegroundMatrix(guild.emblem.flags);
     const def = foregroundDefs[guild.emblem.foreground.id];
+    const matrix = EmblemService.getForegroundMatrix(guild.emblem.flags, def.size);
     const color1 = EmblemService.getColor(guild.emblem.foreground.colors[0]);
     const color2 = EmblemService.getColor(guild.emblem.foreground.colors[1]);
-    this.add(draw, def.p2, color1, matrix, 1);
-    this.add(draw, def.p1, color2, matrix, 1);
-    this.add(draw, def.pt1, color2, matrix, .3);
-    this.add(draw, def.pto2, '#000', matrix, .3);
+    const group = draw.group();
+    group.attr('transform', matrix);
+    this.add(group, def.p2, color1, 1);
+    this.add(group, def.p1, color2, 1);
+    this.add(group, def.pt1, color1, .3);
+    this.add(group, def.pto2, '#000', .3);
   }
 
-  private add(draw: svgjs.Doc, def, color, matrix, opacity) {
+  private add(draw: svgjs.Doc, def, color, opacity) {
     if (!def) {
       return;
     }
+    const group = draw.group();
+    group.attr('fill', color);
+    group.attr('stroke', color);
+    group.attr('stroke-opacity', '50%');
+    group.attr('stroke-width', '.05%');
+    group.attr('opacity', opacity);
     def.forEach((path) => {
-      const p = draw.path(path);
-      p.attr('fill', color);
-      p.attr('stroke', color);
-      p.attr('stroke-opacity', '50%');
-      p.attr('stroke-width', '.05%');
-      p.attr('transform', matrix);
-      p.attr('opacity', opacity);
+      group.path(path);
     });
   }
 
   private static getColor(color) {
     const col = color2Defs.find((cDef) => cDef.id === color).cloth.rgb;
-    Logger.log(JSON.stringify(col));
     return 'rgb(' + col.join(',') + ')';
   }
 
-  private static getBackgroundMatrix(flags = []): string {
+  private static getBackgroundMatrix(flags = [], size = 256): string {
     const matrix = [1, 0, 0, 1, 0, 0];
+    matrix[0] = 256 / size;
+    matrix[3] = 256 / size;
     if (flags.includes('FlipBackgroundHorizontal')) {
       matrix[0] = -matrix[0];
       matrix[4] = 256;
@@ -80,8 +85,10 @@ export class EmblemService {
     return 'matrix(' + matrix.join(',') + ')';
   }
 
-  private static getForegroundMatrix(flags = []) {
+  private static getForegroundMatrix(flags = [], size = 256) {
     const matrix = [1, 0, 0, 1, 0, 0];
+    matrix[0] = 256 / size;
+    matrix[3] = 256 / size;
     if (flags.includes('FlipForegroundHorizontal')) {
       matrix[0] = -matrix[0];
       matrix[4] = 256;
