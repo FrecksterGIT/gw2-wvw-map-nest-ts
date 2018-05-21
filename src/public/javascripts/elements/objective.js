@@ -4,6 +4,11 @@ import UpdateReceiverElement from './update-receiver-element';
 import {timetools} from '../utils/timetools';
 import guildUpgrades from '../utils/guild-upgrades';
 
+import campTemplate from '../../../assets/gw2_wvw_map-vector--camp_transparent.svg';
+import towerTemplate from '../../../assets/gw2_wvw_map-vector--tower_transparent.svg';
+import keepTemplate from '../../../assets/gw2_wvw_map-vector--keep_transparent.svg';
+import castleTemplate from '../../../assets/gw2_wvw_map-vector--castle_transparent.svg';
+
 const logger = log('Objective');
 
 export default class Objective extends UpdateReceiverElement {
@@ -89,13 +94,15 @@ export default class Objective extends UpdateReceiverElement {
   connectedCallback() {
     super.connectedCallback();
     this.id = this.getAttribute('data-id');
+
+    const upgradeTemplate = document.querySelector('#upgrade-template').innerHTML;
+    this.upgradeFunction = Handlebars.compile(upgradeTemplate);
+
+    this.initSvg();
     this.initElements();
     this.initInfoUpdates();
     this.initCopyChatCode();
     this.guildUpgrades = [];
-
-    const upgradeTemplate = document.querySelector('#upgrade-template').innerHTML;
-    this.upgradeFunction = Handlebars.compile(upgradeTemplate);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -103,6 +110,22 @@ export default class Objective extends UpdateReceiverElement {
       case 'data-last-flipped':
         this.initTurnedTimer(newValue);
         break;
+    }
+  }
+
+  initSvg() {
+    const type = this.getAttribute('data-type').toLowerCase();
+    const template = Objective.getSvgTemplate(type);
+    this.insertAdjacentHTML('afterbegin', template);
+  }
+
+  static getSvgTemplate(type) {
+    switch (type) {
+      case 'camp': return campTemplate;
+      case 'tower': return towerTemplate;
+      case 'keep': return keepTemplate;
+      case 'castle': return castleTemplate;
+      default: return '';
     }
   }
 
@@ -168,7 +191,7 @@ export default class Objective extends UpdateReceiverElement {
       if (receivedData.claimed_by) {
         this.guildInfoElement.innerHTML = receivedData.guild.name + ' [' + receivedData.guild.tag + ']';
         this.infoElement.style.backgroundImage =
-          'url(/emblem/' + receivedData.claimed_by + '/256.svg)';
+          'url(http://www.e-sven.net/wvw/guild/' + receivedData.claimed_by + '.png)';
       }
       else {
         this.infoElement.style.backgroundImage = '';
@@ -227,12 +250,6 @@ export default class Objective extends UpdateReceiverElement {
       });
     }
     this.guildUpgrades = upgrades;
-  }
-
-  setAttributeIfChanged(attribute, value) {
-    if (this.getAttribute(attribute) !== value) {
-      this.setAttribute(attribute, value);
-    }
   }
 
   getRegisterOptions() {

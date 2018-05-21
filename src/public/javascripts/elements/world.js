@@ -1,9 +1,12 @@
 import log from 'debug';
 import UpdateReceiverElement from './update-receiver-element';
 
-const logger = log('World');
+import bloodlustRed from '../../../assets/gw2_wvw_map-vector--bloodlust_red.svg';
+import bloodlustBlue from '../../../assets/gw2_wvw_map-vector--bloodlust_blue.svg';
+import bloodlustGreen from '../../../assets/gw2_wvw_map-vector--bloodlust_green.svg';
+import {ID_ETERNAL_BATTLEGROUNDS, MAP_IDS} from '../utils/constants';
 
-const MAP_IDS = [38, 95, 96, 1099];
+const logger = log('World');
 
 export default class World extends UpdateReceiverElement {
   connectedCallback() {
@@ -14,9 +17,13 @@ export default class World extends UpdateReceiverElement {
 
   initElements() {
     this.matchLogger = document.querySelector('gw2-match-logger');
+    const bloodlust = bloodlustRed + bloodlustGreen + bloodlustBlue;
     this.maps = {};
     MAP_IDS.forEach((id) => {
       this.maps[id] = this.querySelector('.map[data-map-id="' + id + '"]');
+      if (id !== ID_ETERNAL_BATTLEGROUNDS) {
+        this.maps[id].insertAdjacentHTML('afterbegin', bloodlust);
+      }
     });
   }
 
