@@ -52,4 +52,10 @@ export default class UpdateReceiverElement extends HTMLElement {
   getRegisterOptions() {
     return [];
   }
+
+  setAttributeIfChanged(attribute, value) {
+    if (this.getAttribute(attribute) !== value) {
+      this.setAttribute(attribute, value);
+    }
+  }
 }
