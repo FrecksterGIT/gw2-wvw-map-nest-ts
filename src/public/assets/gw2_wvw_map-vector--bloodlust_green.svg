@@ -1,35 +1,16 @@
 <svg class="bloodlust bloodlust-green" width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-    <title>gw2_wvw_map-vector--bloodlust_green</title>
-    <desc>Created with Sketch.</desc>
-    <defs>
-        <radialGradient cx="50%" cy="53.5812623%" fx="50%" fy="53.5812623%" r="34.3524316%" gradientTransform="translate(0.500000,0.535813),scale(1.000000,0.835443),scale(1.000000,2.566704),translate(-0.500000,-0.535813)" id="radialGradient-green">
-            <stop stop-color="#7DBE63" offset="0%"></stop>
-            <stop stop-color="#1E7B2D" offset="100%"></stop>
-        </radialGradient>
-        <filter x="-15.0%" y="-12.5%" width="133.0%" height="125.0%" filterUnits="objectBoundingBox" id="filter-green">
-            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
-            <feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
-            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
-            <feMerge>
-                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
-                <feMergeNode in="SourceGraphic"></feMergeNode>
-            </feMerge>
-        </filter>
-    </defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Group-4" transform="translate(9.000000, 6.000000)">
-            <polygon id="Path-2" fill="url(#radialGradient-green)" points="0 36 30.0759494 36 30.0759494 8.47201455 15.1930398 0 0 8.47201455"></polygon>
-            <g id="Group" filter="url(#filter-green)">
-                <path d="M0,36 L0,8.47201455 L15.1912317,0 L30.0723702,8.47201455 L30.0723702,36 L0,36 Z M1.41361135,34.5811852 L28.705156,34.5811852 L28.705156,9.34803568 L15.0473671,1.64292931 L1.41361135,9.34803568 L1.41361135,34.5811852 Z" id="Combined-Shape" fill="#000000"></path>
-                <ellipse id="Oval" fill="#FFFFFF" cx="15.0386026" cy="19.7999562" rx="6.83607096" ry="7.09407384"></ellipse>
-                <polygon id="Triangle" fill="#FFFFFF" points="15.0379747 6.35294118 17.0886076 11.2941176 12.9873418 11.2941176"></polygon>
-                <polygon id="Triangle" fill="#FFFFFF" transform="translate(15.037975, 30.705882) scale(1, -1) translate(-15.037975, -30.705882) " points="15.0379747 28.2352941 17.0886076 33.1764706 12.9873418 33.1764706"></polygon>
-                <polygon id="Triangle" fill="#FFFFFF" transform="translate(24.213459, 14.294118) rotate(-300.000000) translate(-24.213459, -14.294118) " points="24.213459 11.8235294 26.2640919 16.7647059 22.1628261 16.7647059"></polygon>
-                <polygon id="Triangle" fill="#FFFFFF" transform="translate(5.862490, 25.235294) rotate(-300.000000) translate(-5.862490, -25.235294) " points="5.86249034 27.7058824 7.91312325 22.7647059 3.81185743 22.7647059"></polygon>
-                <polygon id="Triangle" fill="#FFFFFF" transform="translate(24.213459, 25.235294) rotate(-240.000000) translate(-24.213459, -25.235294) " points="24.213459 22.7647059 26.2640919 27.7058824 22.1628261 27.7058824"></polygon>
-                <polygon id="Triangle" fill="#FFFFFF" transform="translate(5.862490, 14.294118) rotate(-240.000000) translate(-5.862490, -14.294118) " points="5.86249034 16.7647059 7.91312325 11.8235294 3.81185743 11.8235294"></polygon>
-            </g>
-        </g>
-    </g>
+	<title>gw2_wvw_map-vector--bloodlust_green</title>
+	<defs>
+		<radialGradient cx="50%" cy="53.5812623%" fx="50%" fy="53.5812623%" r="34.3524316%" gradientTransform="translate(0.500000,0.535813),scale(1.000000,0.835443),scale(1.000000,2.566704),translate(-0.500000,-0.535813)" id="radialGradient-green">
+			<stop stop-color="#7DBE63" offset="0%"></stop>
+			<stop stop-color="#1E7B2D" offset="100%"></stop>
+		</radialGradient>
+	</defs>
+	<g id="blgreen" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+		<g id="bloodlust_green" transform="translate(9.000000, 6.000000)">
+			<polygon id="green_gradient" fill="url(#radialGradient-green)" points="0 36 30.0759494 36 30.0759494 8.47201455 15.1930398 0 0 8.47201455"></polygon>
+			<path d="M0,36 L0,8.47201455 L15.1912317,0 L30.0723702,8.47201455 L30.0723702,36 L0,36 Z M1.41361135,34.5811852 L28.705156,34.5811852 L28.705156,9.34803568 L15.0473671,1.64292931 L1.41361135,9.34803568 L1.41361135,34.5811852 Z" id="Combined-Shape" fill="#000000"></path>
+			<path d="M15.0386026,26.89403 C11.2631449,26.89403 8.20253165,23.717905 8.20253165,19.7999562 C8.20253165,15.8820074 11.2631449,12.7058824 15.0386026,12.7058824 C18.8140604,12.7058824 21.8746736,15.8820074 21.8746736,19.7999562 C21.8746736,23.717905 18.8140604,26.89403 15.0386026,26.89403 Z M15.0379747,6.35294118 L17.0886076,11.2941176 L12.9873418,11.2941176 L15.0379747,6.35294118 Z M15.0379747,33.1764706 L12.9873418,28.2352941 L17.0886076,28.2352941 L15.0379747,33.1764706 Z M26.3530512,13.0588235 L23.0991833,17.305312 L21.0485504,13.7535116 L26.3530512,13.0588235 Z M3.72289817,26.4705882 L6.97676606,22.2240998 L9.02739897,25.7759002 L3.72289817,26.4705882 Z M26.3530512,26.4705882 L21.0485504,25.7759002 L23.0991833,22.2240998 L26.3530512,26.4705882 Z M3.72289817,13.0588235 L9.02739897,13.7535116 L6.97676606,17.305312 L3.72289817,13.0588235 Z" id="Combined-Shape" fill="#FFFFFF"></path>
+		</g>
+	</g>
 </svg>
