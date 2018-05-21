@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/compare/v1.2.3...v1.3.0) (2018-05-21)
+
+
+### Features
+
+* better gaps between slices in chart ([475fe26](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/commit/475fe26))
+* emblem renderer ([#38](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/issues/38)) ([8769bf0](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/commit/8769bf0))
+
+
+
 <a name="1.2.3"></a>
 ## [1.2.3](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/compare/v1.2.2...v1.2.3) (2018-05-15)
 
