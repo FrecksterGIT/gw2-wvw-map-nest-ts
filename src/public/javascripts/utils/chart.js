@@ -9,6 +9,7 @@ export default class Chart {
     this.diffs = [];
     this.slices = slices;
     this.pathElements = [];
+    this.gapPercent = 0.005;
     this.draw();
   }
 
@@ -66,10 +67,8 @@ export default class Chart {
       const [startX, startY] = Chart.getCoordinatesForPercent(currentStart);
       const [endX, endY] = Chart.getCoordinatesForPercent(currentEnd);
       const largeArcFlag = currentEnd - currentStart > .5 ? 1 : 0;
-      const [translateX, translateY] = Chart.getCurrentQuarter(currentStart, currentEnd);
       const pathData = `M ${startX} ${startY} A 1 1 0 ${largeArcFlag} 1 ${endX} ${endY} L 0 0`;
       this.pathElements[index].setAttribute('d', pathData);
-      this.pathElements[index].style.transform = 'translate(' + translateX + 'px, ' + translateY + 'px)';
     });
 
     const [, svgRotate] = this.getCurrentValues(this.diffs[0], elapsedTime);
@@ -78,21 +77,6 @@ export default class Chart {
     if (elapsedTime < this.animationTime) {
       window.requestAnimationFrame(this.step.bind(this));
     }
-  }
-
-  static getCurrentQuarter(start, end) {
-    const center = Math.floor((start + ((end - start) / 2)) * 4);
-    switch (center) {
-      case 0:
-        return [.02, .02];
-      case 1:
-        return [-.02, .02];
-      case 2:
-        return [-.02, -.02];
-      case 3:
-        return [.02, -.02];
-    }
-    return [0, 0];
   }
 
   getCurrentValues(diff, elapsedTime) {
@@ -116,10 +100,10 @@ export default class Chart {
 
   makeDiff(oldSlice, newSlice, nextFromStart, nextToStart) {
     this.diffs.push({
-      endFrom: oldSlice.percent + nextFromStart,
-      endTo: newSlice.percent + nextToStart,
-      startFrom: nextFromStart,
-      startTo: nextToStart
+      endFrom: oldSlice.percent + nextFromStart - this.gapPercent,
+      endTo: newSlice.percent + nextToStart - this.gapPercent,
+      startFrom: nextFromStart + this.gapPercent,
+      startTo: nextToStart + this.gapPercent
     });
     return [nextFromStart + oldSlice.percent, nextToStart + newSlice.percent];
   }
