@@ -10,10 +10,6 @@ import foregroundDefs from './data/defs.foreground';
 const SVG = svgjs(window);
 const document = window.document;
 
-// d5666a91-2c0a-4417-a8aa-f79c1587d642 - Art Of Skills
-
-// https://guilds.gw2w2w.com/guilds/art-of-skills
-
 @Injectable()
 export class EmblemService {
 

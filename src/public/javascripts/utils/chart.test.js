@@ -16,6 +16,7 @@ describe('Chart', () => {
       {percent: 30, color: 'green'}
     ];
     chart = new Chart(svg, startPaths);
+    chart.gapPercent = 0;
   });
 
   it('should get the correct values for percentage', () => {
