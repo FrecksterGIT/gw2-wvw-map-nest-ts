@@ -1,8 +1,10 @@
-import {Injectable} from '@nestjs/common';
+import {Injectable, Logger} from '@nestjs/common';
 import svgjs = require('svg.js');
 import window = require('svgdom');
 import {Gw2ApiService} from '../gw2api/gw2-api.service';
 
+import {G} from 'svg.js';
+import {IGuild} from '../gw2api/interfaces/guild.interface';
 import backgroundDefs from './data/defs.background';
 import color2Defs from './data/defs.color2';
 import foregroundDefs from './data/defs.foreground';
@@ -18,43 +20,58 @@ export class EmblemService {
 
   public async getEmblem(guildId): Promise<string> {
     const guild = await this.gw2ApiService.getGuild(guildId);
+    document.documentElement.innerHTML = '';
+    const draw = new SVG(document.documentElement).size(256, 256);
     if (guild.emblem && guild.emblem.background && guild.emblem.background.id) {
-      document.documentElement.innerHTML = '';
-      const draw = new SVG(document.documentElement).size(256, 256);
-      this.drawBackground(draw, guild);
-      this.drawForeground(draw, guild);
-      return draw.svg();
+      try {
+        this.drawBackground(draw, guild);
+      } catch {
+        Logger.log('failed drawing emblem background for ' + guildId, 'EmblemService');
+      }
+      try {
+        this.drawForeground(draw, guild);
+      } catch {
+        Logger.log('failed drawing emblem foreground for ' + guildId, 'EmblemService');
+      }
     }
-    return '';
+    return draw.svg();
   }
 
-  private drawBackground(draw, guild) {
+  private drawBackground(draw: svgjs.Doc, guild: IGuild): boolean {
     const def = backgroundDefs[guild.emblem.background.id];
-    const matrix = EmblemService.getBackgroundMatrix(guild.emblem.flags, def.size);
-    const color = EmblemService.getColor(guild.emblem.background.colors[0]);
-    const group = draw.group();
+    if (!def) {
+      return false;
+    }
+    const matrix: string = EmblemService.getBackgroundMatrix(guild.emblem.flags, def.size);
+    const color: string = EmblemService.getColor(guild.emblem.background.colors[0]);
+    const group: G = draw.group();
     group.attr('transform', matrix);
     this.add(group, def.p, color, .7);
+    return true;
   }
 
-  private drawForeground(draw, guild) {
+  private drawForeground(draw: svgjs.Doc, guild: IGuild): boolean {
     const def = foregroundDefs[guild.emblem.foreground.id];
-    const matrix = EmblemService.getForegroundMatrix(guild.emblem.flags, def.size);
-    const color1 = EmblemService.getColor(guild.emblem.foreground.colors[0]);
-    const color2 = EmblemService.getColor(guild.emblem.foreground.colors[1]);
-    const group = draw.group();
+    if (!def) {
+      return false;
+    }
+    const matrix: string = EmblemService.getForegroundMatrix(guild.emblem.flags, def.size);
+    const color1: string = EmblemService.getColor(guild.emblem.foreground.colors[0]);
+    const color2: string = EmblemService.getColor(guild.emblem.foreground.colors[1]);
+    const group: G = draw.group();
     group.attr('transform', matrix);
     this.add(group, def.p2, color1, 1);
     this.add(group, def.p1, color2, 1);
     this.add(group, def.pt1, color1, .3);
     this.add(group, def.pto2, '#000', .3);
+    return true;
   }
 
-  private add(draw: svgjs.Doc, def, color, opacity) {
+  private add(draw: G, def, color: string, opacity): void {
     if (!def) {
       return;
     }
-    const group = draw.group();
+    const group: G = draw.group();
     group.attr('fill', color);
     group.attr('stroke', color);
     group.attr('stroke-opacity', '50%');
@@ -65,13 +82,16 @@ export class EmblemService {
     });
   }
 
-  private static getColor(color) {
-    const col = color2Defs.find((cDef) => cDef.id === color).cloth.rgb;
-    return 'rgb(' + col.join(',') + ')';
+  private static getColor(color: number): string {
+    const col = color2Defs.find((cDef) => cDef.id === color);
+    if (col) {
+      return 'rgb(' + col.cloth.rgb.join(',') + ')';
+    }
+    return '#fff';
   }
 
-  private static getBackgroundMatrix(flags = [], size = 256): string {
-    const matrix = [1, 0, 0, 1, 0, 0];
+  private static getBackgroundMatrix(flags: string[] = [], size: number = 256): string {
+    const matrix: number[] = [1, 0, 0, 1, 0, 0];
     matrix[0] = 256 / size;
     matrix[3] = 256 / size;
     if (flags.includes('FlipBackgroundHorizontal')) {
@@ -85,8 +105,8 @@ export class EmblemService {
     return 'matrix(' + matrix.join(',') + ')';
   }
 
-  private static getForegroundMatrix(flags = [], size = 256) {
-    const matrix = [1, 0, 0, 1, 0, 0];
+  private static getForegroundMatrix(flags: string[] = [], size: number = 256): string {
+    const matrix: number[] = [1, 0, 0, 1, 0, 0];
     matrix[0] = 256 / size;
     matrix[3] = 256 / size;
     if (flags.includes('FlipForegroundHorizontal')) {
