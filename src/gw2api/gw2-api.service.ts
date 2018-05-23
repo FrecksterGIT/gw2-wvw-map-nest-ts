@@ -7,6 +7,7 @@ import {IMatch, ISkirmish} from './interfaces/match.interface';
 import {IObjectiveDisplay} from './interfaces/objective-display.interface';
 import {IObjective} from './interfaces/objective.interface';
 import {IWorld} from './interfaces/world.interface';
+import IColor from './interfaces/color.interface';
 
 interface IWorldNames {
   allWorlds: string[];
@@ -101,7 +102,7 @@ export class Gw2ApiService {
   }
 
   @Cache(3600)
-  public async getColors(): Promise<any> {
+  public async getColors(): Promise<IColor[]> {
     return await Gw2ApiService.getJSONArray(Gw2ApiService.colorsUrl);
   }
 

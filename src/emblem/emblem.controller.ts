@@ -14,7 +14,7 @@ export class EmblemController {
     return await this.emblemService.getEmblem(guildId);
   }
 
-  @Get('emblem/:guild_id/256.png')
+  @Get('emblem/:guild_id/128.png')
   public async png(@Param('guild_id') guildId, @Res() res) {
     res.setHeader('Content-Type', 'image/png');
     res.send(await this.emblemPngService.getEmblem(guildId));

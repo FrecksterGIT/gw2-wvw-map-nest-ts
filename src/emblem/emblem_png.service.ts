@@ -1,6 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import Jimp = require('jimp');
 import {Gw2ApiService} from '../gw2api/gw2-api.service';
+import IColor from '../gw2api/interfaces/color.interface';
 
 @Injectable()
 export class EmblemPngService {
@@ -10,8 +11,6 @@ export class EmblemPngService {
 
   public async getEmblem(guildId): Promise<any> {
     const guild = await this.gw2ApiService.getGuild(guildId);
-
-    // const backgrounds = await this.gw2ApiService.getEmblemBackgrounds();
     const foreground = await this.getForeground(guild);
     const background = await this.getBackground(guild);
     return await this.draw(background, foreground);
@@ -29,42 +28,48 @@ export class EmblemPngService {
 
   private async drawBackground(background): Promise<Jimp> {
     return new Promise<Jimp>(async (resolve) => {
-      const [images, colors, flipHorizontal, flipVertical] = background;
+      const [images, colors, flipHorizontal, flipVertical]: [string[], IColor[], boolean, boolean] = background;
       const img = await EmblemPngService.readImageResource(images[0]);
-      img.color([{
-        apply: 'mix', params: [colors[0], 100]
-      }]);
-      resolve(img);
+      img.mirror(flipHorizontal, flipVertical);
+      resolve(EmblemPngService.colorize(img, colors[0]));
     });
   }
 
-  private async drawForeground(def, image: Jimp, opacity = .7): Promise<Jimp> {
+  private async drawForeground(def, image: Jimp): Promise<Jimp> {
     return new Promise<Jimp>(async (resolve) => {
-      const [images, colors, flipHorizontal, flipVertical] = def;
-      const img = await EmblemPngService.drawImage(image, images, colors[1]);
+      const [images, colors, flipHorizontal, flipVertical]: [string[], IColor[], boolean, boolean] = def;
+      images.reverse();
+      const img = await EmblemPngService.drawImage(image, images, colors);
+      img.mirror(flipHorizontal, flipVertical);
       resolve(img);
     });
   }
 
-  private static async drawImage(composed: Jimp, images: string[], color: string): Promise<Jimp> {
+  private static async drawImage(composed: Jimp, images: string[], colors: IColor[], count: number = 0): Promise<Jimp> {
     return new Promise<Jimp>(async (resolve) => {
       const image = images.pop();
       if (image) {
         const imagePart = await EmblemPngService.readImageResource(image);
-        imagePart.color([
-          {apply: 'greyscale', params: [0]},
-          {apply: 'mix', params: [color, 75]}
-        ]);
-        composed.composite(imagePart, 0, 0);
-        resolve(this.drawImage(composed, images, color));
+        const color = colors[count === 1 ? 0 : 1];
+        composed.composite(EmblemPngService.colorize(imagePart, color), 0, 0, () => {
+          resolve(this.drawImage(composed, images, colors, ++count));
+        });
       } else {
         resolve(composed);
       }
     });
   }
 
+  private static colorize(image: Jimp, color: IColor) {
+    const base = color.cloth;
+    return image.clone().color([
+      {apply: 'greyscale', params: [100]},
+      {apply: 'mix', params: [EmblemPngService.translateColor(base.rgb), 100]}
+    ]);
+  }
+
   private static async readImageResource(imgFile) {
-    const PATH = './src/assets/emblem_base/';
+    const PATH = './emblems/';
     return await Jimp.read(PATH + imgFile);
   }
 
@@ -89,13 +94,17 @@ export class EmblemPngService {
     const flipVertical: boolean = flags.includes(verFlag);
 
     const colors = await this.gw2ApiService.getColors();
-    const emblemColors = def.colors.map((color) => (colors.find((c) => c.id === color).cloth.rgb));
+    const emblemColors: IColor[] = def.colors.map((color: number) => (colors.find((c: IColor) => c.id === color)));
 
-    return [files, EmblemPngService.translateColors(emblemColors), flipHorizontal, flipVertical];
+    return [files, emblemColors, flipHorizontal, flipVertical];
   }
 
-  private static translateColors(colors) {
-    return colors.map((color) => '#' + color[0].toString(16) + color[1].toString(16) + color[2].toString(16));
+  private static translateColor(color) {
+    return '#' + EmblemPngService.pad(color[0]) + EmblemPngService.pad(color[1]) + EmblemPngService.pad(color[2]);
   }
 
+  private static pad(color: number, width: number = 2, z: string = '0') {
+    const n = color.toString(16);
+    return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+  }
 }
