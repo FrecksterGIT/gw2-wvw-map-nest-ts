@@ -2,7 +2,7 @@ import socket from './socket';
 
 class GuildUpgrades {
   constructor() {
-    this.waitTimeout = 1000;
+    this.waitTimeout = 2500;
     this.upgrades = [];
     socket.on('upgrades', (data) => {
       this.upgrades.push(...data);
