@@ -1,3 +1,5 @@
+/* color interface for emblem rendering*/
+
 interface IColorDefinition {
   brightness: number;
   contrast: number;
