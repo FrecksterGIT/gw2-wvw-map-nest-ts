@@ -126,6 +126,7 @@ typings/
 # dotenv environment variables file
 .env
 
+_cache/
 dist/
 .idea/
 *.iml

@@ -1,13 +1,13 @@
 import {Injectable} from '@nestjs/common';
 import fetch from 'node-fetch';
 import Cache from '../cache/cache.decorator';
+import IColor from './interfaces/color.interface';
 import {IGuild} from './interfaces/guild.interface';
 import {IMatchDisplay} from './interfaces/match-display.interface';
 import {IMatch, ISkirmish} from './interfaces/match.interface';
 import {IObjectiveDisplay} from './interfaces/objective-display.interface';
 import {IObjective} from './interfaces/objective.interface';
 import {IWorld} from './interfaces/world.interface';
-import IColor from './interfaces/color.interface';
 
 interface IWorldNames {
   allWorlds: string[];
@@ -86,22 +86,22 @@ export class Gw2ApiService {
     return [0, 0];
   }
 
-  @Cache(3600)
+  @Cache({cacheTime: 3600, isStatic: true})
   public async getWorlds(lang: string): Promise<IWorld[]> {
     return await Gw2ApiService.getJSONArray(Gw2ApiService.worldsUrl + '&lang=' + lang);
   }
 
-  @Cache(3600)
+  @Cache({cacheTime: 3600, isStatic: true})
   public async getEmblemBackgrounds(): Promise<any> {
     return await Gw2ApiService.getJSONArray(Gw2ApiService.emblemBackgroundsUrl);
   }
 
-  @Cache(3600)
+  @Cache({cacheTime: 3600, isStatic: true})
   public async getEmblemForegrounds(): Promise<any> {
     return await Gw2ApiService.getJSONArray(Gw2ApiService.emblemForegroundsUrl);
   }
 
-  @Cache(3600)
+  @Cache({cacheTime: 3600, isStatic: true})
   public async getColors(): Promise<IColor[]> {
     return await Gw2ApiService.getJSONArray(Gw2ApiService.colorsUrl);
   }
@@ -117,7 +117,7 @@ export class Gw2ApiService {
     }));
   }
 
-  @Cache(4)
+  @Cache({cacheTime: 4})
   public async getMatch(matchId: string, lang: string): Promise<IMatch> {
     if (matchId.match(/\d-\d/)) {
       return await Gw2ApiService.getJSONObject(Gw2ApiService.matchesUrl + matchId + '?lang=' + lang);
@@ -125,17 +125,17 @@ export class Gw2ApiService {
     return null;
   }
 
-  @Cache(3600)
+  @Cache({cacheTime: 3600, isStatic: true})
   public async getObjectives(lang: string): Promise<IObjective[]> {
     return await Gw2ApiService.getJSONArray(Gw2ApiService.objectivesUrl + '&lang=' + lang);
   }
 
-  @Cache(3600)
+  @Cache({cacheTime: 3600})
   public async getGuildUpgrade(upgradeId: number, lang: string): Promise<any> {
     return await Gw2ApiService.getJSONObject(Gw2ApiService.guildUpgradeUrl + upgradeId + '?lang=' + lang);
   }
 
-  @Cache(3600)
+  @Cache({cacheTime: 3600})
   public async getGuildUpgrades(upgradeIds: string[] = ['all'], lang: string): Promise<any> {
     if (upgradeIds.length === 0) {
       return [];
@@ -144,7 +144,7 @@ export class Gw2ApiService {
     return await Gw2ApiService.getJSONArray(Gw2ApiService.guildUpgradesUrl + upgradeIdsParam + '&lang=' + lang);
   }
 
-  @Cache(3600)
+  @Cache({cacheTime: 3600})
   public async getGuild(guildId: string): Promise<IGuild> {
     return await Gw2ApiService.getJSONObject(Gw2ApiService.guildUrl + guildId);
   }
