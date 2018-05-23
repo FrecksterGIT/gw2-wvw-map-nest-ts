@@ -7,6 +7,7 @@ import {IMatch, ISkirmish} from './interfaces/match.interface';
 import {IObjectiveDisplay} from './interfaces/objective-display.interface';
 import {IObjective} from './interfaces/objective.interface';
 import {IWorld} from './interfaces/world.interface';
+import IColor from './interfaces/color.interface';
 
 interface IWorldNames {
   allWorlds: string[];
@@ -24,6 +25,9 @@ export class Gw2ApiService {
   private static guildUrl: string = 'https://api.guildwars2.com/v2/guild/';
   private static guildUpgradeUrl: string = 'https://api.guildwars2.com/v2/guild/upgrades/';
   private static guildUpgradesUrl: string = 'https://api.guildwars2.com/v2/guild/upgrades?ids=';
+  private static emblemForegroundsUrl: string = 'https://api.guildwars2.com/v2/emblem/foregrounds?ids=all';
+  private static emblemBackgroundsUrl: string = 'https://api.guildwars2.com/v2/emblem/backgrounds?ids=all';
+  private static colorsUrl: string = 'https://api.guildwars2.com/v2/colors?ids=all';
 
   private static MAP_SIZES = {
     38: [[8958, 12798], [12030, 15870]],
@@ -84,7 +88,22 @@ export class Gw2ApiService {
 
   @Cache(3600)
   public async getWorlds(lang: string): Promise<IWorld[]> {
-    return await Gw2ApiService.getJSONArray((Gw2ApiService.worldsUrl + '&lang=' + lang));
+    return await Gw2ApiService.getJSONArray(Gw2ApiService.worldsUrl + '&lang=' + lang);
+  }
+
+  @Cache(3600)
+  public async getEmblemBackgrounds(): Promise<any> {
+    return await Gw2ApiService.getJSONArray(Gw2ApiService.emblemBackgroundsUrl);
+  }
+
+  @Cache(3600)
+  public async getEmblemForegrounds(): Promise<any> {
+    return await Gw2ApiService.getJSONArray(Gw2ApiService.emblemForegroundsUrl);
+  }
+
+  @Cache(3600)
+  public async getColors(): Promise<IColor[]> {
+    return await Gw2ApiService.getJSONArray(Gw2ApiService.colorsUrl);
   }
 
   public async getMatches(lang) {

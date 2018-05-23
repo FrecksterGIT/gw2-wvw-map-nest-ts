@@ -191,7 +191,7 @@ export default class Objective extends UpdateReceiverElement {
       if (receivedData.claimed_by) {
         this.guildInfoElement.innerHTML = receivedData.guild.name + ' [' + receivedData.guild.tag + ']';
         this.infoElement.style.backgroundImage =
-          'url(/emblem/' + receivedData.claimed_by + '/256.svg)';
+          'url(/emblem/' + receivedData.claimed_by + '/128.png)';
       }
       else {
         this.infoElement.style.backgroundImage = '';

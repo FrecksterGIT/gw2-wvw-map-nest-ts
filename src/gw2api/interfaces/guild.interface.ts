@@ -3,7 +3,7 @@ export interface IEmblemDetailsDef {
   colors: number[];
 }
 
-interface IEmblemDef {
+export interface IEmblemDef {
   background: IEmblemDetailsDef;
   foreground: IEmblemDetailsDef;
   flags: string[];
