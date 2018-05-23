@@ -50,7 +50,11 @@ export default function Cache(
           await mkdir(dir);
         }
       } catch {
-        await mkdir(dir);
+        try {
+          await mkdir(dir);
+        } catch {
+          /* noop */
+        }
       }
       const path = dir + cacheKey;
       if (isStatic) {
