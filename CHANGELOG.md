@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.6.0"></a>
+# [1.6.0](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/compare/v1.5.0...v1.6.0) (2018-05-24)
+
+
+### Features
+
+* file based caching for static resources ([#41](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/issues/41)) ([5c8380e](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/commit/5c8380e))
+
+
+
 <a name="1.5.0"></a>
 # [1.5.0](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/compare/v1.4.2...v1.5.0) (2018-05-23)
 
