@@ -2,11 +2,11 @@ import ICache from '../interfaces/cache.interface';
 
 export default class NoCache implements ICache {
 
-  public get(key: string): any {
+  public async get(key: string): Promise<any> {
     return null;
   }
 
-  public set(key: string, value: any, cacheTime: number) {
+  public async set(key: string, value: any, cacheTime: number) {
     // noop
   }
 

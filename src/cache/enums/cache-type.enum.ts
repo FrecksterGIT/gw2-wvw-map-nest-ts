@@ -1,4 +1,5 @@
 export enum CacheType {
   InMemory,
-  NoCache
+  NoCache,
+  FileCache
 }

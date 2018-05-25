@@ -1,14 +1,6 @@
-import {Logger} from '@nestjs/common';
 import crypto = require('crypto');
-import * as fs from 'fs';
-import {promisify} from 'util';
 import CacheFactory from './cache.factory';
 import {CacheType} from './enums/cache-type.enum';
-
-const readFile = promisify(fs.readFile);
-const writeFile = promisify(fs.writeFile);
-const stat = promisify(fs.stat);
-const mkdir = promisify(fs.mkdir);
 
 function getCacheKey(propertyKey, args): string {
   const key = propertyKey + JSON.stringify((args));
@@ -18,11 +10,28 @@ function getCacheKey(propertyKey, args): string {
 interface ICacheDecoratorParams {
   cacheTime?: number;
   cacheType?: CacheType;
-  isStatic?: boolean;
 }
 
+const serialize = (value) => {
+  if (value instanceof Buffer) {
+    return value;
+  }
+  return JSON.stringify(value);
+};
+
+const unserialize = (value) => {
+  try {
+    return JSON.parse(value);
+  } catch {
+    if (value !== null) {
+      return Buffer.from(value);
+    }
+    return null;
+  }
+};
+
 export default function Cache(
-  {cacheTime, cacheType = CacheType.InMemory, isStatic = false}: ICacheDecoratorParams): MethodDecorator {
+  {cacheTime, cacheType = CacheType.InMemory}: ICacheDecoratorParams): MethodDecorator {
   return (target, propertyKey: string, descriptor: PropertyDescriptor) => {
 
     const method = (typeof descriptor.get !== 'function') ? descriptor.value : descriptor.get.call(this);
@@ -34,51 +43,14 @@ export default function Cache(
     descriptor.value = async function(...args: any[]) {
       const cacheKey = getCacheKey(propertyKey, args);
       const cacheHolder = CacheFactory.getCache(cacheType);
-      const result = cacheHolder.cache.get(cacheKey);
+      const result = await cacheHolder.cache.get(cacheKey);
       if (result !== null) {
-        Logger.log('from memory');
-        if (result.type === 'Buffer') {
-          const buffer = Buffer.from(result);
-          return Promise.resolve(buffer);
-        }
-        return Promise.resolve(result);
+        const returnValue = unserialize(result);
+        return Promise.resolve(returnValue);
       }
-      const dir = './_cache/';
-      try {
-        const dirStat = await stat(dir);
-        if (!dirStat.isDirectory()) {
-          await mkdir(dir);
-        }
-      } catch {
-        try {
-          await mkdir(dir);
-        } catch {
-          /* noop */
-        }
-      }
-      const path = dir + cacheKey;
-      if (isStatic) {
-        // try loading from _cache folder
-        if (fs.existsSync(path)) {
-          Logger.log('from file');
-          const content = await readFile(path, {encoding: 'utf8'});
-          const json = JSON.parse(content);
-          if (json.type === 'Buffer') {
-            const buffer = Buffer.from(json);
-            cacheHolder.cache.set(cacheKey, buffer, cacheTime);
-            return Promise.resolve(buffer);
-          }
-          cacheHolder.cache.set(cacheKey, json, cacheTime);
-          return Promise.resolve(json);
-        }
-      }
-      Logger.log('from function call...');
       const r = await method.apply(this, args);
       if (r) {
-        cacheHolder.cache.set(cacheKey, r, cacheTime);
-        if (isStatic) {
-          await writeFile(path, JSON.stringify(r), {encoding: 'utf8'});
-        }
+        await cacheHolder.cache.set(cacheKey, serialize(r), cacheTime);
       }
       return r;
     };

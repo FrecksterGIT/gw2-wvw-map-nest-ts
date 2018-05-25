@@ -1,6 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import Jimp = require('jimp');
 import Cache from '../cache/cache.decorator';
+import {CacheType} from '../cache/enums/cache-type.enum';
 import {Gw2ApiService} from '../gw2api/gw2-api.service';
 import IColor from '../gw2api/interfaces/color.interface';
 
@@ -10,7 +11,7 @@ export class EmblemPngService {
   public constructor(private readonly gw2ApiService: Gw2ApiService) {
   }
 
-  @Cache({cacheTime: 3600, isStatic: true})
+  @Cache({cacheType: CacheType.FileCache})
   public async getEmblem(guildId): Promise<any> {
     const guild = await this.gw2ApiService.getGuild(guildId);
     const foreground = await this.getForeground(guild);
