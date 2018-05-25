@@ -1,4 +1,5 @@
 import {CacheType} from './enums/cache-type.enum';
+import FileCache from './impl/file-cache.class';
 import InMemoryCache from './impl/in-memory-cache.class';
 import NoCache from './impl/no-cache.class';
 import ICacheHolder from './interfaces/cache-holder.interface';
@@ -26,6 +27,11 @@ export default class CacheFactory {
       case CacheType.InMemory:
         return {
           cache: new InMemoryCache(),
+          type
+        };
+      case CacheType.FileCache:
+        return {
+          cache: new FileCache(),
           type
         };
     }

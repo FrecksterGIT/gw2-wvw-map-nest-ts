@@ -3,7 +3,7 @@ import ICache from '../interfaces/cache.interface';
 export default class InMemoryCache implements ICache {
   private storage: Map<string, string> = new Map<string, string>();
 
-  public get(key: string): any {
+  public async get(key: string): Promise<any> {
     const storedItem = this.storage.get(key);
     if (storedItem) {
       return JSON.parse(storedItem);
@@ -11,7 +11,7 @@ export default class InMemoryCache implements ICache {
     return null;
   }
 
-  public set(key: string, cacheValue: any, cacheTime: number) {
+  public async set(key: string, cacheValue: any, cacheTime: number) {
     if (!!cacheValue) {
       this.storage.set(key, JSON.stringify(cacheValue));
       setTimeout(() => {

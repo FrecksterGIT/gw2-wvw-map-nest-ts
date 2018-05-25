@@ -1,6 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import fetch from 'node-fetch';
 import Cache from '../cache/cache.decorator';
+import {CacheType} from '../cache/enums/cache-type.enum';
 import IColor from './interfaces/color.interface';
 import {IGuild} from './interfaces/guild.interface';
 import {IMatchDisplay} from './interfaces/match-display.interface';
@@ -86,22 +87,22 @@ export class Gw2ApiService {
     return [0, 0];
   }
 
-  @Cache({cacheTime: 3600, isStatic: true})
+  @Cache({cacheType: CacheType.FileCache})
   public async getWorlds(lang: string): Promise<IWorld[]> {
     return await Gw2ApiService.getJSONArray(Gw2ApiService.worldsUrl + '&lang=' + lang);
   }
 
-  @Cache({cacheTime: 3600, isStatic: true})
+  @Cache({cacheType: CacheType.FileCache})
   public async getEmblemBackgrounds(): Promise<any> {
     return await Gw2ApiService.getJSONArray(Gw2ApiService.emblemBackgroundsUrl);
   }
 
-  @Cache({cacheTime: 3600, isStatic: true})
+  @Cache({cacheType: CacheType.FileCache})
   public async getEmblemForegrounds(): Promise<any> {
     return await Gw2ApiService.getJSONArray(Gw2ApiService.emblemForegroundsUrl);
   }
 
-  @Cache({cacheTime: 3600, isStatic: true})
+  @Cache({cacheType: CacheType.FileCache})
   public async getColors(): Promise<IColor[]> {
     return await Gw2ApiService.getJSONArray(Gw2ApiService.colorsUrl);
   }
@@ -125,7 +126,7 @@ export class Gw2ApiService {
     return null;
   }
 
-  @Cache({cacheTime: 3600, isStatic: true})
+  @Cache({cacheType: CacheType.FileCache})
   public async getObjectives(lang: string): Promise<IObjective[]> {
     return await Gw2ApiService.getJSONArray(Gw2ApiService.objectivesUrl + '&lang=' + lang);
   }
