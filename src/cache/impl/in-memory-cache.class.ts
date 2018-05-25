@@ -6,14 +6,14 @@ export default class InMemoryCache implements ICache {
   public async get(key: string): Promise<any> {
     const storedItem = this.storage.get(key);
     if (storedItem) {
-      return JSON.parse(storedItem);
+      return storedItem;
     }
     return null;
   }
 
   public async set(key: string, cacheValue: any, cacheTime: number) {
     if (!!cacheValue) {
-      this.storage.set(key, JSON.stringify(cacheValue));
+      this.storage.set(key, cacheValue);
       setTimeout(() => {
         this.remove(key);
       }, cacheTime * 60);
