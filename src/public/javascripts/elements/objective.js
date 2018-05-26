@@ -132,6 +132,7 @@ export default class Objective extends UpdateReceiverElement {
   initElements() {
     this.turnedTimerElement = this.querySelector('aside');
     this.infoElement = this.querySelector('section');
+    this.emblemElement = this.querySelector('.emblem');
     this.yakCounterElement = this.querySelector('.yaks.value');
     this.guildInfoElement = this.querySelector('.guild.value');
     this.heldInfoElement = this.querySelector('.turned.value');
@@ -190,11 +191,11 @@ export default class Objective extends UpdateReceiverElement {
       this.yakCounterElement.innerHTML = Objective.getDolyaksOutput(receivedData.yaks_delivered);
       if (receivedData.claimed_by) {
         this.guildInfoElement.innerHTML = receivedData.guild.name + ' [' + receivedData.guild.tag + ']';
-        this.infoElement.style.backgroundImage =
+        this.emblemElement.style.backgroundImage =
           'url(/emblem/' + receivedData.claimed_by + '/128.png)';
       }
       else {
-        this.infoElement.style.backgroundImage = '';
+        this.emblemElement.style.backgroundImage = '';
       }
     }
   }

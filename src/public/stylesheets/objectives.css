@@ -91,9 +91,10 @@ gw2-objective[data-is-claimed="true"]:before {
 }
 
 gw2-objective section {
-    background: #fff;
-    border: 1px solid #ccc;
+    background-color: var(--shader);
+    border: 1px solid #000;
     border-radius: 4px;
+    color: var(--color-lightgray);
     display: none;
     left: 40px;
     padding: 6px 11px;
@@ -113,6 +114,22 @@ gw2-objective section.left {
 
 gw2-objective[data-is-claimed="true"] section.left {
     left: -330px;
+}
+
+gw2-objective section .emblem {
+    display: none;
+}
+
+gw2-objective[data-is-claimed="true"] section .emblem {
+    background-color: var(--color-darkgray);
+    background-size: contain;
+    display: block;
+    height: 50px;
+    left: 10px;
+    margin: 0;
+    position: absolute;
+    top: 10px;
+    width: 50px;
 }
 
 gw2-objective:hover section {
@@ -166,7 +183,8 @@ gw2-objective[data-is-claimed="false"] .claimed {
 }
 
 gw2-objective[data-is-claimed="true"] section {
-    background: #fff 10px 10px no-repeat;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
     background-size: 50px 50px;
     padding-left: 70px;
     width: 230px;

@@ -3,8 +3,11 @@
     --color-blue: #1a4da1;
     --color-green: #1e7b2d;
     --color-gray: #707070;
+    --color-lightgray: #e1e1e1;
+    --color-darkgray: #040404;
     --color-hightlight: rgba(251,227,20, .5);
-    --test: rgb(128, 26, 26);
+    --shader: #000000d0;
+
 }
 
 .red {
