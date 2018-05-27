@@ -27,6 +27,7 @@
     "travis-build:locales": "cp -r src/public/locales dist/public",
     "travis-build:package": "ts-node ./scripts/prepare-dist",
     "travis-build:copy-emblems": "cp -r emblems dist",
+    "travis-build:copy-env": "cp .env.example dist",
     "watch:backend": "nodemon",
     "watch:frontend": "webpack",
     "watch:css": "postcss --watch ./src/public/stylesheets/style.css -o ./dist/public/stylesheets/style.css -u postcss-import --poll",
