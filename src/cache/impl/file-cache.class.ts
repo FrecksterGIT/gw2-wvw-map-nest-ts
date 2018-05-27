@@ -22,7 +22,7 @@ export default class FileCache implements ICache {
     return null;
   }
 
-  public async set(key: string, value: any, cacheTime: number) {
+  public async set(key: string, value: any, cacheTime: number): Promise<void> {
     if (this.enabled) {
       return new Promise<void>((resolve) => {
         const filePath: string = this.getFilePath(key);

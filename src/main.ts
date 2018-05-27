@@ -7,10 +7,12 @@ import {Config} from './app.config';
 import {ApplicationModule} from './app.module';
 
 import compression = require('compression');
+import dotenv = require('dotenv-safe');
 import hbs = require('hbs');
 import i18n = require('i18n');
 
-const PORT = process.env.PORT || 3000;
+dotenv.config();
+const PORT: number = Number(process.env.PORT) || 3000;
 
 async function bootstrap() {
   const app = await NestFactory.create(ApplicationModule);
