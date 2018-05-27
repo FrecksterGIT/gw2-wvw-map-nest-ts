@@ -11,7 +11,7 @@ export class EmblemPngService {
   public constructor(private readonly gw2ApiService: Gw2ApiService) {
   }
 
-  @Cache({cacheType: CacheType.FileCache})
+  @Cache({cacheType: CacheType.S3Cache})
   public async getEmblem(guildId): Promise<any> {
     const guild = await this.gw2ApiService.getGuild(guildId);
     const foreground = await this.getForeground(guild);
