@@ -23,12 +23,11 @@ export default class S3Cache implements ICache {
   public async get(key: string): Promise<any> {
     this.setup();
     return new Promise(async (resolve) => {
-      this.client.headObject({Bucket: this.bucketName, Key: key}, (error, head) => {
+      this.client.headObject({Bucket: this.bucketName, Key: key}, (error) => {
         if (error) {
           resolve(null);
           return;
         }
-        Logger.log(String(head.ContentLength));
         this.client.getObject({Bucket: this.bucketName, Key: key}, (err, content) => {
           if (err) {
             resolve(null);
@@ -48,7 +47,7 @@ export default class S3Cache implements ICache {
         Key: key
       }, (err) => {
         if (err) {
-          Logger.log(String(err));
+          Logger.error('S3 writing failed: ' + String(err));
         }
         resolve();
       });
