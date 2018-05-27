@@ -42,6 +42,7 @@ export default class S3Cache implements ICache {
   public async set(key: string, value: any, cacheTime: number): Promise<void> {
     return new Promise<void>((resolve) => {
       this.client.putObject({
+        ACL: 'public-read',
         Body: value,
         Bucket: this.bucketName,
         Key: key
