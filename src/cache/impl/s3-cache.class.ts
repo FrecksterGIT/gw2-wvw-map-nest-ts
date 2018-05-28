@@ -8,6 +8,8 @@ export default class S3Cache implements ICache {
   private client: aws.S3;
   private initialized: boolean = false;
 
+  private S3_URL = 'https://' + this.bucketName + '.s3.amazonaws.com/';
+
   private setup() {
     if (!this.initialized) {
       aws.config.update({
@@ -28,6 +30,10 @@ export default class S3Cache implements ICache {
           resolve(null);
           return;
         }
+        const url = this.S3_URL + key;
+        resolve(JSON.stringify({redirect: url}));
+        /*
+        Logger.log(url);
         this.client.getObject({Bucket: this.bucketName, Key: key}, (err, content) => {
           if (err) {
             resolve(null);
@@ -35,6 +41,7 @@ export default class S3Cache implements ICache {
           }
           resolve(content.Body);
         });
+        */
       });
     });
   }

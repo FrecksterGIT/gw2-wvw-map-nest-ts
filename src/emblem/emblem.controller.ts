@@ -1,4 +1,4 @@
-import {Controller, Get, Header, Param, Req, Res} from '@nestjs/common';
+import {Controller, Get, Header, Param, Res} from '@nestjs/common';
 import {EmblemService} from './emblem.service';
 import {EmblemPngService} from './emblem_png.service';
 
@@ -16,7 +16,14 @@ export class EmblemController {
 
   @Get('emblem/:guild_id/128.png')
   public async png(@Param('guild_id') guildId, @Res() res) {
-    res.setHeader('Content-Type', 'image/png');
-    res.send(await this.emblemPngService.getEmblem(guildId));
+    const emblem = await this.emblemPngService.getEmblem(guildId);
+    if (emblem && emblem.redirect) {
+      res.statusCode = 302;
+      res.setHeader('Location', emblem.redirect);
+      res.send();
+    } else {
+      res.setHeader('Content-Type', 'image/png');
+      res.send(emblem);
+    }
   }
 }
