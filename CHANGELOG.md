@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.8.0"></a>
+# [1.8.0](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/compare/v1.7.0...v1.8.0) (2018-05-29)
+
+
+### Features
+
+* **match-status:** refactor pie chart and add bar chart for points ([9053da0](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/commit/9053da0))
+
+
+
 <a name="1.7.0"></a>
 # [1.7.0](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/compare/v1.6.4...v1.7.0) (2018-05-28)
 
