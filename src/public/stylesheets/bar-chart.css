@@ -1,0 +1,26 @@
+gw2-bar-chart {
+    display: block;
+    flex-grow: 2;
+    padding-right: 20px;
+    padding-top: 17px;
+    width: 80px;
+}
+
+gw2-bar-chart .score {
+    border-radius: 4px;
+    height: 8px;
+    margin-bottom: 7px;
+    transition: width 1s;
+}
+
+gw2-bar-chart .green {
+    background: var(--color-green);
+}
+
+gw2-bar-chart .blue {
+    background: var(--color-blue);
+}
+
+gw2-bar-chart .red {
+    background: var(--color-red);
+}

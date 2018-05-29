@@ -51,9 +51,15 @@
     <gw2-match-status data-subscribe="SubscribeUpdate,ScoreUpdate" data-open-match-selector="true">
       <div class="worlds"></div>
       <div class="income"></div>
+      <gw2-pie-chart data-subscribe="ScoreUpdate">
+        <svg id="chart" xmlns="http://www.w3.org/2000/svg" viewBox="-1.05 -1.05 2.1 2.1"></svg>
+      </gw2-pie-chart>
       <div class="scores"></div>
-      <svg id="chart" xmlns="http://www.w3.org/2000/svg" viewBox="-1.05 -1.05 2.1 2.1">
-      </svg>
+      <gw2-bar-chart data-subscribe="ScoreUpdate">
+        <div class="score green"></div>
+        <div class="score blue"></div>
+        <div class="score red"></div>
+      </gw2-bar-chart>
       <div class="victory_points"></div>
 
       <script id="worlds-template" type="text/x-handlebars-template">

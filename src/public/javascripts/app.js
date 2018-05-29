@@ -7,6 +7,8 @@ import MatchLogger from './elements/match-logger';
 import log from 'debug';
 import Handlebars from 'handlebars';
 import World from './elements/world';
+import BarChart from './elements/bar-chart';
+import PieChart from './elements/pie-chart';
 
 const i18n = require('i18n-for-browser');
 
@@ -33,12 +35,14 @@ i18n.setLocale(getLanguage());
 
 Handlebars.registerHelper('t', i18n.__);
 
-log.enable('MatchSelector, MatchStatus, MatchLogger, Objective, Socket, World, Chart');
+log.enable('MatchSelector, MatchStatus, MatchLogger, Objective, Socket, World, Chart, BarChart, PieChart');
 
 window.customElements.define('gw2-world', World);
 window.customElements.define('gw2-match-selector', MatchSelector);
 window.customElements.define('gw2-match-status', MatchStatus);
 window.customElements.define('gw2-match-logger', MatchLogger);
 window.customElements.define('gw2-objective', Objective);
+window.customElements.define('gw2-bar-chart', BarChart);
+window.customElements.define('gw2-pie-chart', PieChart);
 
 export {getLanguage};
