@@ -14,6 +14,9 @@ export class EmblemPngService {
   @Cache({cacheType: CacheType.S3Cache})
   public async getEmblem(guildId): Promise<any> {
     const guild = await this.gw2ApiService.getGuild(guildId);
+    if (!guild.emblem) {
+      return '';
+    }
     const foreground = await this.getForeground(guild);
     const background = await this.getBackground(guild);
     return await this.draw(background, foreground);
