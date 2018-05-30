@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.8.4"></a>
+## [1.8.4](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/compare/v1.8.3...v1.8.4) (2018-05-30)
+
+
+### Bug Fixes
+
+* bloodlust not shown on focussed map, extracted gradients ([270d8b7](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/commit/270d8b7))
+
+
+
 <a name="1.8.3"></a>
 ## [1.8.3](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/compare/v1.8.2...v1.8.3) (2018-05-30)
 
