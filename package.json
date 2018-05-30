@@ -82,7 +82,7 @@
     "@nestjs/testing": "^5.0.1",
     "@nestjs/websockets": "^5.0.1",
     "@types/hbs": "^4.0.0",
-    "aws-sdk": "^2.247.1",
+    "aws-sdk": "^2.248.1",
     "compression": "^1.7.2",
     "date-fns": "^1.29.0",
     "deep-diff": "^1.0.1",
