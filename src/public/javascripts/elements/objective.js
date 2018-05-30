@@ -243,6 +243,9 @@ export default class Objective extends UpdateReceiverElement {
   }
 
   updateGuildUpgrades(upgrades) {
+    if (upgrades.length === 0) {
+      this.upgradesElement.innerHTML = '';
+    }
     const notBothEmpty = this.guildUpgrades.length !== 0 && upgrades.length !== 0;
     if (!upgrades.every((upgrade) => this.guildUpgrades.includes(upgrade)) && !notBothEmpty) {
       this.upgradesElement.innerHTML = '';
