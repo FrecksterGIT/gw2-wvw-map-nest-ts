@@ -3,6 +3,7 @@
 @import "world.css";
 @import "objectives.css";
 @import "match-selector.css";
+@import "match-statistics.css";
 @import "match-status.css";
 @import "match-logger.css";
 @import "pie-chart.css";

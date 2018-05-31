@@ -1,0 +1,82 @@
+gw2-match-statistics {
+    background: #fff;
+    display: block;
+    height: 19px;
+    overflow: hidden;
+    position: absolute;
+    right: 10px;
+    top: 30px;
+    width: 19px;
+    z-index: 2;
+}
+
+gw2-match-statistics .open {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+gw2-match-statistics[data-open="true"] .open {
+    transform: rotate(45deg);
+}
+
+gw2-match-statistics[data-open="true"] {
+    height: calc(100% - 70px);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 260px;
+}
+
+gw2-match-statistics .kd {
+    border-bottom: 1px solid var(--color-lightgray);
+    margin: 20px 10px 10px;
+    padding-bottom: 10px;
+}
+
+gw2-match-statistics .skirmishes {
+    margin: 10px;
+}
+
+gw2-match-statistics[data-open="false"] .skirmishes,
+gw2-match-statistics[data-open="false"] .kd {
+    display: none;
+}
+
+gw2-match-statistics[data-open="true"] .skirmishes,
+gw2-match-statistics[data-open="true"] .kd {
+    display: block;
+}
+
+gw2-match-statistics .header {
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+gw2-match-statistics .score {
+    position: relative;
+    width: 200px;
+}
+
+gw2-match-statistics .value {
+    position: absolute;
+    top: -3px;
+}
+
+gw2-match-statistics .bar {
+    border-radius: 4px;
+    height: 8px;
+    margin-bottom: 7px;
+    transition: width 1s;
+}
+
+gw2-match-statistics .green .bar {
+    background-color: var(--color-green);
+}
+
+gw2-match-statistics .blue .bar {
+    background-color: var(--color-blue);
+}
+
+gw2-match-statistics .red .bar {
+    background-color: var(--color-red);
+}

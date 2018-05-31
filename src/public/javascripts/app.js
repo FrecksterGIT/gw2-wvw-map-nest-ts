@@ -1,14 +1,16 @@
 import '@babel/polyfill';
 import '@webcomponents/custom-elements';
-import MatchSelector from './elements/match-selector';
-import Objective from './elements/objective';
-import MatchStatus from './elements/match-status';
-import MatchLogger from './elements/match-logger';
-import log from 'debug';
 import Handlebars from 'handlebars';
-import World from './elements/world';
+import log from 'debug';
+
 import BarChart from './elements/bar-chart';
+import MatchStatistics from './elements/match-statistics';
+import MatchLogger from './elements/match-logger';
+import MatchSelector from './elements/match-selector';
+import MatchStatus from './elements/match-status';
+import Objective from './elements/objective';
 import PieChart from './elements/pie-chart';
+import World from './elements/world';
 
 const i18n = require('i18n-for-browser');
 
@@ -35,9 +37,10 @@ i18n.setLocale(getLanguage());
 
 Handlebars.registerHelper('t', i18n.__);
 
-log.enable('MatchSelector, MatchStatus, MatchLogger, Objective, Socket, World, Chart, BarChart, PieChart');
+log.enable('MatchStatistics, MatchSelector, MatchStatus, MatchLogger, Objective, Socket, World, Chart, BarChart, PieChart');
 
 window.customElements.define('gw2-world', World);
+window.customElements.define('gw2-match-statistics', MatchStatistics);
 window.customElements.define('gw2-match-selector', MatchSelector);
 window.customElements.define('gw2-match-status', MatchStatus);
 window.customElements.define('gw2-match-logger', MatchLogger);

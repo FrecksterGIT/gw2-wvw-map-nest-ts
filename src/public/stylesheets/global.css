@@ -24,7 +24,7 @@ h1 {
 
 .infoarea {
     display: flex;
-    flex-flow: nowrap;
+    flex-flow: wrap;
 }
 
 .lang-switch {

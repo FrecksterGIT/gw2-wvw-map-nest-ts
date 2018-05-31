@@ -2,6 +2,7 @@ import {forwardRef, Inject, Injectable, Logger} from '@nestjs/common';
 import {diff} from 'deep-diff';
 import deepcopy from 'ts-deepcopy';
 import {Gw2ApiService} from '../gw2api/gw2-api.service';
+import {IMatchDisplay} from '../gw2api/interfaces/match-display.interface';
 import {IColorsWithNumbers, IMatch, IMatchObjective} from '../gw2api/interfaces/match.interface';
 import IBloodlustData from './interfaces/bloodlust-payload.interface';
 import {UpdateGateway} from './update.gateway';
@@ -41,9 +42,9 @@ export class UpdateService {
   }
 
   public async pushFullUpdate(matchId: string, lang: string): Promise<void> {
-    const match = await this.gw2ApiService.getMatch(matchId, lang);
-    const display = await this.gw2ApiService.getMatchDisplay(match, lang);
-    const update = new SubscribeUpdate(display);
+    const match: IMatch = await this.gw2ApiService.getMatch(matchId, lang);
+    const display: IMatchDisplay = await this.gw2ApiService.getMatchDisplay(match, lang);
+    const update: SubscribeUpdate = new SubscribeUpdate(display);
     this.updateGateway.sendUpdate(update, lang);
     await this.handleDiff(match, null, lang);
     await this.handleBloodlustChange(match, null, lang);
@@ -146,7 +147,9 @@ export class UpdateService {
   private handleScoresChange(matchState: IMatch, lang: string): void {
     const currentScores = Gw2ApiService.getCurrentSkirmish(matchState.skirmishes).scores;
     const update = new ScoreUpdate(matchState.id, {
+      deaths: matchState.deaths,
       income: this.calculateIncome(matchState),
+      kills: matchState.kills,
       scores: currentScores,
       victoryPoints: matchState.victory_points
     });

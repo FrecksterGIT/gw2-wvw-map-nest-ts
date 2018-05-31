@@ -13,10 +13,13 @@ export class SubscribeUpdate implements IUpdateData {
     this.id = match.id;
     const currentScores = Gw2ApiService.getCurrentSkirmish(match.skirmishes).scores;
     this.payload = {
+      deaths: match.deaths,
       income: match.scores,
+      kills: match.kills,
       link_worlds: match.link_worlds,
       main_worlds: match.main_worlds,
       scores: currentScores,
+      skirmishes: match.skirmishes,
       victoryPoints: match.victory_points
     };
   }

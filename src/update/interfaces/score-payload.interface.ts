@@ -5,4 +5,6 @@ export interface IScorePayload extends IUpdatePayload {
   scores: IColorsWithNumbers;
   income: IColorsWithNumbers;
   victoryPoints: IColorsWithNumbers;
+  deaths: IColorsWithNumbers;
+  kills: IColorsWithNumbers;
 }

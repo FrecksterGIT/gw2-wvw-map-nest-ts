@@ -14,6 +14,36 @@
   </div>
 
   <gw2-world data-focussed-map="" data-subscribe="BloodlustUpdate">
+    <gw2-match-statistics data-subscribe="SubscribeUpdate,ScoreUpdate" data-open="false">
+      <div class="open">
+        <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19">
+          <line x1="2" x2="17" y1="9.5" y2="9.5" stroke-width="1" stroke="currentColor"></line>
+          <line x1="9.5" x2="9.5" y1="2" y2="17" stroke-width="1" stroke="currentColor"></line>
+        </svg>
+      </div>
+      <div class="kd"></div>
+      <div class="skirmishes"></div>
+
+      <script id="stats-template" type="text/x-handlebars-template">
+        <div>
+          <div class="header">\{{header}}</div>
+          <div class="score green">
+            <div class="bar" style="width: \{{scores.green.percent}}"></div>
+            <div class="value" style="left: calc(\{{scores.green.percent}} + 10px)">\{{scores.green.score}}</div>
+          </div>
+          <div class="score blue">
+            <div class="bar" style="width: \{{scores.blue.percent}}"></div>
+            <div class="value" style="left: calc(\{{scores.blue.percent}} + 10px)">\{{scores.blue.score}}</div>
+          </div>
+          <div class="score red">
+            <div class="bar" style="width: \{{scores.red.percent}}"></div>
+            <div class="value" style="left: calc(\{{scores.red.percent}} + 10px)">\{{scores.red.score}}</div>
+          </div>
+        </div>
+      </script>
+
+    </gw2-match-statistics>
+
     {{#each map as |objectives mapId|}}
       <div class="map" data-map-id="{{mapId}}">
         {{#each objectives}}
@@ -117,6 +147,7 @@
       </script>
 
     </gw2-match-status>
+
     <gw2-match-selector data-subscribe="SubscribeUpdate,ObjectiveUpdate" data-open="false">
       <div class="shader"></div>
       {{#each matches}}
@@ -171,6 +202,7 @@
         </div>
       </script>
     </gw2-match-logger>
+
   </aside>
 
   <script id="upgrade-template" type="text/x-handlebars-template">

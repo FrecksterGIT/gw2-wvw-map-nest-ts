@@ -33,6 +33,7 @@ gw2-match-status .victory_points .value {
 
 gw2-match-status li.header {
     padding-top: 0;
+    white-space: nowrap;
 }
 
 gw2-match-status .income {
