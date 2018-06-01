@@ -41,7 +41,7 @@
     "@types/jest": "^22.2.3",
     "@types/js-cookie": "^2.1.0",
     "@types/node": "^9.6.13",
-    "@types/socket.io": "^1.4.33",
+    "@types/socket.io": "^1.4.34",
     "@types/socket.io-client": "^1.4.32",
     "@webcomponents/custom-elements": "^1.1.1",
     "babel-loader": "^7.1.4",
