@@ -1,5 +1,6 @@
 @import "colors.css";
 @import "global.css";
+@import "settings.css";
 @import "world.css";
 @import "objectives.css";
 @import "match-selector.css";
@@ -8,4 +9,3 @@
 @import "match-logger.css";
 @import "pie-chart.css";
 @import "bar-chart.css";
-

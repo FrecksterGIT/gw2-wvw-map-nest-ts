@@ -13,5 +13,8 @@
   "Kills": "Kills",
   "Deaths": "Deaths",
   "K/D": "K/D",
-  "Skirmish": "Skirmish"
+  "Skirmish": "Skirmish",
+  "Select your world.": "Select your world.",
+  "Switch audio for log on or off.": "Switch audio for log on or off.",
+  "Show matchup statistics.": "Show matchup statistics."
 }

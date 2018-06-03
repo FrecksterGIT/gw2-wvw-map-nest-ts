@@ -24,7 +24,6 @@ export default class MatchSelector extends UpdateReceiverElement {
     super.connectedCallback();
     this.initSwitchMatchHandler();
     this.initCloseOnClickOutside();
-    this.initOpenerElements();
   }
 
   initSwitchMatchHandler() {
@@ -65,18 +64,12 @@ export default class MatchSelector extends UpdateReceiverElement {
     this.isOpen = false;
   }
 
-  initOpenerElements() {
-    delegate('body', '[data-open-match-selector="true"]', 'click', () => {
-      this.isOpen = true;
-    });
-  }
-
   initCloseOnClickOutside() {
     document.querySelector('body').addEventListener('click', (event) => {
       if (!event.target.closest) {
         return;
       }
-      if (!this.contains(event.target) && !event.target.closest('[data-open-match-selector="true"]')) {
+      if (!this.contains(event.target) && !event.target.closest('.world')) {
         this.isOpen = false;
       }
     });

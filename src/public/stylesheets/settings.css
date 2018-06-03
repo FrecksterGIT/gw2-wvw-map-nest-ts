@@ -1,0 +1,22 @@
+gw2-settings {
+    margin-top: 10px;
+    width: 16px;
+}
+gw2-settings .icon {
+    cursor: pointer;
+    display: inline-block;
+    height: 16px;
+    margin-bottom: 5px;
+    opacity: 0.3;
+    position: relative;
+    width: 16px;
+}
+
+.icon:hover {
+    opacity: 1;
+}
+
+.icon.on {
+    color: #000;
+    opacity: 1;
+}

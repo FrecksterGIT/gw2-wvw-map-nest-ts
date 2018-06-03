@@ -14,13 +14,6 @@ export default class MatchStatistics extends UpdateReceiverElement {
 
     this.skirmishes = this.querySelector('.skirmishes');
     this.kd = this.querySelector('.kd');
-    this.handleOpenClose();
-  }
-
-  handleOpenClose() {
-    this.addEventListener('click', () => {
-      this.setAttribute('data-open', this.getAttribute('data-open') === 'false' ? 'true' : 'false');
-    });
   }
 
   handleSubscribeUpdate(data) {

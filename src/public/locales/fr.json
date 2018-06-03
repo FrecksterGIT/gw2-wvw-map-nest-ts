@@ -13,5 +13,8 @@
   "Kills": "Des ennemis tués",
   "Deaths": "Des morts",
   "K/D": "K/D",
-  "Skirmish": "Bataille"
+  "Skirmish": "Bataille",
+  "Select your world.": "Select your world.",
+  "Switch audio for log on or off.": "Switch audio for log on or off.",
+  "Show matchup statistics.": "Show matchup statistics."
 }

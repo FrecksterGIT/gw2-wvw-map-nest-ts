@@ -9,6 +9,7 @@ import MatchLogger from './elements/match-logger';
 import MatchSelector from './elements/match-selector';
 import MatchStatus from './elements/match-status';
 import Objective from './elements/objective';
+import Settings from './elements/settings';
 import PieChart from './elements/pie-chart';
 import World from './elements/world';
 
@@ -45,6 +46,7 @@ window.customElements.define('gw2-match-selector', MatchSelector);
 window.customElements.define('gw2-match-status', MatchStatus);
 window.customElements.define('gw2-match-logger', MatchLogger);
 window.customElements.define('gw2-objective', Objective);
+window.customElements.define('gw2-settings', Settings);
 window.customElements.define('gw2-bar-chart', BarChart);
 window.customElements.define('gw2-pie-chart', PieChart);
 

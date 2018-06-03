@@ -1,37 +1,24 @@
 gw2-match-statistics {
-    background: #fff;
-    border: 1px solid var(--color-lightgray);
-    display: block;
-    height: 19px;
-    overflow: hidden;
-    position: absolute;
-    right: 10px;
-    top: 30px;
-    width: 19px;
-    z-index: 2;
-}
-
-gw2-match-statistics .open {
-    color: var(--color-lightgray);
-    position: absolute;
-    right: 0;
-    top: 0;
-}
-
-gw2-match-statistics[data-open="true"] .open {
-    transform: rotate(45deg);
+    display: none;
 }
 
 gw2-match-statistics[data-open="true"] {
+    background: #fff;
+    border: 1px solid var(--color-lightgray);
+    display: block;
     height: calc(100% - 70px);
     overflow-x: hidden;
     overflow-y: scroll;
+    position: absolute;
+    right: 10px;
+    top: 30px;
     width: 260px;
+    z-index: 2;
 }
 
 gw2-match-statistics .kd {
     border-bottom: 1px solid var(--color-lightgray);
-    margin: 20px 10px 10px;
+    margin: 10px;
     padding-bottom: 10px;
 }
 

@@ -12,7 +12,7 @@ gw2-match-logger {
     height: 80px;
     margin-top: 10px;
     overflow-y: scroll;
-    width: 50%;
+    width: calc(50% - 16px);
 }
 
 gw2-match-logger .log_entry {

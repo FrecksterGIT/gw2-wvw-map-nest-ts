@@ -43,7 +43,6 @@ export default class MatchLogger extends UpdateReceiverElement {
       owner: Handlebars.compile(ownerTemplate)
     };
     this.initNewMatch = true;
-    this.initializeAudioToggle();
     this.initializeHightlighter();
   }
 
@@ -52,14 +51,6 @@ export default class MatchLogger extends UpdateReceiverElement {
       const objectId = event.delegateTarget.getAttribute('data-changed-objective');
       const object = document.querySelector('gw2-objective[data-id="' + objectId + '"]');
       object.highlight();
-    });
-  }
-
-  initializeAudioToggle() {
-    const toggle = document.querySelector('.audio');
-    toggle.addEventListener('click', () => {
-      toggle.classList.toggle('on');
-      window.speechSynthesis.cancel();
     });
   }
 

@@ -13,5 +13,8 @@
   "Kills": "Feinde besiegt",
   "Deaths": "Tode",
   "K/D": "K/D",
-  "Skirmish": "Gefecht"
+  "Skirmish": "Gefecht",
+  "Select your world.": "Wähle eine Welt.",
+  "Switch audio for log on or off.": "Schalte Audioausgabe für Log-Einträge ein.",
+  "Show matchup statistics.": "Zeige Statistiken."
 }
