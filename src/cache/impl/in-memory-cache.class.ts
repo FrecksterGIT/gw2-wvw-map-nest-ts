@@ -23,4 +23,8 @@ export default class InMemoryCache implements ICache {
   public remove(key: string) {
     this.storage.delete(key);
   }
+
+  public info() {
+    return {size: this.storage.size};
+  }
 }

@@ -4,4 +4,6 @@ export default interface ICache {
   get(key: string): Promise<any>;
 
   remove(key: string): void;
+
+  info(): any;
 }

@@ -65,4 +65,17 @@ export default class S3Cache implements ICache {
   public remove(key: string): void {
     // noop
   }
+
+  public async info(): Promise<any> {
+    this.setup();
+    return new Promise((resolve) => {
+      this.client.listObjects((err, data) => {
+        const cacheInfo = {
+          filesize: data.Contents.reduce((sum, content) => sum + content.Size, 0),
+          size: data.Contents.length
+        };
+        resolve(cacheInfo);
+      });
+    });
+  }
 }

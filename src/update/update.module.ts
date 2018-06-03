@@ -4,6 +4,7 @@ import {UpdateGateway} from './update.gateway';
 import {UpdateService} from './update.service';
 
 @Module({
+  exports: [UpdateGateway],
   imports: [Gw2ApiModule],
   providers: [UpdateGateway, UpdateService]
 })

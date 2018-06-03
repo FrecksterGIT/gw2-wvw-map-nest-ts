@@ -26,6 +26,15 @@ export class UpdateGateway implements OnGatewayConnection, OnGatewayDisconnect {
   ) {
   }
 
+  public getAllSubsciptions() {
+    return this.clients.map((client) => {
+      return {
+        language: client.language,
+        matchId: client.matchId
+      };
+    });
+  }
+
   public getSubscribedMatches(lang: string): string[] {
     return this.clients
       .filter((client) => client.matchId !== '' && client.language === lang)

@@ -13,4 +13,8 @@ export default class NoCache implements ICache {
   public remove(key: string): void {
     // noop
   }
+
+  public info() {
+    return {};
+  }
 }

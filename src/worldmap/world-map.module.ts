@@ -6,6 +6,7 @@ import {WorldMapService} from './world-map.service';
 
 @Module({
   controllers: [WorldMapController],
+  exports: [WorldMapService],
   imports: [Gw2ApiModule, UpdateModule],
   providers: [WorldMapService]
 })

@@ -48,6 +48,11 @@ export default class FileCache implements ICache {
     }
   }
 
+  public info() {
+    const files = fs.readdirSync(this.path);
+    return {size: files.length};
+  }
+
   private getFilePath(key: string): string {
     mkdirp.sync(this.path, {mode: 0o777}, (err) => {
       if (err) {
