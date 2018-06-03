@@ -1,18 +1,18 @@
-::-webkit-scrollbar {
-    background: #fff;
-    height: 5px;
-    width: 5px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: rgba(200, 200, 200, 0.8);
-}
-
 gw2-match-logger {
     height: 80px;
     margin-top: 10px;
     overflow-y: scroll;
     width: calc(50% - 16px);
+}
+
+gw2-match-logger::-webkit-scrollbar {
+    background: #fff;
+    height: 5px;
+    width: 5px;
+}
+
+gw2-match-logger::-webkit-scrollbar-thumb {
+    background: rgba(200, 200, 200, 0.8);
 }
 
 gw2-match-logger .log_entry {

@@ -207,7 +207,5 @@ gw2-objective .upgrade {
 }
 
 gw2-objective.highlight {
-    border: 10px solid var(--color-hightlight);
-    border-radius: 50%;
-    transform: translate(-21px, -21px);
+    background: var(--color-hightlight);
 }

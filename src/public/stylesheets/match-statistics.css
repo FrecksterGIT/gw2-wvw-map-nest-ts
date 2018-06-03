@@ -1,49 +1,65 @@
 gw2-match-statistics {
+    background: var(--shader);
+    border: 1px solid #000;
+    color: var(--color-lightgray);
     display: none;
-}
-
-gw2-match-statistics[data-open="true"] {
-    background: #fff;
-    border: 1px solid var(--color-lightgray);
-    display: block;
+    font-weight: 600;
     height: calc(100% - 70px);
     overflow-x: hidden;
     overflow-y: scroll;
     position: absolute;
     right: 10px;
     top: 30px;
-    width: 260px;
+    width: calc(100% - 20px);
     z-index: 2;
 }
 
-gw2-match-statistics .kd {
-    border-bottom: 1px solid var(--color-lightgray);
-    margin: 10px;
-    padding-bottom: 10px;
+gw2-match-statistics::-webkit-scrollbar {
+    background: transparent;
+    height: 5px;
+    width: 5px;
 }
 
-gw2-match-statistics .skirmishes {
-    margin: 10px;
+gw2-match-statistics::-webkit-scrollbar-thumb {
+    background: #000;
 }
 
-gw2-match-statistics[data-open="false"] .skirmishes,
-gw2-match-statistics[data-open="false"] .kd {
-    display: none;
-}
-
-gw2-match-statistics[data-open="true"] .skirmishes,
-gw2-match-statistics[data-open="true"] .kd {
+gw2-match-statistics[data-open="true"] {
     display: block;
 }
 
+gw2-match-statistics .kd {
+    border-bottom: 1px solid #000;
+    margin: 10px 10px 10px 0;
+}
+
+gw2-match-statistics .skirmishes {
+    margin: 10px 10px 10px 0;
+}
+
+gw2-match-statistics .skirmishes,
+gw2-match-statistics .kd {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 gw2-match-statistics .header {
-    font-weight: 600;
-    margin-bottom: 3px;
+    margin-bottom: 8px;
+}
+
+gw2-match-statistics .statistics-entry {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding-right: 40px;
 }
 
 gw2-match-statistics .score {
     position: relative;
-    width: 200px;
+    width: 268px;
+}
+
+gw2-match-statistics .skirmishes .score {
+    width: 188px;
 }
 
 gw2-match-statistics .value {
