@@ -9,7 +9,7 @@ const unlink = promisify(fs.unlink);
 
 export default class FileCache implements ICache {
 
-  private path: string = './_cache/';
+  private cachePath: string = './_cache/';
   private enabled: boolean = true;
 
   public async get(key: string): Promise<any> {
@@ -54,11 +54,15 @@ export default class FileCache implements ICache {
   }
 
   private getFilePath(key: string): string {
-    mkdirp.sync(this.path, {mode: 0o777}, (err) => {
+    return path.join(this.path, key);
+  }
+
+  private get path(): string {
+    mkdirp.sync(this.cachePath, {mode: 0o777}, (err) => {
       if (err) {
         this.enabled = false;
       }
     });
-    return path.join(this.path, key);
+    return this.cachePath;
   }
 }
