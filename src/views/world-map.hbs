@@ -15,20 +15,23 @@
   <gw2-world data-focussed-map="" data-subscribe="BloodlustUpdate">
     <gw2-match-statistics data-subscribe="SubscribeUpdate,ScoreUpdate" data-open="false">
       <div class="kd"></div>
+      <div class="headline">{{t "Placings" locale}}</div>
+      <div class="distribution"></div>
+      <div class="headline">{{t "Skirmish Results" locale}}</div>
       <div class="skirmishes"></div>
 
       <script id="stats-template" type="text/x-handlebars-template">
         <div class="statistics-entry">
           <div class="header">\{{header}}</div>
-          <div class="score green">
+          <div class="score\{{#if colored}} green\{{/if}}">
             <div class="bar" style="width: \{{scores.green.percent}}"></div>
             <div class="value" style="left: calc(\{{scores.green.percent}} + 10px)">\{{scores.green.score}}</div>
           </div>
-          <div class="score blue">
+          <div class="score\{{#if colored}} blue\{{/if}}">
             <div class="bar" style="width: \{{scores.blue.percent}}"></div>
             <div class="value" style="left: calc(\{{scores.blue.percent}} + 10px)">\{{scores.blue.score}}</div>
           </div>
-          <div class="score red">
+          <div class="score\{{#if colored}} red\{{/if}}">
             <div class="bar" style="width: \{{scores.red.percent}}"></div>
             <div class="value" style="left: calc(\{{scores.red.percent}} + 10px)">\{{scores.red.score}}</div>
           </div>

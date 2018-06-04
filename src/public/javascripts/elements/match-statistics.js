@@ -14,6 +14,7 @@ export default class MatchStatistics extends UpdateReceiverElement {
 
     this.skirmishes = this.querySelector('.skirmishes');
     this.kd = this.querySelector('.kd');
+    this.distribution = this.querySelector('.distribution');
   }
 
   handleSubscribeUpdate(data) {
@@ -21,6 +22,11 @@ export default class MatchStatistics extends UpdateReceiverElement {
     data.payload.skirmishes.pop();
     data.payload.skirmishes.reverse();
     data.payload.skirmishes.forEach((skirmish) => this.renderSkirmish(skirmish));
+    this.distribution.innerHTML = '';
+    this.getDistribution(data.payload.skirmishes, data.payload.main_worlds).forEach((teamData) => {
+      const content = this.statsFunction(teamData);
+      this.distribution.insertAdjacentHTML('beforeend', content);
+    });
   }
 
   handleScoreUpdate(data) {
@@ -53,7 +59,7 @@ export default class MatchStatistics extends UpdateReceiverElement {
     this.kd.insertAdjacentHTML('beforeend', kdRatiosContent);
   }
 
-  static getTemplateData(values, header) {
+  static getTemplateData(values, header, colored = true) {
     const max = Math.max(...Object.values(values));
     const scores = {
       blue: {score: values.blue, percent: (values.blue / max * 100) + '%'},
@@ -61,9 +67,83 @@ export default class MatchStatistics extends UpdateReceiverElement {
       red: {score: values.red, percent: (values.red / max * 100) + '%'}
     };
     return {
+      colored,
       header,
       scores
     };
+  }
+
+  getDistribution(skirmishes, worlds) {
+    const data = skirmishes.reduce((stats, skirmish) => {
+      const min = Math.min(...Object.values(skirmish.scores));
+      const max = Math.max(...Object.values(skirmish.scores));
+      switch (true) {
+        case (skirmish.scores.blue === max):
+          stats.blue[1]++;
+          break;
+        case (skirmish.scores.blue === min):
+          stats.blue[3]++;
+          break;
+        default:
+          stats.blue[2]++;
+      }
+      switch (true) {
+        case (skirmish.scores.green === max):
+          stats.green[1]++;
+          break;
+        case (skirmish.scores.green === min):
+          stats.green[3]++;
+          break;
+        default:
+          stats.green[2]++;
+      }
+      switch (true) {
+        case (skirmish.scores.red === max):
+          stats.red[1]++;
+          break;
+        case (skirmish.scores.red === min):
+          stats.red[3]++;
+          break;
+        default:
+          stats.red[2]++;
+      }
+      return stats;
+    }, {
+      blue: {
+        '1': 0,
+        '2': 0,
+        '3': 0
+      },
+      green: {
+        '1': 0,
+        '2': 0,
+        '3': 0
+      },
+      red: {
+        '1': 0,
+        '2': 0,
+        '3': 0
+      }
+    });
+
+    const blueData = MatchStatistics.getTemplateData({
+      blue: data.blue[2],
+      green: data.blue[1],
+      red: data.blue[3]
+    }, worlds.blue, false);
+
+    const redData = MatchStatistics.getTemplateData({
+      blue: data.red[2],
+      green: data.red[1],
+      red: data.red[3]
+    }, worlds.red, false);
+
+    const greenData = MatchStatistics.getTemplateData({
+      blue: data.green[2],
+      green: data.green[1],
+      red: data.green[3]
+    }, worlds.green, false);
+    return [greenData, blueData, redData];
   }
 
 }

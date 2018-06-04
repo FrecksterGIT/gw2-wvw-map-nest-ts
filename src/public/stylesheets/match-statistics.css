@@ -28,7 +28,12 @@ gw2-match-statistics[data-open="true"] {
     display: block;
 }
 
+gw2-match-statistics .headline {
+    margin: 0 10px;
+}
+
 gw2-match-statistics .kd,
+gw2-match-statistics .distribution,
 gw2-match-statistics .skirmishes {
     display: flex;
     flex-wrap: wrap;
@@ -36,7 +41,8 @@ gw2-match-statistics .skirmishes {
     width: 100%
 }
 
-gw2-match-statistics .kd {
+gw2-match-statistics .kd,
+gw2-match-statistics .distribution {
     border-bottom: 1px solid #000;
 }
 
@@ -46,7 +52,8 @@ gw2-match-statistics .statistics-entry {
     padding-right: 40px;
 }
 
-gw2-match-statistics .kd .statistics-entry {
+gw2-match-statistics .kd .statistics-entry,
+gw2-match-statistics .distribution .statistics-entry {
     width: calc(33% - 48px);
 }
 
@@ -70,6 +77,7 @@ gw2-match-statistics .value {
 }
 
 gw2-match-statistics .bar {
+    background-color: var(--color-gray);
     border-radius: 4px;
     height: 8px;
     margin-bottom: 7px;
