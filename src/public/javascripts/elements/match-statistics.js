@@ -1,6 +1,7 @@
 import log from 'debug';
 import Handlebars from 'handlebars';
 import UpdateReceiverElement from './update-receiver-element';
+import Hourly from '../utils/hourly';
 
 const i18n = require('i18n-for-browser');
 const logger = log('MatchStatistics');
@@ -15,23 +16,44 @@ export default class MatchStatistics extends UpdateReceiverElement {
     this.skirmishes = this.querySelector('.skirmishes');
     this.kd = this.querySelector('.kd');
     this.distribution = this.querySelector('.distribution');
+    this.hourly = this.querySelector('.hourly');
+    this.hourly2 = this.querySelector('.hourly2');
   }
 
   handleSubscribeUpdate(data) {
-    this.skirmishes.innerHTML = '';
-    data.payload.skirmishes.pop();
-    data.payload.skirmishes.reverse();
-    data.payload.skirmishes.forEach((skirmish) => this.renderSkirmish(skirmish));
-    this.distribution.innerHTML = '';
-    this.getDistribution(data.payload.skirmishes, data.payload.main_worlds).forEach((teamData) => {
-      const content = this.statsFunction(teamData);
-      this.distribution.insertAdjacentHTML('beforeend', content);
-    });
+    this.renderSkrimishes(data.payload.skirmishes);
+    this.renderDistribution(data.payload);
+    this.renderHourly(data.payload);
   }
 
   handleScoreUpdate(data) {
     this.kd.innerHTML = '';
     this.renderKd(data.payload);
+  }
+
+  renderDistribution(payload) {
+    this.distribution.innerHTML = '';
+    this.getDistribution(payload.skirmishes, payload.main_worlds).forEach((teamData) => {
+      const content = this.statsFunction(teamData);
+      this.distribution.insertAdjacentHTML('beforeend', content);
+    });
+  }
+
+  renderHourly(payload) {
+    this.hourly.innerHTML = '';
+    const svgPerTeamHourly = Hourly.getSvgPerTeam(payload.skirmishes, payload.startTime);
+    this.hourly.insertAdjacentHTML('beforeend', svgPerTeamHourly);
+
+    this.hourly2.innerHTML = '';
+    const svgMaxHourly = Hourly.getSvgOverall(payload.skirmishes, payload.startTime);
+    this.hourly2.insertAdjacentHTML('beforeend', svgMaxHourly);
+  }
+
+  renderSkrimishes(skirmishes) {
+    this.skirmishes.innerHTML = '';
+    skirmishes.pop();
+    skirmishes.reverse();
+    skirmishes.forEach((skirmish) => this.renderSkirmish(skirmish));
   }
 
   renderSkirmish(skirmish) {

@@ -34,6 +34,8 @@ gw2-match-statistics .headline {
 
 gw2-match-statistics .kd,
 gw2-match-statistics .distribution,
+gw2-match-statistics .hourly,
+gw2-match-statistics .hourly2,
 gw2-match-statistics .skirmishes {
     display: flex;
     flex-wrap: wrap;
@@ -42,7 +44,9 @@ gw2-match-statistics .skirmishes {
 }
 
 gw2-match-statistics .kd,
-gw2-match-statistics .distribution {
+gw2-match-statistics .distribution,
+gw2-match-statistics .hourly,
+gw2-match-statistics .hourly2 {
     border-bottom: 1px solid #000;
 }
 
@@ -94,4 +98,22 @@ gw2-match-statistics .blue .bar {
 
 gw2-match-statistics .red .bar {
     background-color: var(--color-red);
+}
+
+gw2-match-statistics .legend {
+    display: flex;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 100%;
+}
+
+gw2-match-statistics .legend div {
+    width: 9%;
+}
+
+gw2-match-statistics .hourly svg,
+gw2-match-statistics .hourly2 svg {
+    height: 150px;
+    margin-left: 10px;
+    width: calc(100% - 20px);
 }

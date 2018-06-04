@@ -20,6 +20,7 @@ export class SubscribeUpdate implements IUpdateData {
       main_worlds: match.main_worlds,
       scores: currentScores,
       skirmishes: match.skirmishes,
+      startTime: new Date(match.start_time),
       victoryPoints: match.victory_points
     };
   }
