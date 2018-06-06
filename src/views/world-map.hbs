@@ -14,15 +14,16 @@
 
   <gw2-world data-focussed-map="" data-subscribe="BloodlustUpdate">
     <gw2-match-statistics data-subscribe="SubscribeUpdate,ScoreUpdate" data-open="false">
-      <div class="kd"></div>
+      <div class="data border kd"></div>
       <div class="headline">{{t "Placings" locale}}</div>
-      <div class="distribution"></div>
+      <div class="data border distribution"></div>
       <div class="headline">{{t "Hourly Income (scaled to max overall)" locale}}</div>
-      <div class="hourly2"></div>
+      <div class="data border hourly2"></div>
       <div class="headline">{{t "Hourly Income (scaled to max income per team)" locale}}</div>
-      <div class="hourly"></div>
+      <div class="data border hourly"></div>
       <div class="headline">{{t "Skirmish Results" locale}}</div>
-      <div class="skirmishes"></div>
+      <div class="data skirmishessvg"></div>
+      <div class="data skirmishes"></div>
 
       <script id="stats-template" type="text/x-handlebars-template">
         <div class="statistics-entry">

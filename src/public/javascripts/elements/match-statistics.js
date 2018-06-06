@@ -18,6 +18,7 @@ export default class MatchStatistics extends UpdateReceiverElement {
     this.distribution = this.querySelector('.distribution');
     this.hourly = this.querySelector('.hourly');
     this.hourly2 = this.querySelector('.hourly2');
+    this.skirmishessvg = this.querySelector('.skirmishessvg');
   }
 
   handleSubscribeUpdate(data) {
@@ -40,20 +41,27 @@ export default class MatchStatistics extends UpdateReceiverElement {
   }
 
   renderHourly(payload) {
+    const skirmishes = payload.skirmishes.map(skirmish => skirmish);
+    skirmishes.pop();
+
     this.hourly.innerHTML = '';
-    const svgPerTeamHourly = Hourly.getSvgPerTeam(payload.skirmishes, payload.startTime);
+    const svgPerTeamHourly = Hourly.getSvgPerTeam(skirmishes, payload.startTime);
     this.hourly.insertAdjacentHTML('beforeend', svgPerTeamHourly);
 
     this.hourly2.innerHTML = '';
-    const svgMaxHourly = Hourly.getSvgOverall(payload.skirmishes, payload.startTime);
+    const svgMaxHourly = Hourly.getSvgOverall(skirmishes, payload.startTime);
     this.hourly2.insertAdjacentHTML('beforeend', svgMaxHourly);
+
+    const svgSkirmishes = Hourly.getSvgSkirmishes(skirmishes);
+    this.skirmishessvg.insertAdjacentHTML('beforeend', svgSkirmishes);
   }
 
   renderSkrimishes(skirmishes) {
     this.skirmishes.innerHTML = '';
-    skirmishes.pop();
-    skirmishes.reverse();
-    skirmishes.forEach((skirmish) => this.renderSkirmish(skirmish));
+    const sk = skirmishes.map(skirmish => skirmish);
+    sk.pop();
+    sk.reverse();
+    sk.forEach((skirmish) => this.renderSkirmish(skirmish));
   }
 
   renderSkirmish(skirmish) {
