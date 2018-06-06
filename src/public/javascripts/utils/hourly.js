@@ -86,7 +86,7 @@ export default class Hourly {
       if (!y[i + 1]) {
         return acc;
       }
-      return acc + ' M ' + x[i] + ' ' + y[i] + ' C ' + px.p1[i] + ' ' + py.p1[i] + ' '
+      return acc + ((acc === '') ? 'M ' + x[i] + ' ' + y[i] : '') + ' C ' + px.p1[i] + ' ' + py.p1[i] + ' '
         + px.p2[i] + ' ' + py.p2[i] + ' ' +
         x[i + 1] + ' ' + y[i + 1];
     }, '');
