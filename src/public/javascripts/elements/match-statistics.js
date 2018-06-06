@@ -52,6 +52,7 @@ export default class MatchStatistics extends UpdateReceiverElement {
     const svgMaxHourly = Hourly.getSvgOverall(skirmishes, payload.startTime);
     this.hourly2.insertAdjacentHTML('beforeend', svgMaxHourly);
 
+    this.skirmishessvg.innerHTML = '';
     const svgSkirmishes = Hourly.getSvgSkirmishes(skirmishes);
     this.skirmishessvg.insertAdjacentHTML('beforeend', svgSkirmishes);
   }
