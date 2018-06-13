@@ -35,10 +35,10 @@
     "prestart:watch": "cpx ./src/public/locales/** ./dist/public/locales"
   },
   "devDependencies": {
-    "@babel/polyfill": "^7.0.0-beta.49",
+    "@babel/polyfill": "^7.0.0-beta.51",
     "@types/deep-diff": "0.0.31",
     "@types/i18n": "^0.8.3",
-    "@types/jest": "^23.0.0",
+    "@types/jest": "^23.0.2",
     "@types/js-cookie": "^2.1.0",
     "@types/node": "^9.6.13",
     "@types/socket.io": "^1.4.34",
@@ -49,7 +49,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
     "cpx": "^1.5.0",
-    "cross-env": "^5.1.6",
+    "cross-env": "^5.2.0",
     "debug": "^3.1.0",
     "delegate": "^3.2.0",
     "handlebars": "^4.0.11",
@@ -69,11 +69,11 @@
     "stylelint-config-recommended": "^2.1.0",
     "stylelint-order": "^0.8.1",
     "ts-jest": "^22.4.6",
-    "ts-node": "^6.1.0",
+    "ts-node": "^6.1.1",
     "tslint": "^5.10.0",
     "typescript": "^2.9.1",
     "webpack": "^4.12.0",
-    "webpack-cli": "^3.0.3"
+    "webpack-cli": "^3.0.5"
   },
   "dependencies": {
     "@nestjs/common": "^5.0.1",
@@ -82,7 +82,7 @@
     "@nestjs/testing": "^5.0.1",
     "@nestjs/websockets": "^5.0.1",
     "@types/hbs": "^4.0.0",
-    "aws-sdk": "^2.253.1",
+    "aws-sdk": "^2.256.1",
     "compression": "^1.7.2",
     "date-fns": "^1.29.0",
     "deep-diff": "^1.0.1",
@@ -97,7 +97,7 @@
     "node-fetch": "^2.1.2",
     "pjson": "^1.0.9",
     "reflect-metadata": "^0.1.12",
-    "rxjs": "^6.2.0",
+    "rxjs": "^6.2.1",
     "svg.js": "^2.6.5",
     "svgdom": "0.0.15",
     "ts-deepcopy": "^0.1.4"
