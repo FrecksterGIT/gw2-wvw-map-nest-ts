@@ -8,4 +8,5 @@ export interface IUpdateData {
   id: string;
   payload: UpdatePayload;
   type: string;
+  version?: string;
 }

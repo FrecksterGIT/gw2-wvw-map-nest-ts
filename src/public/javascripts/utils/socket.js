@@ -8,6 +8,7 @@ const logger = log('Socket');
 export class SocketConnection {
 
   constructor() {
+    this.version = document.querySelector('[data-version]').innerHTML;
     this.socketConnection = io('/update');
     this.subscribe();
   }
@@ -68,6 +69,10 @@ export class SocketConnection {
   }
 
   notify(data) {
+    if (data.version && (data.version !== this.version)) {
+      window.location.reload();
+      return;
+    }
     this.subscribers.forEach((subscriber) => {
       if (subscriber.object.relevantUpdates.includes(data.type)) {
         if (subscriber.options.length > 0) {
