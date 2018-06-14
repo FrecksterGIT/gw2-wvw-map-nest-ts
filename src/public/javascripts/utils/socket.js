@@ -8,7 +8,7 @@ const logger = log('Socket');
 export class SocketConnection {
 
   constructor() {
-    this.version = document.querySelector('[data-version]').innerHTML;
+    this.version = document.querySelector('[data-version]').getAttribute('data-version');
     this.socketConnection = io('/update');
     this.subscribe();
   }
