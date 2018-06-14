@@ -6,6 +6,7 @@ import {
   WebSocketGateway,
   WsResponse
 } from '@nestjs/websockets';
+import pjson = require('pjson');
 import {Gw2ApiService} from '../gw2api/gw2-api.service';
 import {IMatchClient} from './interfaces/match-client.interface';
 import {IUpdateData} from './interfaces/update-data.interface';
@@ -89,6 +90,7 @@ export class UpdateGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   public sendUpdate(data: IUpdateData, lang): void {
+    data.version = pjson.version;
     this.clients.forEach((client) => {
       if (client.matchId === data.id && client.language === lang) {
         client.client.emit('update', data);
