@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.16.6"></a>
+## [1.16.6](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/compare/v1.16.5...v1.16.6) (2018-08-12)
+
+
+
 <a name="1.16.5"></a>
 ## [1.16.5](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/compare/v1.16.4...v1.16.5) (2018-07-22)
 
