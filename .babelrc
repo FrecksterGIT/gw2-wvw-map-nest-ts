@@ -1,9 +1,7 @@
 {
   "presets": [
-    "env"
+    "@babel/env"
   ],
   "plugins": [
-    "transform-runtime",
-    "transform-custom-element-classes"
   ]
 }

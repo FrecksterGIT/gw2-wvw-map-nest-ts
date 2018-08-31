@@ -5,8 +5,8 @@
     --color-gray: #707070;
     --color-lightgray: #e1e1e1;
     --color-darkgray: #040404;
-    --color-hightlight: rgba(251,227,20, .5);
-    --shader: #000000d0;
+    --color-hightlight: rgba(251, 227, 20, .5);
+    --shader: rgba(0, 0, 0, .8);
 
 }
 
