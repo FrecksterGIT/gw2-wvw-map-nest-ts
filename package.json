@@ -35,9 +35,9 @@
     "prestart:watch": "cpx ./src/public/locales/** ./dist/public/locales"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.1",
+    "@babel/core": "^7.1.0",
     "@babel/polyfill": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
     "@types/deep-diff": "0.0.31",
     "@types/i18n": "^0.8.3",
     "@types/jest": "^23.3.2",
@@ -67,11 +67,11 @@
     "stylelint": "^9.5.0",
     "stylelint-config-recommended": "^2.1.0",
     "stylelint-order": "^1.0.0",
-    "ts-jest": "^23.1.4",
+    "ts-jest": "^23.10.1",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "typescript": "^3.0.3",
-    "webpack": "^4.18.1",
+    "webpack": "^4.19.1",
     "webpack-cli": "^3.1.0"
   },
   "dependencies": {
@@ -81,7 +81,7 @@
     "@nestjs/testing": "^5.3.7",
     "@nestjs/websockets": "^5.3.7",
     "@types/hbs": "^4.0.0",
-    "aws-sdk": "^2.315.0",
+    "aws-sdk": "^2.320.0",
     "compression": "^1.7.3",
     "date-fns": "^1.29.0",
     "deep-diff": "^1.0.2",
