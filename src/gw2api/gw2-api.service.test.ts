@@ -55,7 +55,7 @@ describe('Gw2ApiService', () => {
 
   it('should get guild upgrades', async () => {
     const upgrades = await gw2ApiService.getGuildUpgrades(['all'], 'en');
-    expect(upgrades.length).toEqual(760);
+    expect(upgrades.length).toBeGreaterThan(760);
     const upgrades2 = await gw2ApiService.getGuildUpgrades([38, 43], 'en');
     expect(upgrades2.length).toEqual(2);
     expect(upgrades2[0].name).toEqual('Guild Armorer 1');
