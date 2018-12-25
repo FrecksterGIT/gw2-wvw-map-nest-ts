@@ -1,5 +1,5 @@
 import {forwardRef, Inject, Injectable, Logger} from '@nestjs/common';
-import {diff} from 'deep-diff';
+import {Diff, diff} from 'deep-diff';
 import deepcopy from 'ts-deepcopy';
 import {Gw2ApiService} from '../gw2api/gw2-api.service';
 import {IMatchDisplay} from '../gw2api/interfaces/match-display.interface';
@@ -10,7 +10,6 @@ import {BloodlustUpdate} from './updates/bloodlust-update';
 import {ObjectiveUpdate} from './updates/objective-update';
 import {ScoreUpdate} from './updates/score-update';
 import {SubscribeUpdate} from './updates/subscribe-update';
-import IDiff = deepDiff.IDiff;
 
 @Injectable()
 export class UpdateService {
@@ -71,28 +70,39 @@ export class UpdateService {
   }
 
   private async handleDiff(newMatchState: IMatch, oldMatchState: IMatch, lang: string): Promise<void> {
-    let oldMatch = {};
+    let oldMatch: IMatch;
     if (oldMatchState) {
       oldMatch = oldMatchState;
     }
     this.handleBloodlustChange(newMatchState, oldMatchState, lang);
-    const changes: IDiff[] = diff(oldMatch, newMatchState);
+    const changes: Diff<IMatch, IMatch>[] = diff(oldMatch, newMatchState);
     if (changes) {
       const changedObjectives: IMatchObjective[] = [];
       let scoresSend = false;
       changes.forEach((change) => {
-        switch (change.path[0]) {
-          case 'maps':
-            this.getObjectivesForMapChange(newMatchState, change).forEach((mapChange) => {
-              changedObjectives.push(mapChange);
-            });
-            break;
-          case 'scores':
-            if (!scoresSend) {
-              this.handleScoresChange(newMatchState, lang);
-              scoresSend = true;
-            }
-            break;
+        if (!change.path) {
+          change.path = ['maps'];
+          this.getObjectivesForMapChange(newMatchState, change).forEach((mapChange) => {
+            changedObjectives.push(mapChange);
+          });
+          if (!scoresSend) {
+            this.handleScoresChange(newMatchState, lang);
+            scoresSend = true;
+          }
+        } else {
+          switch (change.path[0]) {
+            case 'maps':
+              this.getObjectivesForMapChange(newMatchState, change).forEach((mapChange) => {
+                changedObjectives.push(mapChange);
+              });
+              break;
+            case 'scores':
+              if (!scoresSend) {
+                this.handleScoresChange(newMatchState, lang);
+                scoresSend = true;
+              }
+              break;
+          }
         }
       });
       const changed: IMatchObjective[] = [...changedObjectives];
@@ -100,7 +110,7 @@ export class UpdateService {
     }
   }
 
-  private getObjectivesForMapChange(matchState: IMatch, change: IDiff): IMatchObjective[] {
+  private getObjectivesForMapChange(matchState: IMatch, change: Diff<IMatch, IMatch>): IMatchObjective[] {
     const objectives: IMatchObjective[] = [];
     if (change.path.length >= 4 && change.path[2] === 'objectives') {
       objectives.push(matchState[change.path[0]][change.path[1]][change.path[2]][change.path[3]]);
