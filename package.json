@@ -80,7 +80,6 @@
     "@nestjs/microservices": "^5.7.2",
     "@nestjs/testing": "^5.7.2",
     "@nestjs/websockets": "^5.7.2",
-    "@types/hbs": "^4.0.0",
     "aws-sdk": "^2.400.0",
     "compression": "^1.7.3",
     "date-fns": "^1.30.1",
