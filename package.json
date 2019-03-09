@@ -1,6 +1,6 @@
 {
   "name": "gw2-ts",
-  "version": "1.16.18",
+  "version": "1.17.0",
   "private": true,
   "scripts": {
     "build": "cross-env NODE_ENV=production tsc --sourceMap false",
