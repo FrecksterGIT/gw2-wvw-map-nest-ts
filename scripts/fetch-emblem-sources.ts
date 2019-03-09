@@ -7,7 +7,7 @@ import {URL} from 'url';
 log.enable('fetch-emblem-resources');
 const logger = log('fetch-emblem-resources');
 const urls = ['https://api.guildwars2.com/v2/emblem/foregrounds?ids=all',
-  'https://api.guildwars2.com/v2/emblem/foregrounds?ids=all'];
+  'https://api.guildwars2.com/v2/emblem/backgrounds?ids=all'];
 
 const imageUrls = [];
 
