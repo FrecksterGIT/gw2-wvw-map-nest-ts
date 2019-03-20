@@ -75,11 +75,13 @@
     "webpack-cli": "^3.3.0"
   },
   "dependencies": {
-    "@nestjs/common": "^5.7.4",
-    "@nestjs/core": "^5.7.4",
-    "@nestjs/microservices": "^5.7.4",
-    "@nestjs/testing": "^5.7.4",
-    "@nestjs/websockets": "^5.7.4",
+    "@nestjs/common": "^6.0.2",
+    "@nestjs/core": "^6.0.2",
+    "@nestjs/microservices": "^6.0.2",
+    "@nestjs/platform-express": "^6.0.2",
+    "@nestjs/platform-socket.io": "^6.0.2",
+    "@nestjs/testing": "^6.0.2",
+    "@nestjs/websockets": "^6.0.2",
     "aws-sdk": "^2.425.0",
     "compression": "^1.7.4",
     "date-fns": "^1.30.1",
