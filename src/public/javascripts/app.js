@@ -1,5 +1,7 @@
-import '@babel/polyfill';
+import "core-js/stable";
+import "regenerator-runtime/runtime"
 import '@webcomponents/custom-elements';
+
 import Handlebars from 'handlebars';
 import log from 'debug';
 
@@ -13,7 +15,7 @@ import Settings from './elements/settings';
 import PieChart from './elements/pie-chart';
 import World from './elements/world';
 
-const i18n = require('i18n-for-browser');
+import i18n, {__} from 'i18n-for-browser';
 
 const locales = {
   de: require('../locales/de'),
@@ -36,7 +38,7 @@ i18n.configure({
 
 i18n.setLocale(getLanguage());
 
-Handlebars.registerHelper('t', i18n.__);
+Handlebars.registerHelper('t', __);
 
 log.enable('MatchStatistics, MatchSelector, MatchStatus, MatchLogger, Objective, Socket, World, Chart, BarChart, PieChart');
 

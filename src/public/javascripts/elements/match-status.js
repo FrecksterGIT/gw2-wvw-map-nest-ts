@@ -2,7 +2,7 @@ import log from 'debug';
 import UpdateReceiverElement from './update-receiver-element';
 import Handlebars from 'handlebars';
 
-const i18n = require('i18n-for-browser');
+import {__} from 'i18n-for-browser';
 const logger = log('MatchStatus');
 
 export default class MatchStatus extends UpdateReceiverElement {
@@ -27,16 +27,16 @@ export default class MatchStatus extends UpdateReceiverElement {
 
   handleScoreUpdate(data) {
     const scores = {
-      header: i18n.__('Points'),
+      header: __('Points'),
       values: data.payload.scores
     };
     const income = {
-      header: i18n.__('Income'),
+      header: __('Income'),
       values: data.payload.income
     };
     const victoryPoints = {
       diffs: MatchStatus.getDiffs(data.payload.victoryPoints),
-      header: i18n.__('Victory Points'),
+      header: __('Victory Points'),
       values: data.payload.victoryPoints
     };
 

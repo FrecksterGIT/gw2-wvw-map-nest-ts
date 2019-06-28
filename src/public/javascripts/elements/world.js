@@ -35,7 +35,9 @@ export default class World extends UpdateReceiverElement {
 
   handleBloodlustUpdate(data) {
     data.payload.forEach((payload) => {
-      this.maps[payload.mapId].setAttribute('data-bloodlust', payload.bonus.owner.toLowerCase());
+      if (payload.bonus && payload.bonus.owner) {
+        this.maps[payload.mapId].setAttribute('data-bloodlust', payload.bonus.owner.toLowerCase());
+      }
     });
   }
 
