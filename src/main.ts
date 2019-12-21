@@ -3,7 +3,7 @@ import {NestFactory} from '@nestjs/core';
 import {ExpressAdapter} from "@nestjs/platform-express";
 
 import * as express from 'express';
-import * as minifyHTML from 'express-minify-html';
+import * as minifyHTML from 'express-minify-html-2';
 import * as path from 'path';
 
 import {Config} from './app.config';
