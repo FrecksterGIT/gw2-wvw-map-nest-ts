@@ -1,16 +1,18 @@
 import {Injectable, Logger} from '@nestjs/common';
-import svgjs = require('svg.js');
-import window = require('svgdom');
 import {Gw2ApiService} from '../gw2api/gw2-api.service';
 
-import {G} from 'svg.js';
 import {IGuild} from '../gw2api/interfaces/guild.interface';
 import backgroundDefs from './data/defs.background';
 import color2Defs from './data/defs.color2';
 import foregroundDefs from './data/defs.foreground';
 
-const SVG = svgjs(window);
+const {createSVGWindow} = require('svgdom');
+const {SVG, registerWindow, Container, G} = require('@svgdotjs/svg.js');
+
+const window = createSVGWindow();
 const document = window.document;
+
+registerWindow(window, document);
 
 @Injectable()
 export class EmblemService {
@@ -37,20 +39,20 @@ export class EmblemService {
     return draw.svg();
   }
 
-  private drawBackground(draw: svgjs.Doc, guild: IGuild): boolean {
+  private drawBackground(draw: typeof Container, guild: IGuild): boolean {
     const def = backgroundDefs[guild.emblem.background.id];
     if (!def) {
       return false;
     }
     const matrix: string = EmblemService.getBackgroundMatrix(guild.emblem.flags, def.size);
     const color: string = EmblemService.getColor(guild.emblem.background.colors[0]);
-    const group: G = draw.group();
+    const group: typeof G = draw.group();
     group.attr('transform', matrix);
     this.add(group, def.p, color, .7);
     return true;
   }
 
-  private drawForeground(draw: svgjs.Doc, guild: IGuild): boolean {
+  private drawForeground(draw: typeof Container, guild: IGuild): boolean {
     const def = foregroundDefs[guild.emblem.foreground.id];
     if (!def) {
       return false;
@@ -58,7 +60,7 @@ export class EmblemService {
     const matrix: string = EmblemService.getForegroundMatrix(guild.emblem.flags, def.size);
     const color1: string = EmblemService.getColor(guild.emblem.foreground.colors[0]);
     const color2: string = EmblemService.getColor(guild.emblem.foreground.colors[1]);
-    const group: G = draw.group();
+    const group: typeof G = draw.group();
     group.attr('transform', matrix);
     this.add(group, def.p2, color1, 1);
     this.add(group, def.p1, color2, 1);
@@ -67,11 +69,11 @@ export class EmblemService {
     return true;
   }
 
-  private add(draw: G, def, color: string, opacity): void {
+  private add(draw: typeof G, def, color: string, opacity): void {
     if (!def) {
       return;
     }
-    const group: G = draw.group();
+    const group: typeof G = draw.group();
     group.attr('fill', color);
     group.attr('stroke', color);
     group.attr('stroke-opacity', '50%');
