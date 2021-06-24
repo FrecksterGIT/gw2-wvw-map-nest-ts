@@ -5,7 +5,7 @@ import {isToday} from 'date-fns';
 import delegate from 'delegate';
 import MatchLogEntry from '../utils/match-log-entry';
 
-const i18n = require('i18n-for-browser');
+const i18n = require('i18n-for-browser').default;
 const speechSynthesis = require('speech-synthesis');
 const logger = log('MatchLogger');
 
