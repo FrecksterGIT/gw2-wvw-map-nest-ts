@@ -14,10 +14,6 @@ describe('MapService', () => {
     mapService = module.get(WorldMapService);
   });
 
-  it('should do something', async () => {
-    expect(true).toBe(true);
-  });
-
   it('should get data for all matches', async () => {
     const matches = await mapService.getMatchesData('en');
     expect(matches.length > 5).toBeTruthy();
