@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.19.0](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/compare/v1.18.23...v1.19.0) (2021-09-24)
+
+
+### Features
+
+* filter worlds ([744982e](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/commit/744982edd1fd47170c52178ab97d766c840d2aa6))
+
 ### [1.18.23](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/compare/v1.18.22...v1.18.23) (2021-09-24)
 
 
