@@ -195,7 +195,7 @@ export class Gw2ApiService {
     const allWorlds: string[] = [];
     const mainWorld = this.getWorldNameForId(match.worlds[color], worlds);
 
-    const linkWorlds = this.getWorldNamesForIds(match.all_worlds[color], worlds);
+    const linkWorlds = this.getWorldNamesForIds(match.all_worlds[color], worlds, mainWorld);
     allWorlds.concat(linkWorlds);
 
     return {
@@ -205,10 +205,14 @@ export class Gw2ApiService {
     };
   }
 
-  private getWorldNamesForIds(worldIds: number[], worlds: IWorld[]): string[] {
+  private getWorldNamesForIds(worldIds: number[], worlds: IWorld[], mainWorld: string): string[] {
     return worldIds
       .map((worldId) => this.getWorldNameForId(worldId, worlds))
-      .filter((world, index, array) => !!world && array.indexOf(world) === index);
+      .filter((world, index, array) =>
+        !!world &&
+        array.indexOf(world) === index &&
+        world !== mainWorld
+      );
   }
 
   private getWorldNameForId(worldId: number, worlds: IWorld[]): string {
