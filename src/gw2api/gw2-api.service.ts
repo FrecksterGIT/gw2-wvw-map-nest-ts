@@ -194,11 +194,10 @@ export class Gw2ApiService {
   private getWorldNamesForMatch(match: IMatch, color: string, worlds: IWorld[]): IWorldNames {
     const allWorlds: string[] = [];
     const mainWorld = this.getWorldNameForId(match.worlds[color], worlds);
-    allWorlds.push(mainWorld);
 
-    const worldIds = match.all_worlds[color].filter((world) => world !== match.worlds[color]);
-    const linkWorlds = this.getWorldNamesForIds(worldIds, worlds);
+    const linkWorlds = this.getWorldNamesForIds(match.all_worlds[color], worlds);
     allWorlds.concat(linkWorlds);
+
     return {
       allWorlds,
       linkWorlds,
@@ -207,11 +206,19 @@ export class Gw2ApiService {
   }
 
   private getWorldNamesForIds(worldIds: number[], worlds: IWorld[]): string[] {
-    return worldIds.map((worldId) => this.getWorldNameForId(worldId, worlds));
+    return worldIds
+      .map((worldId) => this.getWorldNameForId(worldId, worlds))
+      .filter((world, index, array) => !!world && array.indexOf(world) === index);
   }
 
   private getWorldNameForId(worldId: number, worlds: IWorld[]): string {
-    return worlds.find((worldData) => worldData.id === worldId).name;
+    const world = worlds.find((worldData) => worldData.id === worldId)
+
+    if (!world && worldId > 10000) {
+      return this.getWorldNameForId(worldId % 10000, worlds);
+    }
+
+    return world?.name;
   }
 
 }
