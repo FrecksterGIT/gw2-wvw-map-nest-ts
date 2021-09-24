@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.18.23](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/compare/v1.18.22...v1.18.23) (2021-09-24)
+
+
+### Bug Fixes
+
+* world names for server reorg ([cb28a56](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/commit/cb28a56cb3c8f34071b7f09dc587391f9a1af185))
+
 ### [1.18.22](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/compare/v1.18.21...v1.18.22) (2020-06-11)
 
 ### [1.18.21](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/compare/v1.18.20...v1.18.21) (2020-04-24)
