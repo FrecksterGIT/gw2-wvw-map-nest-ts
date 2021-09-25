@@ -23,7 +23,7 @@
     "travis-build:js": "webpack",
     "travis-build:css": "postcss ./src/public/stylesheets/style.css -o ./dist/public/stylesheets/style.css -u postcss-import --no-map",
     "travis-build:imgs": "cp -r ./src/public/images ./dist/public",
-    "travis-build:views": "cp -r./src/views ./dist",
+    "travis-build:views": "cp -r ./src/views ./dist",
     "travis-build:locales": "cp -r ./src/public/locales ./dist/public",
     "travis-build:cert": "cp -r ./src/public/.well-known ./dist/public",
     "travis-build:package": "ts-node ./scripts/prepare-dist",
