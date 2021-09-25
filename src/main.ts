@@ -46,7 +46,10 @@ function setupViewEngine() {
 
     expressInstance.disable('x-powered-by');
     expressInstance.use('/static', express.static(
-        path.join(__dirname, (process.env.NODE_ENV === 'development') ? '../dist/public' : './public')));
+      path.join(__dirname, (process.env.NODE_ENV === 'development') ? '../dist/public' : './public')));
+
+    expressInstance.use('/.well-known', express.static(
+      path.join(__dirname, (process.env.NODE_ENV === 'development') ? '../src/public/.well-known' : './public/.well-known')));
 
     return expressInstance;
 }
