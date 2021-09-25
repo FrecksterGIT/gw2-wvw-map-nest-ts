@@ -25,6 +25,7 @@
     "travis-build:imgs": "cp -r src/public/images dist/public",
     "travis-build:views": "cp -r src/views dist",
     "travis-build:locales": "cp -r src/public/locales dist/public",
+    "travis-build:cert": "cp -r src/public/.well-known dist/public",
     "travis-build:package": "ts-node ./scripts/prepare-dist",
     "travis-build:copy-emblems": "cp -r emblems dist",
     "travis-build:copy-env": "cp .env.example dist",
