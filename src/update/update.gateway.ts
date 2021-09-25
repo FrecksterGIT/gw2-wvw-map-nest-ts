@@ -66,7 +66,7 @@ export class UpdateGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   @SubscribeMessage('subscribe')
-  public onSubscribe(client, data): WsResponse<any> {
+  public onSubscribe(client, data): WsResponse {
     Logger.log('client subscribed: ' + JSON.stringify(data), 'UpdateGateway');
     if (!data.matchId || !data.language) {
       return {event: 'subscribed', data: ''};
@@ -84,7 +84,7 @@ export class UpdateGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   @SubscribeMessage('upgrades')
-  public async onUpgrades(client, data): Promise<WsResponse<any>> {
+  public async onUpgrades(client, data): Promise<WsResponse> {
     const upgrades = await this.gw2ApiService.getGuildUpgrades(data.data, data.language);
     return {event: 'upgrades', data: upgrades};
   }

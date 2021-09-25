@@ -51,6 +51,7 @@ export class Gw2ApiService {
 
   private static async getJSONArray(url: string): Promise<any[]> {
     const response = await fetch(url);
+
     if (!response.ok) {
       throw new Error('failed loading url: ' + url);
     }
@@ -107,13 +108,14 @@ export class Gw2ApiService {
     return await Gw2ApiService.getJSONArray(Gw2ApiService.colorsUrl);
   }
 
-  public async getMatches(lang) {
+  public async getMatches(lang: string) {
     const allMatchIds = await Gw2ApiService.getJSONArray(Gw2ApiService.matchIdsUrl);
+
     return await this.getMatchesByIds(allMatchIds, lang);
   }
 
   public async getMatchesByIds(matchIds: string[] = [], lang: string): Promise<IMatch[]> {
-    return Promise.all(matchIds.map((matchId) => {
+    return await Promise.all(matchIds.map((matchId) => {
       return this.getMatch(matchId, lang);
     }));
   }

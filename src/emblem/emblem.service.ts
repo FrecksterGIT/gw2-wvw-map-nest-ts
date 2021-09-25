@@ -6,7 +6,9 @@ import backgroundDefs from './data/defs.background';
 import color2Defs from './data/defs.color2';
 import foregroundDefs from './data/defs.foreground';
 
+// tslint:disable-next-line:no-var-requires
 const {createSVGWindow} = require('svgdom');
+// tslint:disable-next-line:no-var-requires
 const {SVG, registerWindow, Container, G} = require('@svgdotjs/svg.js');
 
 const window = createSVGWindow();

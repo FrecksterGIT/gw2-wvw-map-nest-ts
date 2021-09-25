@@ -32,16 +32,6 @@ export default class S3Cache implements ICache {
         }
         const url = this.S3_URL + key;
         resolve(JSON.stringify({redirect: url}));
-        /*
-        Logger.log(url);
-        this.client.getObject({Bucket: this.bucketName, Key: key}, (err, content) => {
-          if (err) {
-            resolve(null);
-            return;
-          }
-          resolve(content.Body);
-        });
-        */
       });
     });
   }

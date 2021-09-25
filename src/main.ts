@@ -1,6 +1,6 @@
 import {INestApplication} from '@nestjs/common';
 import {NestFactory} from '@nestjs/core';
-import {ExpressAdapter} from "@nestjs/platform-express";
+import {ExpressAdapter} from '@nestjs/platform-express';
 
 import * as express from 'express';
 import * as minifyHTML from 'express-minify-html-2';

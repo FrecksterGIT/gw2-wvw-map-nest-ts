@@ -44,7 +44,9 @@ export default class FileCache implements ICache {
   public remove(key: string): void {
     const filePath: string = this.getFilePath(key);
     if (filePath) {
-      unlink(filePath);
+      unlink(filePath).then(()=> {
+        // noop
+      });
     }
   }
 

@@ -59,10 +59,13 @@ export class UpdateService {
       const currentMatchStates = await this.gw2ApiService.getMatchesByIds(subscribedMatches, lang);
       const saveCurrentMatchStates: IMatch[] = deepcopy<IMatch[]>(currentMatchStates);
 
-      currentMatchStates.forEach(async (currentMatchState) => {
-        const oldMatchState = this.matchStates[lang].find((oldMatch) => oldMatch.id === currentMatchState.id);
-        await this.handleDiff(currentMatchState, oldMatchState, lang);
-      });
+      await Promise.all(
+        currentMatchStates.map(async (currentMatchState) => {
+          const oldMatchState = this.matchStates[lang].find((oldMatch) => oldMatch.id === currentMatchState.id);
+          await this.handleDiff(currentMatchState, oldMatchState, lang);
+        })
+      );
+
       this.matchStates[lang] = saveCurrentMatchStates;
     } catch (e) {
       // noop, just try again next time...
@@ -114,8 +117,7 @@ export class UpdateService {
     const objectives: IMatchObjective[] = [];
     if (change.path.length >= 4 && change.path[2] === 'objectives') {
       objectives.push(matchState[change.path[0]][change.path[1]][change.path[2]][change.path[3]]);
-    }
-    else if (change.path.length === 1 && change.path[0] === 'maps') {
+    } else if (change.path.length === 1 && change.path[0] === 'maps') {
       matchState.maps.forEach((map) => {
         map.objectives.forEach((obj) => {
           objectives.push(obj);
