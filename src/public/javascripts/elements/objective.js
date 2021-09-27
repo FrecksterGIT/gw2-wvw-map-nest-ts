@@ -65,6 +65,22 @@ export default class Objective extends UpdateReceiverElement {
     this.setAttributeIfChanged('data-claimed-at', claimedAt);
   }
 
+  set dataPointsTurned(pointsTurned) {
+    this.setAttributeIfChanged('data-points-turned', pointsTurned);
+  }
+
+  get dataPointsTurned() {
+    return this.getAttribute('data-points-turned');
+  }
+
+  set dataPointsTick(pointsTick) {
+    this.setAttributeIfChanged('data-points-tick', pointsTick);
+  }
+
+  get dataPointsTick() {
+    return this.getAttribute('data-points-tick');
+  }
+
   static calculateTier(yaks = 0) {
     if (yaks >= 140) {
       return 3;
@@ -135,6 +151,8 @@ export default class Objective extends UpdateReceiverElement {
     this.emblemElement = this.querySelector('.emblem');
     this.yakCounterElement = this.querySelector('.yaks.value');
     this.guildInfoElement = this.querySelector('.guild.value');
+    this.pointsTurnedElement = this.querySelector('.points-turned.value');
+    this.pointsTickElement = this.querySelector('.points-tick.value');
     this.heldInfoElement = this.querySelector('.turned.value');
     this.claimedInfoElement = this.querySelector('.claimed.value');
     this.upgradesElement = this.querySelector('.upgrades');
@@ -183,11 +201,15 @@ export default class Objective extends UpdateReceiverElement {
       this.dataIsClaimed = !!receivedData.claimed_by;
       this.dataLastFlipped = receivedData.last_flipped;
       this.dataClaimedAt = receivedData.claimed_at;
+      this.dataPointsTurned = receivedData.points_capture;
+      this.dataPointsTick = receivedData.points_tick;
 
       guildUpgrades.getUpgrades(receivedData.guild_upgrades).then((upgrades) => {
         this.updateGuildUpgrades(upgrades);
       });
 
+      this.pointsTurnedElement.innerHTML = this.dataPointsTurned;
+      this.pointsTickElement.innerHTML = this.dataPointsTick;
       this.yakCounterElement.innerHTML = Objective.getDolyaksOutput(receivedData.yaks_delivered);
       if (receivedData.claimed_by) {
         this.guildInfoElement.innerHTML = receivedData.guild.name + ' [' + receivedData.guild.tag + ']';

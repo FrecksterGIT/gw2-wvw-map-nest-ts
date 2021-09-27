@@ -54,6 +54,8 @@
                          data-type="{{type}}"
                          data-name="{{name}}"
                          data-chat-link="{{chat_link}}"
+                         data-points-turned="{{pointsTurned}}"
+                         data-points-tick="{{pointsTick}}"
                          style="left:{{display_coord.[0]}}%;top:{{display_coord.[1]}}%;">
             <section>
               <figure class="emblem"></figure>
@@ -67,6 +69,10 @@
                 <dd class="claimed value"></dd>
                 <dt class="yaks">{{t 'Dolyaks' ../../locale}}</dt>
                 <dd class="yaks value"></dd>
+                <dt class="points-turned">{{t 'Points' ../../locale}}</dt>
+                <dd class="points-turned value"></dd>
+                <dt class="points-tick">{{t 'Tick' ../../locale}}</dt>
+                <dd class="points-tick value"></dd>
               </dl>
               <div class="upgrades"></div>
             </section>
