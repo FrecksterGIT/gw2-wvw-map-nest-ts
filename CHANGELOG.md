@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.20.0](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/compare/v1.19.8...v1.20.0) (2021-09-27)
+
+
+### Features
+
+* add income per objective ([16ae0ae](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/commit/16ae0ae6b29477919dc760939195e5e1c01654a1))
+
 ### [1.19.8](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/compare/v1.19.7...v1.19.8) (2021-09-25)
 
 ### [1.19.7](https://github.com/FrecksterGIT/gw2-wvw-map-nest-ts/compare/v1.19.6...v1.19.7) (2021-09-25)
