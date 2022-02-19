@@ -27,19 +27,19 @@ module.exports = {
       }
     ]
   },
-  node: {
-    fs: 'empty'
-  },
   output: {
     filename: 'app.js',
     library: 'gw2map',
-    libraryTarget: 'umd',
+    libraryTarget: 'umd2',
     path: path.resolve(__dirname, 'dist/public/javascripts')
   },
   resolve: {
     modules: [
       path.resolve(__dirname, 'node_modules')
-    ]
+    ],
+    fallback: {
+      fs: false,
+    }
   },
   stats: {
     warnings: false

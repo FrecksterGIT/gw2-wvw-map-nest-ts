@@ -55,7 +55,7 @@ export class Gw2ApiService {
     if (!response.ok) {
       throw new Error('failed loading url: ' + url);
     }
-    return await response.json();
+    return await response.json() as [];
   }
 
   private static async getJSONObject(url: string): Promise<any> {
