@@ -1,0 +1,54 @@
+name: 🚀 Deploy
+on:
+  push:
+    branches:
+      - master
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  deploy:
+    name: 🚀 Deploy
+    needs: [lint, typecheck]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14
+
+      - name: 👀 Env
+        run: |
+          echo "Event name: ${{ github.event_name }}"
+          echo "Git ref:    ${{ github.ref }}"
+          echo "GH actor:   ${{ github.actor }}"
+          echo "SHA:        ${{ github.sha }}"
+          VER=`node --version`; echo "Node ver:   $VER"
+          VER=`npm --version`; echo "npm ver:    $VER"
+
+      - name: 📥 Download deps
+        run: npm install
+
+      - name: 🏗 Build
+        run: npm run travis-build
+
+      - name: 🛠 Install Arc
+        run: npm run test
+
+      - name: 🚀 Heroku Deploy
+        if: github.ref == 'refs/heads/master'
+        uses: akhileshns/heroku-deploy@v3
+        with:
+          appdir: dist
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
