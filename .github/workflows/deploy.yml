@@ -40,9 +40,6 @@ jobs:
       - name: 🏗 Build
         run: npm run travis-build
 
-      - name: 🛠 Install Arc
-        run: npm run test
-
       - name: 🚀 Heroku Deploy
         if: github.ref == 'refs/heads/master'
         uses: akhileshns/heroku-deploy@v3.12.12
