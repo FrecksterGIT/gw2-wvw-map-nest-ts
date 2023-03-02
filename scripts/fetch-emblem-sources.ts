@@ -47,7 +47,7 @@ const handleFiles = async (result): Promise<string[]> => {
 
 Promise.all(urls.map(async (url) => {
   return fetch(url).then(async (res) => {
-    const data = await res.json();
+    const data = await res.json() as any[];
     data.map((settings) => {
       imageUrls.push(...settings.layers);
     });

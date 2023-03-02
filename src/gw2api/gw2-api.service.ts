@@ -114,7 +114,7 @@ export class Gw2ApiService {
     return await this.getMatchesByIds(allMatchIds, lang);
   }
 
-  public async getMatchesByIds(matchIds: string[] = [], lang: string): Promise<IMatch[]> {
+  public async getMatchesByIds(matchIds: string[] = [], lang: string = 'en'): Promise<IMatch[]> {
     return await Promise.all(matchIds.map((matchId) => {
       return this.getMatch(matchId, lang);
     }));
@@ -139,7 +139,7 @@ export class Gw2ApiService {
   }
 
   @Cache({cacheTime: 3600})
-  public async getGuildUpgrades(upgradeIds: string[] = ['all'], lang: string): Promise<any> {
+  public async getGuildUpgrades(upgradeIds: string[] = ['all'], lang: string = 'en'): Promise<any> {
     if (upgradeIds.length === 0) {
       return [];
     }
@@ -155,9 +155,9 @@ export class Gw2ApiService {
   public async getMatchDisplay(match: IMatch, lang: string): Promise<IMatchDisplay> {
     const display: IMatchDisplay = match;
     const worlds = await this.getWorlds(lang);
-    const blueWorlds: IWorldNames = await this.getWorldNamesForMatch(match, 'blue', worlds);
-    const greenWorlds: IWorldNames = await this.getWorldNamesForMatch(match, 'green', worlds);
-    const redWorlds: IWorldNames = await this.getWorldNamesForMatch(match, 'red', worlds);
+    const blueWorlds: IWorldNames = this.getWorldNamesForMatch(match, 'blue', worlds);
+    const greenWorlds: IWorldNames = this.getWorldNamesForMatch(match, 'green', worlds);
+    const redWorlds: IWorldNames = this.getWorldNamesForMatch(match, 'red', worlds);
     display.world_names = {
       blue: blueWorlds.allWorlds,
       green: greenWorlds.allWorlds,
@@ -194,14 +194,11 @@ export class Gw2ApiService {
   }
 
   private getWorldNamesForMatch(match: IMatch, color: string, worlds: IWorld[]): IWorldNames {
-    const allWorlds: string[] = [];
     const mainWorld = this.getWorldNameForId(match.worlds[color], worlds);
-
     const linkWorlds = this.getWorldNamesForIds(match.all_worlds[color], worlds, mainWorld);
-    allWorlds.concat(linkWorlds);
 
     return {
-      allWorlds,
+      allWorlds: [mainWorld, ...linkWorlds],
       linkWorlds,
       mainWorld
     };

@@ -21,7 +21,7 @@ async function bootstrap() {
     const server = setupViewEngine();
     const app = await NestFactory.create(ApplicationModule, new ExpressAdapter(server));
     setupMinify(app);
-    await app.startAllMicroservicesAsync();
+    await app.startAllMicroservices();
     await app.listen(PORT);
 }
 
@@ -43,6 +43,7 @@ function setupViewEngine() {
     expressInstance.engine('handlebars', hbs.engine);
     expressInstance.set('view engine', 'handlebars');
     expressInstance.set('views', Config.viewDirectory);
+    expressInstance.set('layout', Config.layoutsDirectory);
 
     expressInstance.disable('x-powered-by');
     expressInstance.use('/static', express.static(

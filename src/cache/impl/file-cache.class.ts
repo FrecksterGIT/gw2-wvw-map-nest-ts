@@ -60,11 +60,11 @@ export default class FileCache implements ICache {
   }
 
   private get path(): string {
-    mkdirp.sync(this.cachePath, {mode: 0o777}, (err) => {
-      if (err) {
-        this.enabled = false;
-      }
-    });
+    const p = mkdirp.sync(this.cachePath, {mode: 0o777})
+    if (!p) {
+      this.enabled = false;
+    }
+
     return this.cachePath;
   }
 }
